@@ -126,7 +126,7 @@ export default function CompFileItem({
               onClick={(e) => {
                 e.preventDefault();
                 window.open(
-                  `${baseURL}/file/${_id}`,
+                  `${baseURL}/file/${_id}?action=view`,
                   "_blank",
                   "noopener,noreferrer",
                 );
