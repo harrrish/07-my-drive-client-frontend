@@ -35,6 +35,8 @@ export default function PageDirectoryView() {
   const { directoryDetails, setDirectoryDetails } =
     useContext(DirectoryContext);
 
+  const [loading, setLoading] = useState(true);
+
   //* ==========> FETCHING USER STORAGE DETAILS
   const handleUserStorageDetails = useCallback(async () => {
     try {
@@ -61,13 +63,9 @@ export default function PageDirectoryView() {
         setDirectoryDetails((prev) => ({
           ...prev,
           ...data,
-          files: Array.isArray(data?.files) ? data.files : [],
-          folders: Array.isArray(data?.folders) ? data.folders : [],
-          path: Array.isArray(data?.path) ? data.path : [],
-          filesCount: data?.filesCount ?? 0,
-          foldersCount: data?.foldersCount ?? 0,
         }));
         handleUserStorageDetails();
+        setLoading(false);
       } catch (error) {
         const msg = "Failed to fetch folder content";
         axiosError(error, navigate, setError, msg);
@@ -130,21 +128,24 @@ export default function PageDirectoryView() {
     handleDirectoryDetails(dirID);
   }, [handleDirectoryDetails, dirID]);
 
-  return (
-    <div className="min-h-screen bg-clrGray border-2 relative overflow-hidden font-google font-medium tracking-wide">
-      {/* //* ==========> MODALS */}
-      <ModalsDiv
-        showCreateFolder={showCreateFolder}
-        setCreateFolder={setCreateFolder}
-        folderID={dirID}
-        handleDirectoryDetails={handleDirectoryDetails}
-      />
-      {/* //* ==========>MAIN CONTENT */}
-      <div className="flex flex-col gap-2">
-        {/* //* ==========>NAVBAR */}
-        <CompNavbar />
-        {/*//* ==========>Folder Path} */}
-        {directoryDetails.path.length > 1 && (
+  if (loading) {
+    return <h1>Loading...</h1>;
+  } else {
+    return (
+      <div className="min-h-screen bg-clrGray border-2 relative overflow-hidden font-google font-medium tracking-wide">
+        {/* //* ==========> MODALS */}
+        <ModalsDiv
+          showCreateFolder={showCreateFolder}
+          setCreateFolder={setCreateFolder}
+          folderID={dirID}
+          handleDirectoryDetails={handleDirectoryDetails}
+        />
+        {/* //* ==========>MAIN CONTENT */}
+        <div className="flex flex-col gap-2">
+          {/* //* ==========>NAVBAR */}
+          <CompNavbar />
+
+          {/*//* ==========>Folder Path} */}
           <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto px-2 shadow-lg hover:shadow-2xl duration-300 rounded-sm h-10 flex items-center overflow-x-auto cursor-grab select-none custom-scrollbar bg-white">
             <div className="flex items-center whitespace-nowrap">
               {directoryDetails.path.length > 0 &&
@@ -166,175 +167,181 @@ export default function PageDirectoryView() {
                 ))}
             </div>
           </div>
-        )}
-        {/*//* ==========>Create Folder || Upload File} */}
-        {/*//* ==========>Search file/folder || Import from Drive} */}
-        {/*//* ==========>File and Folders Sort || Files and Folders Count} */}
-        <div className="flex flex-col items-center sm:max-w-3xl md:max-w-4xl w-[95%] gap-2 justify-between mx-auto">
-          <div className="flex w-full shadow-lg rounded-sm bg-white">
-            {/* //* ==========>CREATE FOLDER */}
-            <button
-              className="flex items-center justify-center gap-2 h-10 w-[25%]"
-              title="Create folder"
-              onClick={() => setCreateFolder(true)}
-            >
-              <span className="hover:cursor-pointer text-3xl hover:scale-125 duration-300">
-                <TiFolderAdd />
-              </span>
-            </button>
-            {/* //* ==========>FILE UPLOAD */}
-            <label
-              htmlFor="fileUpload"
-              className="duration-300 flex items-center justify-center gap-2 h-10 w-[25%]"
-              title="Upload file"
-            >
-              <FaFileUpload
-                className="hover:cursor-pointer text-2xl hover:scale-125 duration-300"
-                title="Upload file"
-              />
-              <input
-                type="file"
-                multiple
-                onChange={(event) => handleFilesUpload(event)}
-                className="hidden"
-                id="fileUpload"
-              />
-            </label>
-            {/* //* ==========>GOOGLE DRIVE */}
-            <button
-              className="duration-300 flex items-center justify-center gap-2 h-10 w-[25%]"
-              title="Import from Google Drive"
-            >
-              <span className="hover:cursor-pointer text-2xl hover:scale-125 duration-300">
-                <FaGoogleDrive />
-              </span>
-            </button>
-            {/* //* ==========>FILES AND FOLDERS */}
-            <div className="group flex justify-center items-center p-1 h-10 w-[25%] gap-5">
-              <h1 className="flex items-center gap-1 ">
-                <span className="text-2xl">
-                  <RiFoldersFill />
-                </span>
-                <span className="group-hover:scale-135 text-md duration-200">
-                  {directoryDetails.foldersCount}
-                </span>
-              </h1>
-              <h1 className="flex items-center gap-1">
-                <span className="text-2xl">
-                  <LuFiles />
-                </span>
-                <span className="group-hover:scale-135 text-md duration-200">
-                  {directoryDetails.filesCount}
-                </span>
-              </h1>
-            </div>
-          </div>
-          <div className="flex w-full shadow-lg bg-white rounded-sm">
-            {/* //* ==========>SEARCH SECTION */}
-            <div
-              className="hover:cursor-pointer duration-300 flex items-center justify-center rounded-sm h-10 p-1 w-[60%]"
-              title="Create folder"
-            >
-              <input
-                type="text"
-                className=" w-full p-10 outline-none h-full font-bold"
-                placeholder="Search for file/folder..."
-              />
+
+          {/*//* ==========>Create Folder || Upload File} */}
+          {/*//* ==========>Search file/folder || Import from Drive} */}
+          {/*//* ==========>File and Folders Sort || Files and Folders Count} */}
+          <div className="flex flex-col items-center sm:max-w-3xl md:max-w-4xl w-[95%] gap-2 justify-between mx-auto">
+            <div className="flex w-full shadow-lg rounded-sm bg-white">
+              {/* //* ==========>CREATE FOLDER */}
               <button
-                className=" hover:cursor-pointer duration-300 flex items-center justify-center h-full p-10"
-                title="Search file"
+                className="flex items-center justify-center gap-2 h-10 w-[25%]"
+                title="Create folder"
+                onClick={() => setCreateFolder(true)}
               >
-                <FaSearch />
+                <span className="hover:cursor-pointer text-3xl hover:scale-125 duration-300">
+                  <TiFolderAdd />
+                </span>
               </button>
-            </div>
-            {/* //* ==========>SORTING */}
-            <div className="flex justify-start items-center w-[20%] gap-2">
-              <label htmlFor="sort" className="flex items-center w-full">
-                <FaSortAmountDown />
-                <select
-                  id="sort"
-                  name="sort"
-                  className="text-center outline-none cursor-pointer h-full"
-                >
-                  <option value="size_inc">Size (Inc)</option>
-                  <option value="size_dec">Size (Dec)</option>
-                  <option value="name_asc">Name (Asc)</option>
-                  <option value="name_desc">Name (Desc)</option>
-                  <option value="last_modified_asc">Last Modified (Asc)</option>
-                  <option value="last_modified_desc">
-                    Last Modified (Desc)
-                  </option>
-                </select>
+              {/* //* ==========>FILE UPLOAD */}
+              <label
+                htmlFor="fileUpload"
+                className="duration-300 flex items-center justify-center gap-2 h-10 w-[25%]"
+                title="Upload file"
+              >
+                <FaFileUpload
+                  className="hover:cursor-pointer text-2xl hover:scale-125 duration-300"
+                  title="Upload file"
+                />
+                <input
+                  type="file"
+                  multiple
+                  onChange={(event) => handleFilesUpload(event)}
+                  className="hidden"
+                  id="fileUpload"
+                />
               </label>
+              {/* //* ==========>GOOGLE DRIVE */}
+              <button
+                className="duration-300 flex items-center justify-center gap-2 h-10 w-[25%]"
+                title="Import from Google Drive"
+              >
+                <span className="hover:cursor-pointer text-2xl hover:scale-125 duration-300">
+                  <FaGoogleDrive />
+                </span>
+              </button>
+              {/* //* ==========>FILES AND FOLDERS */}
+              <div className="group flex justify-center items-center p-1 h-10 w-[25%] gap-5">
+                <h1 className="flex items-center gap-1 ">
+                  <span className="text-2xl">
+                    <RiFoldersFill />
+                  </span>
+                  <span className="group-hover:scale-135 text-md duration-200">
+                    {directoryDetails.foldersCount}
+                  </span>
+                </h1>
+                <h1 className="flex items-center gap-1">
+                  <span className="text-2xl">
+                    <LuFiles />
+                  </span>
+                  <span className="group-hover:scale-135 text-md duration-200">
+                    {directoryDetails.filesCount}
+                  </span>
+                </h1>
+              </div>
             </div>
-            {/* //* ==========>VIEW CHANGE */}
-            <div className="w-[20%] flex justify-center gap-8">
-              <button className="cursor-pointer hover:scale-125 duration-300">
-                <FaList />
-              </button>
-              <button className="cursor-pointer hover:scale-125 duration-300">
-                <MdGridView />
-              </button>
+            <div className="flex w-full shadow-lg bg-white rounded-sm">
+              {/* //* ==========>SEARCH SECTION */}
+              <div
+                className="hover:cursor-pointer duration-300 flex items-center justify-center rounded-sm h-10 p-1 w-[60%]"
+                title="Create folder"
+              >
+                <input
+                  type="text"
+                  className=" w-full p-10 outline-none h-full font-bold"
+                  placeholder="Search for file/folder..."
+                />
+                <button
+                  className=" hover:cursor-pointer duration-300 flex items-center justify-center h-full p-10"
+                  title="Search file"
+                >
+                  <FaSearch />
+                </button>
+              </div>
+              {/* //* ==========>SORTING */}
+              <div className="flex justify-start items-center w-[20%] gap-2">
+                <label htmlFor="sort" className="flex items-center w-full">
+                  <FaSortAmountDown />
+                  <select
+                    id="sort"
+                    name="sort"
+                    className="text-center outline-none cursor-pointer h-full"
+                  >
+                    <option value="size_inc">Size (Inc)</option>
+                    <option value="size_dec">Size (Dec)</option>
+                    <option value="name_asc">Name (Asc)</option>
+                    <option value="name_desc">Name (Desc)</option>
+                    <option value="last_modified_asc">
+                      Last Modified (Asc)
+                    </option>
+                    <option value="last_modified_desc">
+                      Last Modified (Desc)
+                    </option>
+                  </select>
+                </label>
+              </div>
+              {/* //* ==========>VIEW CHANGE */}
+              <div className="w-[20%] flex justify-center gap-8">
+                <button className="cursor-pointer hover:scale-125 duration-300">
+                  <FaList />
+                </button>
+                <button className="cursor-pointer hover:scale-125 duration-300">
+                  <MdGridView />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-        {/* //* ==========>FOLDERS AND FILES  */}
-        {directoryDetails.foldersCount < 1 &&
-        directoryDetails.filesCount < 1 &&
-        isUploading === false ? (
-          <div className="min-h-[50vh] flex items-center justify-center">
-            <h1 className="group text-center text-lg mt-4 flex items-center gap-2 flex-col">
-              <span className="text-2xl group-hover:scale-150 duration-500">
-                <BiFolderOpen />
-              </span>
-              Empty folder, No files or sub-folders found !
-            </h1>
-          </div>
-        ) : (
-          <div className="flex flex-col w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto gap-2">
-            {/* //* ==========>DISPLAY FOLDERS */}
-            {directoryDetails.folders.length > 0 && (
-              <div className="">
-                <div id="list" className="flex flex-col w-full mx-auto gap-2">
-                  {directoryDetails.folders.map((directory) => {
-                    return (
-                      <CompFolderItem
-                        key={directory._id}
-                        {...directory}
+          {/* //* ==========>FOLDERS AND FILES  */}
+          {directoryDetails.foldersCount < 1 &&
+          directoryDetails.filesCount < 1 &&
+          isUploading === false ? (
+            <div className="min-h-[50vh] flex items-center justify-center">
+              <h1 className="group text-center text-lg mt-4 flex items-center gap-2 flex-col">
+                <span className="text-2xl group-hover:scale-150 duration-500">
+                  <BiFolderOpen />
+                </span>
+                Empty folder, No files or sub-folders found !
+              </h1>
+            </div>
+          ) : (
+            <div className="flex flex-col w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto gap-2">
+              {/* //* ==========>DISPLAY FOLDERS */}
+              {directoryDetails.folders.length > 0 && (
+                <div className="">
+                  <div id="list" className="flex flex-col w-full mx-auto gap-2">
+                    {directoryDetails.folders.map((directory) => {
+                      return (
+                        <CompFolderItem
+                          key={directory._id}
+                          {...directory}
+                          handleDirectoryDetails={handleDirectoryDetails}
+                          handleUserStorageDetails={handleUserStorageDetails}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+              {/* //* ==========>DISPLAY FILES */}
+              {directoryDetails.files.length > 0 && (
+                <div className="">
+                  <div
+                    id="list"
+                    className={`flex flex-col w-full mx-auto gap-2`}
+                  >
+                    {directoryDetails.files.map((listItem) => (
+                      <CompFileItem
+                        key={listItem._id}
+                        {...listItem}
                         handleDirectoryDetails={handleDirectoryDetails}
                         handleUserStorageDetails={handleUserStorageDetails}
                       />
-                    );
-                  })}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-            {/* //* ==========>DISPLAY FILES */}
-            {directoryDetails.files.length > 0 && (
-              <div className="">
-                <div id="list" className={`flex flex-col w-full mx-auto gap-2`}>
-                  {directoryDetails.files.map((listItem) => (
-                    <CompFileItem
-                      key={listItem._id}
-                      {...listItem}
-                      handleDirectoryDetails={handleDirectoryDetails}
-                      handleUserStorageDetails={handleUserStorageDetails}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-        {isUploading && uploadFilesList.length > 0 && (
-          <div className="flex flex-col gap-2">
-            {/* //* ==========> Uploading FILE */}
-            {uploadFilesList.map((file) => (
-              <UploadFile key={file.id} {...file} />
-            ))}
-          </div>
-        )}
+              )}
+            </div>
+          )}
+          {isUploading && uploadFilesList.length > 0 && (
+            <div className="flex flex-col gap-2">
+              {/* //* ==========> Uploading FILE */}
+              {uploadFilesList.map((file) => (
+                <UploadFile key={file.id} {...file} />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
