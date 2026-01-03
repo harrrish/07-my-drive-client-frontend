@@ -135,27 +135,29 @@ export default function PageDirectoryView() {
         {/* //* ==========>NAVBAR */}
         <CompNavbar />
         {/*//* ==========>Folder Path} */}
-        <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto px-2 shadow-lg hover:shadow-2xl duration-300 rounded-sm h-10 flex items-center overflow-x-auto cursor-grab select-none custom-scrollbar bg-white">
-          <div className="flex items-center whitespace-nowrap">
-            {directoryDetails.path.length > 0 &&
-              directoryDetails.path.map((p) => (
-                <div key={p.id} className="flex items-center">
-                  <button
-                    className="capitalize truncate max-w-[150px] hover:underline cursor-pointer select-none"
-                    onClick={() => navigate(`/directory/${p.id}`)}
-                    title={
-                      p.name.includes("root") ? p.name.split("-")[0] : p.name
-                    }
-                  >
-                    {p.name.includes("root") ? p.name.split("-")[0] : p.name}
-                  </button>
-                  <span className=" flex-shrink-0">
-                    <IoMdArrowDropright />
-                  </span>
-                </div>
-              ))}
+        {directoryDetails.path.length > 1 && (
+          <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto px-2 shadow-lg hover:shadow-2xl duration-300 rounded-sm h-10 flex items-center overflow-x-auto cursor-grab select-none custom-scrollbar bg-white">
+            <div className="flex items-center whitespace-nowrap">
+              {directoryDetails.path.length > 0 &&
+                directoryDetails.path.map((p) => (
+                  <div key={p.id} className="flex items-center">
+                    <button
+                      className="capitalize truncate max-w-[150px] hover:underline cursor-pointer select-none"
+                      onClick={() => navigate(`/directory/${p.id}`)}
+                      title={
+                        p.name.includes("root") ? p.name.split("-")[0] : p.name
+                      }
+                    >
+                      {p.name.includes("root") ? p.name.split("-")[0] : p.name}
+                    </button>
+                    <span className=" flex-shrink-0">
+                      <IoMdArrowDropright />
+                    </span>
+                  </div>
+                ))}
+            </div>
           </div>
-        </div>
+        )}
         {/*//* ==========>Create Folder || Upload File} */}
         {/*//* ==========>Search file/folder || Import from Drive} */}
         {/*//* ==========>File and Folders Sort || Files and Folders Count} */}
