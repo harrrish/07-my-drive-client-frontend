@@ -8,7 +8,7 @@ export default function CompLoginNav() {
         <span className="text-4xl">
           <FaGoogleDrive />
         </span>
-        <span className="text-4xl">My Drive</span>
+        <span className="text-4xl">My Drive !</span>
       </h2>
       <h2 className="flex items-center gap-1 font-google">
         <span className="text-3xl">
