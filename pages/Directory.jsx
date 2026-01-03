@@ -283,33 +283,37 @@ export default function PageDirectoryView() {
         ) : (
           <div className="flex flex-col w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto gap-2">
             {/* //* ==========>DISPLAY FOLDERS */}
-            <div className="">
-              <div id="list" className="flex flex-col w-full mx-auto gap-2">
-                {directoryDetails.folders.map((directory) => {
-                  return (
-                    <CompFolderItem
-                      key={directory._id}
-                      {...directory}
+            {directoryDetails.folders.length > 0 && (
+              <div className="">
+                <div id="list" className="flex flex-col w-full mx-auto gap-2">
+                  {directoryDetails.folders.map((directory) => {
+                    return (
+                      <CompFolderItem
+                        key={directory._id}
+                        {...directory}
+                        handleDirectoryDetails={handleDirectoryDetails}
+                        handleUserStorageDetails={handleUserStorageDetails}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+            {/* //* ==========>DISPLAY FILES */}
+            {directoryDetails.files.length > 0 && (
+              <div className="">
+                <div id="list" className={`flex flex-col w-full mx-auto gap-2`}>
+                  {directoryDetails.files.map((listItem) => (
+                    <CompFileItem
+                      key={listItem._id}
+                      {...listItem}
                       handleDirectoryDetails={handleDirectoryDetails}
                       handleUserStorageDetails={handleUserStorageDetails}
                     />
-                  );
-                })}
+                  ))}
+                </div>
               </div>
-            </div>
-            {/* //* ==========>DISPLAY FILES */}
-            <div className="">
-              <div id="list" className={`flex flex-col w-full mx-auto gap-2`}>
-                {directoryDetails.files.map((listItem) => (
-                  <CompFileItem
-                    key={listItem._id}
-                    {...listItem}
-                    handleDirectoryDetails={handleDirectoryDetails}
-                    handleUserStorageDetails={handleUserStorageDetails}
-                  />
-                ))}
-              </div>
-            </div>
+            )}
           </div>
         )}
         {isUploading && uploadFilesList.length > 0 && (
