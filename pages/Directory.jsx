@@ -59,11 +59,8 @@ export default function PageDirectoryView() {
     async (dirID) => {
       try {
         const { data } = await axiosWithCreds.get(`/directory/${dirID || ""}`);
-        console.log(data);
-        setDirectoryDetails((prev) => ({
-          ...prev,
-          ...data,
-        }));
+        console.log({ data });
+        setDirectoryDetails(data);
         handleUserStorageDetails();
         setLoading(false);
       } catch (error) {

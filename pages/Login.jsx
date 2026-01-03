@@ -35,7 +35,7 @@ export default function PageUserLogin() {
     } else {
       try {
         const { data } = await axiosWithCreds.post("/user/login", formData);
-        console.log(data.message);
+        console.log("login:", data.message);
         setUserView(false);
         navigate("/directory");
         setLogin(false);
