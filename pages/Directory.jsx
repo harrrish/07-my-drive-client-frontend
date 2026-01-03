@@ -57,7 +57,16 @@ export default function PageDirectoryView() {
     async (dirID) => {
       try {
         const { data } = await axiosWithCreds.get(`/directory/${dirID || ""}`);
-        setDirectoryDetails({ ...data });
+        console.log(data);
+        setDirectoryDetails((prev) => ({
+          ...prev,
+          ...data,
+          files: Array.isArray(data?.files) ? data.files : [],
+          folders: Array.isArray(data?.folders) ? data.folders : [],
+          path: Array.isArray(data?.path) ? data.path : [],
+          filesCount: data?.filesCount ?? 0,
+          foldersCount: data?.foldersCount ?? 0,
+        }));
         handleUserStorageDetails();
       } catch (error) {
         const msg = "Failed to fetch folder content";
