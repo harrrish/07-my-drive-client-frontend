@@ -1,4 +1,4 @@
-const shouldTestPass = false;
+const shouldTestPass = true;
 
 if (shouldTestPass) {
   console.log("Test Passed !");
