@@ -23,7 +23,7 @@ export default function CompNavbar() {
           <span className="text-3xl">
             <FaGoogleDrive />
           </span>
-          <span className="text-xl hover:scale-110 duration-300">My Drive</span>
+          <span className="text-xl hover:scale-110 duration-300">UVDS</span>
         </button>
 
         <div className="w-[30%] flex justify-between gap-8">
