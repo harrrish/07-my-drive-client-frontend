@@ -60,12 +60,24 @@ export default function PageDirectoryView() {
       try {
         const { data } = await axiosWithCreds.get(`/directory/${dirID || ""}`);
         console.log({ data });
-        setDirectoryDetails(data);
+        setDirectoryDetails((prev) => ({
+          ...prev,
+          ...data,
+          path: Array.isArray(data?.path) ? data.path : [],
+          folders: Array.isArray(data?.folders) ? data.folders : [],
+          files: Array.isArray(data?.files) ? data.files : [],
+          filesCount:
+            typeof data?.filesCount === "number" ? data.filesCount : 0,
+          foldersCount:
+            typeof data?.foldersCount === "number" ? data.foldersCount : 0,
+        }));
+
         handleUserStorageDetails();
-        setLoading(false);
       } catch (error) {
         const msg = "Failed to fetch folder content";
         axiosError(error, navigate, setError, msg);
+      } finally {
+        setLoading(false);
       }
     },
     [setDirectoryDetails, setError, handleUserStorageDetails, navigate],
@@ -145,22 +157,23 @@ export default function PageDirectoryView() {
           {/*//* ==========>Folder Path} */}
           <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto px-2 shadow-lg hover:shadow-2xl duration-300 rounded-sm h-10 flex items-center overflow-x-auto cursor-grab select-none custom-scrollbar bg-white">
             <div className="flex items-center whitespace-nowrap">
-              {directoryDetails.path.map((p) => (
-                <div key={p.id} className="flex items-center">
-                  <button
-                    className="capitalize truncate max-w-[150px] hover:underline cursor-pointer select-none"
-                    onClick={() => navigate(`/directory/${p.id}`)}
-                    title={
-                      p.name.includes("root") ? p.name.split("-")[0] : p.name
-                    }
-                  >
-                    {p.name.includes("root") ? p.name.split("-")[0] : p.name}
-                  </button>
-                  <span className=" flex-shrink-0">
-                    <IoMdArrowDropright />
-                  </span>
-                </div>
-              ))}
+              {Array.isArray(directoryDetails.path) &&
+                directoryDetails.path.map((p) => (
+                  <div key={p.id} className="flex items-center">
+                    <button
+                      className="capitalize truncate max-w-[150px] hover:underline cursor-pointer select-none"
+                      onClick={() => navigate(`/directory/${p.id}`)}
+                      title={
+                        p.name.includes("root") ? p.name.split("-")[0] : p.name
+                      }
+                    >
+                      {p.name.includes("root") ? p.name.split("-")[0] : p.name}
+                    </button>
+                    <span className=" flex-shrink-0">
+                      <IoMdArrowDropright />
+                    </span>
+                  </div>
+                ))}
             </div>
           </div>
 
