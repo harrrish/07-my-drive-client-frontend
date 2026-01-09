@@ -19,17 +19,7 @@ export default function ModalFolderDetails({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-3">
-      <div
-        className="
-          w-full max-w-2xl
-          rounded-xl
-          bg-[var(--color-bgSecondary)]
-          border border-[var(--color-borderDefault)]
-          shadow-2xl
-          text-[var(--color-textPrimary)]
-          font-google
-        "
-      >
+      <div className="w-full max-w-2xl rounded-xl bg-[var(--color-bgSecondary)] border border-[var(--color-borderDefault)] shadow-2xl text-[var(--color-textPrimary)] font-google">
         {/* HEADER */}
         <div
           className="

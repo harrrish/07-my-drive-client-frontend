@@ -1,7 +1,7 @@
 import { baseURL } from "../src/main";
 
 export const loginWithGoogle = async (idToken) => {
-  const response = await fetch(`${baseURL}/auth/google`, {
+  const response = await fetch(`${baseURL}/google/auth`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

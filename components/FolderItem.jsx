@@ -14,6 +14,7 @@ import {
   UpdateContext,
   UserSettingViewContext,
 } from "../utils/Contexts";
+import { FaStar } from "react-icons/fa6";
 
 export default function CompFolderItem({
   createdAt,
@@ -23,6 +24,7 @@ export default function CompFolderItem({
   parentFID,
   size,
   updatedAt,
+  isStarred,
   _id,
   handleDirectoryDetails,
 }) {
@@ -112,9 +114,25 @@ export default function CompFolderItem({
           <input
             type="checkbox"
             className="scale-110 cursor-pointer accent-[var(--color-accentPrimary)]"
+            onChange={(e) => {
+              if (e.target.checked) {
+                console.log(`Checked, Folder ID: ${_id}`);
+              } else {
+                console.log(`Unchecked, Folder ID: ${_id}`);
+              }
+            }}
           />
 
-          <FaRegStar className="text-[var(--color-textDisabled)]" />
+          <button
+            className="cursor-pointer"
+            onClick={() => console.log("Folder marked star !")}
+          >
+            {isStarred ? (
+              <FaStar className="text-[var(--color-success)]" />
+            ) : (
+              <FaRegStar className="text-[var(--color-textDisabled)]" />
+            )}
+          </button>
 
           {rename ? (
             <div className="flex items-center gap-2 w-full">

@@ -3,7 +3,7 @@ import { MdShare, MdHome } from "react-icons/md";
 
 export default function Shared() {
   return (
-    <div className="font-google min-h-screen bg-[var(--color-bgPrimary)] flex items-center px-4">
+    <div className="font-google min-h-screen bg-[var(--color-bgPrimary)] flex items-center px-4 font-medium">
       <div className="w-full max-w-3xl mx-auto bg-[var(--color-bgSecondary)] text-[var(--color-textPrimary)] flex flex-col gap-6 items-center p-6 sm:p-8 rounded-xl border border-[var(--color-borderDefault)] shadow-2xl">
         <h1 className="flex items-center gap-3 text-3xl sm:text-4xl font-semibold tracking-wide">
           <MdShare className="text-[var(--color-info)] text-3xl sm:text-4xl" />

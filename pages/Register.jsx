@@ -34,7 +34,7 @@ export default function PageUserRegister() {
   async function handleRequestOTP() {
     setRequestLoad(true);
     try {
-      const res = await axiosWithOutCreds.post("/auth/send-otp", {
+      const res = await axiosWithOutCreds.post("/otp/request", {
         name: formData.name,
         email: formData.email,
       });
@@ -52,7 +52,7 @@ export default function PageUserRegister() {
   async function handleVerifyOTP() {
     setVerifyLoad(true);
     try {
-      const res = await axiosWithOutCreds.post("/auth/verify-otp", {
+      const res = await axiosWithOutCreds.post("/otp/verify", {
         email: formData.email,
         otp: formData.otp,
       });
@@ -97,7 +97,7 @@ export default function PageUserRegister() {
   }, [verifyOTP]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center font-google bg-[var(--color-bgPrimary)] px-4">
+    <div className="min-h-screen flex items-center justify-center font-google bg-[var(--color-bgPrimary)] px-4 font-medium">
       <div className="w-full max-w-xl bg-[var(--color-bgSecondary)] border border-[var(--color-borderDefault)] rounded-2xl p-6 sm:p-8 flex flex-col gap-6 shadow-2xl text-[var(--color-textPrimary)]">
         {/* App Title */}
         <h1 className="flex items-center justify-center gap-2 text-3xl font-semibold">

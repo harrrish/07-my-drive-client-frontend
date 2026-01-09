@@ -12,7 +12,7 @@ export default function PageUserLogin() {
   const [login, setLogin] = useState(false);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
-    email: "demo_user@gmail.com",
+    email: "user@abc.com",
     password: "123456789",
   });
 
@@ -46,7 +46,7 @@ export default function PageUserLogin() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center font-google bg-[var(--color-bgPrimary)] px-4">
+    <div className="min-h-screen flex items-center justify-center font-google bg-[var(--color-bgPrimary)] px-4 font-medium">
       <div className="w-full max-w-xl bg-[var(--color-bgSecondary)] border border-[var(--color-borderDefault)] rounded-2xl p-6 sm:p-8 flex flex-col gap-6 shadow-2xl text-[var(--color-textPrimary)]">
         {/* App Title */}
         <h1 className="flex items-center justify-center gap-2 text-3xl font-semibold">

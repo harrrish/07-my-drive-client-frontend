@@ -13,7 +13,7 @@ import CompFileItem from "../components/FileItem.jsx";
 import CompFolderItem from "../components/FolderItem.jsx";
 import ModalsDiv from "../modals/ModalsDiv.jsx";
 import { TiFolderAdd } from "react-icons/ti";
-import { FaFileUpload } from "react-icons/fa";
+import { FaFileUpload, FaSearch, FaSortAmountDown } from "react-icons/fa";
 import { LuFiles } from "react-icons/lu";
 import { IoMdArrowDropright } from "react-icons/io";
 import { RiFoldersFill } from "react-icons/ri";
@@ -136,7 +136,7 @@ export default function PageDirectoryView() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--color-bgPrimary)] text-[var(--color-textPrimary)] font-google">
+    <div className="min-h-screen bg-[var(--color-bgPrimary)] text-[var(--color-textPrimary)] font-google font-medium">
       <ModalsDiv
         showCreateFolder={showCreateFolder}
         setCreateFolder={setCreateFolder}
@@ -194,24 +194,61 @@ export default function PageDirectoryView() {
           </label>
         </div>
 
-        {/* 🔴 MISSING SECTION — RESTORED */}
-        <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto flex justify-between items-center py-2">
+        {/* SEARCH + SORT */}
+        <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto flex h-10 rounded-md overflow-hidden border border-[var(--color-borderDefault)] bg-[var(--color-bgSecondary)]">
+          <div className="flex items-center flex-1 px-2">
+            <input
+              type="text"
+              placeholder="Search files or folders"
+              className="w-full bg-transparent outline-none text-sm"
+            />
+            <FaSearch className="text-[var(--color-textDisabled)] mr-2 hover:text-white cursor-pointer" />
+          </div>
+
+          <div className="flex items-center gap-2 px-3 border-l border-[var(--color-borderDefault)]">
+            <FaSortAmountDown className="text-[var(--color-textSecondary)]" />
+
+            <select className="bg-[var(--color-bgSecondary)] text-[var(--color-textPrimary)] border border-[var(--color-borderHover)] rounded-md px-2 py-1 outline-none cursor-pointer text-sm focus:border-[var(--color-borderActive)] focus:ring-2 focus:ring-[var(--color-accentFocus)] text-center font-medium">
+              <option className="bg-[var(--color-bgSecondary)] text-[var(--color-textPrimary)] font-medium">
+                Name (A–Z)
+              </option>
+              <option className="bg-[var(--color-bgSecondary)] text-[var(--color-textPrimary)] font-medium">
+                Name (Z–A)
+              </option>
+              <option className="bg-[var(--color-bgSecondary)] text-[var(--color-textPrimary)] font-medium">
+                Size
+              </option>
+              <option className="bg-[var(--color-bgSecondary)] text-[var(--color-textPrimary)] font-medium">
+                Last Modified
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto flex justify-between items-center py-2 px-3 rounded-md bg-[var(--color-bgSecondary)] border border-[var(--color-borderDefault)] shadow-sm">
           <div className="flex gap-3 items-center">
-            <span className="text-2xl text-[var(--color-textSecondary)] hover:text-[var(--color-textPrimary)] cursor-pointer">
+            <span
+              className="text-2xl text-[var(--color-textSecondary)] hover:text-[var(--color-textPrimary)] cursor-pointer transition-colors"
+              title="Move the file to different folders !"
+            >
               <MdOutlineDriveFileMove />
             </span>
-            <span className="text-xl text-[var(--color-textSecondary)] hover:text-[var(--color-error)] cursor-pointer">
+
+            <span
+              className="text-xl text-[var(--color-textSecondary)] hover:text-[var(--color-error)] cursor-pointer transition-colors"
+              title="Delete"
+            >
               <MdDelete />
             </span>
           </div>
 
-          <div className="flex gap-4 items-center text-sm">
+          <div className="flex gap-4 items-center text-lg text-[var(--color-textSecondary)]">
             <span className="flex items-center gap-1">
-              <RiFoldersFill />
+              <RiFoldersFill className="text-[var(--color-accentPrimary)]" />
               {directoryDetails.foldersCount}
             </span>
             <span className="flex items-center gap-1">
-              <LuFiles />
+              <LuFiles className="text-[var(--color-info)]" />
               {directoryDetails.filesCount}
             </span>
           </div>

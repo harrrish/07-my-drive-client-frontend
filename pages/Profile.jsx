@@ -59,10 +59,10 @@ export default function PageUserProfile() {
   }, [handleUserProfileDetails, handleUserStorageDetails]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center font-google bg-[var(--color-bgPrimary)] text-[var(--color-textPrimary)] px-4">
+    <div className="min-h-screen flex items-center justify-center font-google bg-[var(--color-bgPrimary)] text-[var(--color-textPrimary)] px-4 font-medium">
       <div className="w-full max-w-xl bg-[var(--color-bgSecondary)] border border-[var(--color-borderDefault)] rounded-2xl p-6 sm:p-8 flex flex-col gap-6 shadow-2xl">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+        <div className="flex flex-row justify-between items-center sm:items-center gap-3">
           <h2 className="flex items-center gap-2 text-2xl font-semibold">
             <IoCloudUploadOutline className="text-3xl text-[var(--color-accentFocus)]" />
             My-Drive
@@ -91,7 +91,7 @@ export default function PageUserProfile() {
         <div className="flex justify-between items-center bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] rounded-lg px-4 py-2">
           <span className="font-medium">{userDetails.name}</span>
           <span className="text-sm text-[var(--color-textSecondary)]">
-            Alpha@123
+            BASIC
           </span>
         </div>
 

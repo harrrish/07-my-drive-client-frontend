@@ -3,7 +3,7 @@ import { MdInfoOutline, MdRocketLaunch } from "react-icons/md";
 
 export default function About() {
   return (
-    <div className="font-google min-h-screen bg-[var(--color-bgPrimary)] flex items-center px-4">
+    <div className="font-google min-h-screen bg-[var(--color-bgPrimary)] flex items-center px-4 font-medium">
       <div className="w-full max-w-4xl mx-auto bg-[var(--color-bgSecondary)] text-[var(--color-textPrimary)] flex flex-col gap-6 items-center p-6 sm:p-10 rounded-2xl border border-[var(--color-borderDefault)] shadow-2xl">
         <h1 className="flex items-center gap-3 text-3xl sm:text-4xl font-semibold tracking-wide">
           <MdInfoOutline className="text-[var(--color-info)] text-3xl sm:text-4xl" />

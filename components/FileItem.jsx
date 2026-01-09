@@ -10,7 +10,7 @@ import { GiCancel } from "react-icons/gi";
 import { FaDownload } from "react-icons/fa6";
 import { IoMdShare } from "react-icons/io";
 import { FaRegStar } from "react-icons/fa";
-
+import { FaStar } from "react-icons/fa";
 import CompFileIcon from "./FileIcon";
 import ModalFileDetails from "../modals/ModalFileDetails";
 import { calSize } from "../utils/CalculateFileSize";
@@ -28,6 +28,7 @@ export default function CompFileItem({
   updatedAt,
   parentFID,
   basename,
+  isStarred,
   handleDirectoryDetails,
   handleUserStorageDetails,
 }) {
@@ -117,9 +118,25 @@ export default function CompFileItem({
           <input
             type="checkbox"
             className="scale-110 cursor-pointer accent-[var(--color-accentPrimary)]"
+            onChange={(e) => {
+              if (e.target.checked) {
+                console.log(`Checked, File ID: ${_id}`);
+              } else {
+                console.log(`Unchecked, File ID: ${_id}`);
+              }
+            }}
           />
 
-          <FaRegStar className="text-[var(--color-textDisabled)]" />
+          <button
+            className="cursor-pointer"
+            onClick={() => console.log("File marked star !")}
+          >
+            {isStarred ? (
+              <FaStar className="text-[var(--color-success)]" />
+            ) : (
+              <FaRegStar className="text-[var(--color-textDisabled)]" />
+            )}
+          </button>
 
           {rename ? (
             <div className="flex items-center gap-2 w-full">

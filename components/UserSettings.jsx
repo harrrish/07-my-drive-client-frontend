@@ -69,7 +69,7 @@ export default function UserSettings() {
           className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
         >
           <FaStar className="text-lg" />
-          Starred
+          Starred Files/Folders
         </button>
 
         <button
@@ -85,7 +85,7 @@ export default function UserSettings() {
           className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
         >
           <AiOutlineUserSwitch className="text-lg" />
-          Shared with Me
+          Files Shared with Me
         </button>
 
         <button
@@ -101,7 +101,7 @@ export default function UserSettings() {
           className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
         >
           <FaTrash className="text-lg" />
-          Trash
+          Trash Bin
         </button>
 
         <button
@@ -109,7 +109,7 @@ export default function UserSettings() {
           className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
         >
           <BiSolidPurchaseTag className="text-lg" />
-          Buy Premium
+          Upgrade Plan
         </button>
       </div>
 

@@ -6,18 +6,11 @@ export default function UploadFile({ id, name, size, progress }) {
   return (
     <div
       key={id}
-      className="
-        w-[95%] max-w-4xl mx-auto
-        flex flex-col gap-3
-        p-4 rounded-lg
-        bg-[var(--color-bgSecondary)]
-        border border-[var(--color-borderDefault)]
-        shadow-md
-      "
+      className="w-[95%] max-w-4xl mx-auto flex flex-col gap-3 p-4 rounded-lg bg-[var(--color-bgSecondary)] border border-[var(--color-borderDefault)]shadow-md"
     >
       {/* HEADER */}
       <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3 min-w-0">
+        <div className="flex items-center gap-3 min-w-0 w-[60%]">
           <FaCloudUploadAlt className="text-xl text-[var(--color-accentFocus)] flex-shrink-0" />
           <h1 className="truncate text-sm font-medium text-[var(--color-textPrimary)]">
             {name}

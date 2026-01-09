@@ -42,7 +42,7 @@ export default function ModalCreateFolder({
 
   return (
     <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4">
-      <div className="w-full max-w-md rounded-xl bg-[var(--color-bgSecondary)] border border-[var(--color-borderDefault)] shadow-2xl p-6 font-google text-[var(--color-textPrimary)]">
+      <div className="w-full max-w-lg rounded-xl bg-[var(--color-bgSecondary)] border border-[var(--color-borderDefault)] shadow-2xl p-6 font-google text-[var(--color-textPrimary)]">
         {/* TITLE */}
         <h2 className="text-xl font-semibold mb-4 text-center">
           Create New Folder
@@ -51,15 +51,7 @@ export default function ModalCreateFolder({
         {/* INPUT */}
         <input
           type="text"
-          className="
-            w-full px-3 py-2 mb-4 rounded-md
-            bg-[var(--color-bgElevated)]
-            border border-[var(--color-borderHover)]
-            text-[var(--color-textPrimary)]
-            placeholder:text-[var(--color-textDisabled)]
-            focus:outline-none
-            focus:ring-2 focus:ring-[var(--color-accentFocus)]
-          "
+          className="w-full px-3 py-2 mb-4 rounded-md bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] text-[var(--color-textPrimary)] placeholder:text-[var(--color-textDisabled)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accentFocus)]"
           placeholder="Folder name"
           value={folderName}
           onChange={(e) => setFolderName(e.target.value)}
@@ -81,13 +73,7 @@ export default function ModalCreateFolder({
 
           <button
             onClick={() => setCreateFolder(false)}
-            className="
-              cursor-pointer w-1/2 py-2 rounded-md font-medium
-              bg-[var(--color-bgElevated)]
-              border border-[var(--color-borderHover)]
-              hover:bg-[var(--color-error)]
-              transition-colors
-            "
+            className="cursor-pointer w-1/2 py-2 rounded-md font-medium bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] hover:bg-[var(--color-error)] transition-colors"
           >
             Cancel
           </button>
