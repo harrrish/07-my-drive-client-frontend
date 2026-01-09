@@ -58,7 +58,7 @@ export default function UserSettings() {
       <div className="flex flex-col gap-2 py-4 text-sm">
         <button
           onClick={() => navigate("/notifications")}
-          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all"
+          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
         >
           <IoIosNotifications className="text-lg" />
           Notifications
@@ -66,7 +66,7 @@ export default function UserSettings() {
 
         <button
           onClick={() => navigate("/starred")}
-          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all"
+          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
         >
           <FaStar className="text-lg" />
           Starred
@@ -74,7 +74,7 @@ export default function UserSettings() {
 
         <button
           onClick={() => navigate("/profile")}
-          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all"
+          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
         >
           <FaGoogleDrive className="text-lg" />
           Import from Google Drive
@@ -82,7 +82,7 @@ export default function UserSettings() {
 
         <button
           onClick={() => navigate("/shared")}
-          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all"
+          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
         >
           <AiOutlineUserSwitch className="text-lg" />
           Shared with Me
@@ -90,7 +90,7 @@ export default function UserSettings() {
 
         <button
           onClick={() => navigate("/profile")}
-          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all"
+          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
         >
           <FaUser className="text-lg" />
           Profile
@@ -98,7 +98,7 @@ export default function UserSettings() {
 
         <button
           onClick={() => navigate("/trash")}
-          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all"
+          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
         >
           <FaTrash className="text-lg" />
           Trash
@@ -106,7 +106,7 @@ export default function UserSettings() {
 
         <button
           onClick={() => navigate("/purchase-premium")}
-          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all"
+          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
         >
           <BiSolidPurchaseTag className="text-lg" />
           Buy Premium
