@@ -10,9 +10,10 @@ export default function CompGoogleBtn() {
 
   return (
     <GoogleLogin
-      text="signup_with"
-      shape="rectangular"
-      theme="filled_blue"
+      type="icon"
+      shape="circle"
+      text=""
+      theme="filled_black"
       onSuccess={async (credentialResponse) => {
         // console.log(credentialResponse);
         const res = await loginWithGoogle(credentialResponse.credential);

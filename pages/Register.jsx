@@ -8,9 +8,9 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 export default function PageUserRegister() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: "alpha",
-    email: "alpha@gmail.com",
-    password: "1234567890",
+    name: "",
+    email: "",
+    password: "",
     otp: "",
   });
 
@@ -102,7 +102,7 @@ export default function PageUserRegister() {
         {/* App Title */}
         <h1 className="flex items-center justify-center gap-2 text-3xl font-semibold">
           <IoCloudUploadOutline className="text-4xl text-[var(--color-accentFocus)]" />
-          <span>My Drive</span>
+          <span>My-Drive</span>
         </h1>
 
         {/* Page Title */}
@@ -133,7 +133,7 @@ export default function PageUserRegister() {
           {!requestOTP && (
             <button
               onClick={handleRequestOTP}
-              className="cursor-pointer text-sm text-[var(--color-info)] hover:underline self-start"
+              className="cursor-pointer text-sm text-[var(--color-info)] hover:underline self-start font-medium"
             >
               {requestLoad ? "Requesting OTP..." : "Request OTP"}
             </button>
@@ -152,7 +152,7 @@ export default function PageUserRegister() {
               <div className="flex justify-between text-xs text-[var(--color-textSecondary)]">
                 <button
                   onClick={handleVerifyOTP}
-                  className="cursor-pointer text-[var(--color-info)] hover:underline"
+                  className="cursor-pointer text-[var(--color-info)] hover:underline font-medium"
                 >
                   {verifyLoad ? "Verifying..." : "Verify OTP"}
                 </button>
@@ -166,18 +166,18 @@ export default function PageUserRegister() {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            placeholder="Password"
+            placeholder="********"
             className="w-full px-3 py-2 rounded-md bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accentFocus)]"
           />
 
           {error.length > 0 && (
-            <div className="bg-[var(--color-error)] text-white text-sm text-center py-2 rounded-md">
+            <div className="bg-[var(--color-error)] text-white text-sm text-center py-2 rounded-md font-medium">
               {error}
             </div>
           )}
 
           {update.length > 0 && (
-            <div className="bg-[var(--color-success)] text-black text-sm text-center py-2 rounded-md">
+            <div className="bg-[var(--color-success)] text-black text-sm text-center py-2 rounded-md font-medium">
               {update}
             </div>
           )}

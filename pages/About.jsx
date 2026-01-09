@@ -9,14 +9,14 @@ export default function About() {
           <MdInfoOutline className="text-[var(--color-info)] text-3xl sm:text-4xl" />
           <span>
             About{" "}
-            <span className="text-[var(--color-accentFocus)]">My Drive</span>
+            <span className="text-[var(--color-accentFocus)]">My-Drive</span>
           </span>
         </h1>
 
         <div className="flex flex-col gap-4 text-center max-w-2xl text-sm sm:text-base leading-relaxed text-[var(--color-textSecondary)]">
           <p>
             <span className="text-[var(--color-textPrimary)] font-medium">
-              My Drive
+              My-Drive
             </span>{" "}
             is a secure, cloud-based file storage platform developed by{" "}
             <span className="text-[var(--color-accentFocus)] font-medium">

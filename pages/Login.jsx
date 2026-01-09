@@ -12,8 +12,8 @@ export default function PageUserLogin() {
   const [login, setLogin] = useState(false);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
-    email: "alpha@gmail.com",
-    password: "1234567890",
+    email: "demo_user@gmail.com",
+    password: "123456789",
   });
 
   const { setUserView } = useContext(UserSettingViewContext);
@@ -51,7 +51,7 @@ export default function PageUserLogin() {
         {/* App Title */}
         <h1 className="flex items-center justify-center gap-2 text-3xl font-semibold">
           <IoCloudUploadOutline className="text-4xl text-[var(--color-accentFocus)]" />
-          <span>My Drive</span>
+          <span>My-Drive</span>
         </h1>
 
         {/* Page Title */}
@@ -97,6 +97,7 @@ export default function PageUserLogin() {
             >
               Password
             </label>
+
             <input
               type="password"
               id="password"
@@ -104,21 +105,23 @@ export default function PageUserLogin() {
               value={formData.password}
               onChange={handleChange}
               placeholder="********"
-              className="
-                w-full px-3 py-2 rounded-md
-                bg-[var(--color-bgElevated)]
-                border border-[var(--color-borderHover)]
-                text-[var(--color-textPrimary)]
-                focus:outline-none
-                focus:border-[var(--color-borderActive)]
-                focus:ring-2 focus:ring-[var(--color-accentFocus)]
-              "
+              className="w-full px-3 py-2 rounded-md bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] text-[var(--color-textPrimary)] focus:outline-none focus:border-[var(--color-borderActive)] focus:ring-2 focus:ring-[var(--color-accentFocus)]"
             />
+
+            {/* FORGOT PASSWORD */}
+            <div className="flex justify-end">
+              <button
+                type="button"
+                className="mt-1 text-xs text-[var(--color-info)] hover:underline cursor-pointer transition-colors"
+              >
+                Forgot password?
+              </button>
+            </div>
           </div>
 
           {/* ERROR */}
-          {error && (
-            <div className="text-center text-sm py-2 rounded-md bg-[var(--color-error)] text-white">
+          {error.length > 0 && (
+            <div className="text-center text-sm py-2 rounded-md bg-[var(--color-error)] text-white font-medium">
               {error}
             </div>
           )}
