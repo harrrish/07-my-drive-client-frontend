@@ -1,47 +1,67 @@
-import { FaGoogleDrive } from "react-icons/fa";
+import { IoCloudUploadOutline } from "react-icons/io5";
 import { MdLogin } from "react-icons/md";
 import { TiUserAdd } from "react-icons/ti";
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Home() {
-  const navigate = useNavigate();
   return (
-    <div className="font-google font-medium min-h-screen bg-clrGray flex items-center">
-      <div className="bg-clrWhite w-[90%] sm:max-w-xl mx-auto flex flex-col gap-2 items-center p-4 rounded-sm shadow-lg hover:shadow-2xl duration-300">
-        <h1 className="flex items-center text-4xl gap-2">
-          <span>
-            <FaGoogleDrive />
-          </span>
-          My Drive
+    <div className="font-google min-h-screen bg-[var(--color-bgPrimary)] flex items-center px-4">
+      <div className="w-full max-w-3xl mx-auto bg-[var(--color-bgSecondary)] text-[var(--color-textPrimary)] flex flex-col gap-6 p-6 sm:p-8 rounded-xl border border-[var(--color-borderDefault)] shadow-2xl">
+        <h1 className="flex items-center justify-between w-full">
+          <div className="flex items-center gap-3">
+            <span className="text-3xl text-[var(--color-accentFocus)]">
+              <IoCloudUploadOutline />
+            </span>
+            <span className="text-2xl font-semibold tracking-wide">UVDS</span>
+          </div>
+          <span className="text-2xl font-semibold">My-Drive</span>
         </h1>
-        <p className="text-center">
-          My Drive is a cloud storage web application inspired by Google Drive,
-          users can efficiently manage their personal files and folders online.
-        </p>
-        <p className="text-center">
-          Users can upload, download, view, rename, and delete their files with
-          ease, as well as organize them into custom folders for better
-          accessibility and structure.
-        </p>
-        <div className="flex gap-2 w-full">
-          <button
-            onClick={() => navigate("/login")}
-            className="border-2 p-1 flex justify-center items-center gap-1 cursor-pointer w-1/2 hover:text-white hover:bg-clrLightBlue tracking-wider font-bold duration-300"
+
+        <div className="flex flex-col gap-4 text-center text-sm sm:text-base leading-relaxed text-[var(--color-textSecondary)]">
+          <p>
+            My-Drive is a secure, cloud-based file storage web application
+            inspired by Google Drive. It enables users to efficiently store,
+            manage, and organize their personal files and folders from anywhere.
+          </p>
+
+          <p>
+            Users can seamlessly upload, download, preview, rename, and delete
+            files, as well as create and manage custom folders to keep their
+            content structured and easily accessible.
+          </p>
+
+          <p>
+            Your data’s safety is a top priority. To learn more about how{" "}
+            <span className="text-[var(--color-textPrimary)] font-medium">
+              My-Drive
+            </span>{" "}
+            protects your files using modern security practices, click the{" "}
+            <NavLink
+              to="/about"
+              className="text-[var(--color-info)] underline underline-offset-4 hover:text-[var(--color-accentFocus)] transition-colors"
+            >
+              link
+            </NavLink>{" "}
+            to explore our security architecture and safeguards.
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4 w-full pt-2">
+          <NavLink
+            to="/login"
+            className="flex items-center justify-center gap-2 w-full sm:w-1/2 px-4 py-2 rounded-lg border border-[var(--color-borderHover)] bg-[var(--color-bgElevated)] text-[var(--color-textPrimary)] hover:bg-[var(--color-accentPrimary)] hover:border-[var(--color-borderActive)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[var(--color-accentFocus)]"
           >
-            <span>
-              <MdLogin />
-            </span>
+            <MdLogin />
             Login
-          </button>
-          <button
-            onClick={() => navigate("/register")}
-            className="border-2 p-1 flex justify-center items-center gap-1 cursor-pointer w-1/2 hover:text-white hover:bg-clrLightGreen tracking-wider font-bold duration-300"
+          </NavLink>
+
+          <NavLink
+            to="/register"
+            className="flex items-center justify-center gap-2 w-full sm:w-1/2 px-4 py-2 rounded-lg border border-[var(--color-borderHover)] bg-[var(--color-bgElevated)] text-[var(--color-textPrimary)] hover:bg-[var(--color-accentPrimary)] hover:border-[var(--color-borderActive)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[var(--color-accentFocus)]"
           >
-            <span>
-              <TiUserAdd />
-            </span>
+            <TiUserAdd />
             Signup
-          </button>
+          </NavLink>
         </div>
       </div>
     </div>

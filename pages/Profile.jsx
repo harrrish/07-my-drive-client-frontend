@@ -8,11 +8,9 @@ import { calSize } from "../utils/CalculateFileSize";
 import { useNavigate } from "react-router-dom";
 import { baseURL } from "../src/main";
 import { BiSolidPurchaseTag } from "react-icons/bi";
-import { IoLogOut } from "react-icons/io5";
-import { FaTrash } from "react-icons/fa6";
+import { IoCloudUploadOutline, IoLogOut } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
 import { axiosError, axiosWithCreds } from "../utils/AxiosInstance";
-import { FaGoogleDrive } from "react-icons/fa";
 import { TiUserDelete } from "react-icons/ti";
 
 export default function PageUserProfile() {
@@ -21,7 +19,9 @@ export default function PageUserProfile() {
   const navigate = useNavigate();
   const { setError } = useContext(ErrorContext);
 
-  //* ==========> FETCHING USER PROFILE DETAILS
+  const imgDefault =
+    "https://t3.ftcdn.net/jpg/07/24/59/76/360_F_724597608_pmo5BsVumFcFyHJKlASG2Y2KpkkfiYUU.jpg";
+
   const handleUserProfileDetails = useCallback(async () => {
     try {
       const { data } = await axiosWithCreds.get(`/user/profile`, {
@@ -29,12 +29,10 @@ export default function PageUserProfile() {
       });
       setUserDetails({ ...data });
     } catch (error) {
-      const msg = "Failed to fetch user info";
-      axiosError(error, navigate, setError, msg);
+      axiosError(error, navigate, setError, "Failed to fetch user info");
     }
   }, [setUserDetails, navigate, setError]);
 
-  //* ==========> FETCHING USER STORAGE DETAILS
   const handleUserStorageDetails = useCallback(async () => {
     try {
       const { data } = await axiosWithCreds.get(`/user/storage-details`, {
@@ -42,8 +40,7 @@ export default function PageUserProfile() {
       });
       setUserStorage({ ...data });
     } catch (error) {
-      const msg = "Failed to fetch storage info";
-      axiosError(error, navigate, setError, msg);
+      axiosError(error, navigate, setError, "Failed to fetch storage info");
     }
   }, [setUserStorage, navigate, setError]);
 
@@ -53,10 +50,7 @@ export default function PageUserProfile() {
       credentials: "include",
     });
 
-    if (res.ok) {
-      navigate("/login");
-      console.log("User logged out");
-    }
+    if (res.ok) navigate("/login");
   }
 
   useEffect(() => {
@@ -65,85 +59,108 @@ export default function PageUserProfile() {
   }, [handleUserProfileDetails, handleUserStorageDetails]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center font-google bg-clrGray">
-      <div className="w-[50%] max-w-xl flex flex-col items-center p-4 gap-3 rounded-sm shadow-md hover:shadow-lg duration-300 bg-white">
-        <div className="flex justify-between w-full items-center">
-          <h2 className="text-5xl flex gap-2 items-center">
-            <span className="text-3xl">
-              <FaGoogleDrive />
-            </span>
-            <span className="text-2xl font-bold">My Drive</span>
+    <div className="min-h-screen flex items-center justify-center font-google bg-[var(--color-bgPrimary)] text-[var(--color-textPrimary)] px-4">
+      <div className="w-full max-w-xl bg-[var(--color-bgSecondary)] border border-[var(--color-borderDefault)] rounded-2xl p-6 sm:p-8 flex flex-col gap-6 shadow-2xl">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <h2 className="flex items-center gap-2 text-2xl font-semibold">
+            <IoCloudUploadOutline className="text-3xl text-[var(--color-accentFocus)]" />
+            My-Drive
           </h2>
-          <h2 className="text-xl font-medium">{userDetails.email}</h2>
+          <span className="text-sm text-[var(--color-textSecondary)] truncate">
+            {userDetails.email}
+          </span>
         </div>
-        <img
-          src={
-            userDetails.picture ||
-            "https://t3.ftcdn.net/jpg/07/24/59/76/360_F_724597608_pmo5BsVumFcFyHJKlASG2Y2KpkkfiYUU.jpg"
-          }
-          alt={`${userDetails.name}'s profile picture`}
-          className="w-1/2 rounded-full"
-        />
-        <div className="flex justify-between w-full items-center border-2 px-4 py-1 rounded-full">
-          <h2 className="text-lg font-medium">{userDetails.name}</h2>
-          <h2 className="text-lg font-medium">Alpha@123</h2>
+
+        {/* Avatar */}
+        <div className="flex justify-center">
+          {userDetails.picture !== imgDefault ? (
+            <img
+              src={userDetails.picture}
+              alt={`${userDetails.name}'s profile picture`}
+              className="w-48 h-48 sm:w-56 sm:h-56 rounded-full object-cover border border-[var(--color-borderHover)]"
+            />
+          ) : (
+            <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-full flex items-center justify-center text-6xl font-semibold bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)]">
+              {userDetails.name?.[0]?.toUpperCase() || "U"}
+            </div>
+          )}
         </div>
-        <div className="w-[90%] flex flex-col items-center">
-          <div className="p-[2px] w-full bg-black">
+
+        {/* User Info */}
+        <div className="flex justify-between items-center bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] rounded-lg px-4 py-2">
+          <span className="font-medium">{userDetails.name}</span>
+          <span className="text-sm text-[var(--color-textSecondary)]">
+            Alpha@123
+          </span>
+        </div>
+
+        {/* Storage */}
+        <div className="flex flex-col gap-2">
+          <div className="w-full h-2 rounded-full bg-[var(--color-borderDefault)] overflow-hidden">
             <div
-              className="p-[2px] bg-white"
+              className="h-full bg-[var(--color-accentPrimary)] transition-all"
               style={{
-                width: `${userStorage.size / userStorage.maxStorageInBytes}%`,
+                width: `${
+                  (userStorage.size / userStorage.maxStorageInBytes) * 100
+                }%`,
               }}
-            ></div>
+            />
           </div>
-          <h1 className="flex items-center justify-center gap-1 p-1 truncate duration-300 w-[90%]">
-            Used <span>{calSize(userStorage.size)}</span> of{" "}
-            <span>{calSize(userStorage.maxStorageInBytes)}</span>
-          </h1>
+          <p className="text-xs text-center text-[var(--color-textSecondary)]">
+            Used{" "}
+            <span className="text-[var(--color-textPrimary)]">
+              {calSize(userStorage.size)}
+            </span>{" "}
+            of{" "}
+            <span className="text-[var(--color-textPrimary)]">
+              {calSize(userStorage.maxStorageInBytes)}
+            </span>
+          </p>
         </div>
-        <button
-          onClick={() => navigate("/directory")}
-          className="w-[90%] text-sm flex items-center justify-between p-1 border-2 cursor-pointer truncate duration-150 font-bold px-4 tracking-wide hover:scale-105"
-        >
-          <FaHome />
-          HOME
-        </button>
-        <button
-          onClick={() => navigate("/bin")}
-          className="w-[90%] text-sm flex items-center justify-between p-1 border-2 cursor-pointer truncate duration-150 font-bold px-4 tracking-wide hover:scale-105"
-        >
-          <FaTrash />
-          TRASH BIN
-        </button>
-        <button
-          onClick={() => navigate("/purchase-premium")}
-          className="w-[90%] text-sm flex items-center justify-between p-1 border-2 cursor-pointer truncate duration-150 font-bold px-4 tracking-wide hover:scale-105"
-        >
-          <BiSolidPurchaseTag />
-          BUY PREMIUM
-        </button>
-        <button
-          className="w-[90%] text-sm flex items-center justify-between p-1 border-2 cursor-pointer truncate duration-150 font-bold px-4 tracking-wide hover:scale-105"
-          onClick={handleLogout}
-        >
-          <IoLogOut />
-          LOGOUT
-        </button>
-        <button
-          className="w-[90%] text-sm flex items-center justify-between p-1 border-2 cursor-pointer truncate duration-150 font-bold px-4 tracking-wide hover:scale-105"
-          onClick={handleLogout}
-        >
-          <IoLogOut />
-          LOGOUT ALL ACCOUNTS
-        </button>
-        <button
-          className="w-[90%] text-sm flex items-center justify-between p-1 border-2 cursor-pointer truncate duration-150 font-bold px-4 tracking-wide hover:scale-105"
-          onClick={() => console.log("User deleted")}
-        >
-          <TiUserDelete />
-          DELETE ACCOUNT
-        </button>
+
+        {/* Actions */}
+        <div className="flex flex-col gap-3">
+          <button
+            onClick={() => navigate("/directory")}
+            className="cursor-pointer flex items-center justify-between px-4 py-2 rounded-lg bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] hover:bg-[var(--color-accentPrimary)] hover:border-[var(--color-borderActive)] transition-all"
+          >
+            <FaHome />
+            <span className="font-semibold">HOME</span>
+          </button>
+
+          <button
+            onClick={() => navigate("/purchase-premium")}
+            className="cursor-pointer flex items-center justify-between px-4 py-2 rounded-lg bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] hover:bg-[var(--color-warning)] hover:text-black transition-all"
+          >
+            <BiSolidPurchaseTag />
+            <span className="font-semibold">BUY PREMIUM</span>
+          </button>
+
+          <button
+            onClick={handleLogout}
+            className="cursor-pointer flex items-center justify-between px-4 py-2 rounded-lg bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] hover:bg-[var(--color-info)] transition-all"
+          >
+            <IoLogOut />
+            <span className="font-semibold">LOGOUT ALL ACCOUNTS</span>
+          </button>
+
+          <button
+            onClick={handleLogout}
+            className="cursor-pointer flex items-center justify-between px-4 py-2 rounded-lg bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] hover:bg-[var(--color-error)] transition-all"
+          >
+            <IoLogOut />
+            <span className="font-semibold">DEACTIVATE</span>
+          </button>
+
+          <button
+            onClick={() => console.log("User deleted")}
+            className="cursor-pointer flex items-center justify-between px-4 py-2 rounded-lg bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] hover:bg-[var(--color-error)] transition-all"
+          >
+            <TiUserDelete />
+            <span className="font-semibold">DELETE ACCOUNT</span>
+          </button>
+        </div>
       </div>
     </div>
   );

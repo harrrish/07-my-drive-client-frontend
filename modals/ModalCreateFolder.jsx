@@ -24,9 +24,7 @@ export default function ModalCreateFolder({
       try {
         const { data, status } = await axiosWithCreds.post(
           `/directory/${folderID || ""}`,
-          {
-            folderName,
-          },
+          { folderName },
         );
         if (status === 201) {
           setUpdate((prev) => [...prev, data.message]);
@@ -36,40 +34,63 @@ export default function ModalCreateFolder({
           setCreateLoad(false);
         }
       } catch (error) {
-        const msg = "Failed to create folder";
-        axiosError(error, navigate, setError, msg);
+        axiosError(error, navigate, setError, "Failed to create folder");
         setCreateLoad(false);
       }
     }
   }
 
   return (
-    <div className="w-full bg-black/90 min-h-[100vh] flex items-center justify-center shadow-2xl fixed top-0 left-0 z-10">
-      <div className="w-[90%] sm:max-w-2xl p-4 rounded-sm bg-white font-google">
-        <div className="overflow-hidden flex flex-col gap-2">
-          <input
-            type="text"
-            className="w-full px-2 border-2    rounded-sm"
-            placeholder="New Folder"
-            value={folderName}
-            onChange={(e) => {
-              setFolderName(e.target.value);
-            }}
-          />
-          <div className="flex justify-between">
-            <button
-              onClick={handleCreateFolder}
-              className=" border-2 rounded-sm hover:bg-clrDarkBlue focus:outline-blue-400 hover:text-white px-2 w-[45%] cursor-pointer transition-all transition-300"
-            >
-              {createLoad ? "Creating..." : "Create"}
-            </button>
-            <button
-              className=" border-2 rounded-sm hover:bg-clrRed focus:outline-red-400 hover:text-white px-2 w-[45%] cursor-pointer transition-all transition-300"
-              onClick={() => setCreateFolder(false)}
-            >
-              Cancel
-            </button>
-          </div>
+    <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4">
+      <div className="w-full max-w-md rounded-xl bg-[var(--color-bgSecondary)] border border-[var(--color-borderDefault)] shadow-2xl p-6 font-google text-[var(--color-textPrimary)]">
+        {/* TITLE */}
+        <h2 className="text-xl font-semibold mb-4 text-center">
+          Create New Folder
+        </h2>
+
+        {/* INPUT */}
+        <input
+          type="text"
+          className="
+            w-full px-3 py-2 mb-4 rounded-md
+            bg-[var(--color-bgElevated)]
+            border border-[var(--color-borderHover)]
+            text-[var(--color-textPrimary)]
+            placeholder:text-[var(--color-textDisabled)]
+            focus:outline-none
+            focus:ring-2 focus:ring-[var(--color-accentFocus)]
+          "
+          placeholder="Folder name"
+          value={folderName}
+          onChange={(e) => setFolderName(e.target.value)}
+        />
+
+        {/* ACTIONS */}
+        <div className="flex gap-3">
+          <button
+            onClick={handleCreateFolder}
+            className="
+              cursor-pointer w-1/2 py-2 rounded-md font-medium
+              bg-[var(--color-accentPrimary)]
+              hover:bg-[var(--color-accentHover)]
+              transition-colors
+            "
+          >
+            {createLoad ? "Creating..." : "Create"}
+          </button>
+
+          <button
+            onClick={() => setCreateFolder(false)}
+            className="
+              cursor-pointer w-1/2 py-2 rounded-md font-medium
+              bg-[var(--color-bgElevated)]
+              border border-[var(--color-borderHover)]
+              hover:bg-[var(--color-error)]
+              transition-colors
+            "
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </div>

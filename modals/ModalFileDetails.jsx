@@ -17,40 +17,75 @@ export default function ModalFileDetails({
   const { directoryDetails } = useContext(DirectoryContext);
 
   return (
-    <div className="fixed inset-0 z-50 w-full min-h-[100vh] bg-black/90 flex items-center justify-center ">
-      <div className="w-[90%] sm:max-w-2xl p-4 bg-white">
-        <div className="flex items-center justify-between p-2 bg-clrDarkBlue text-white">
-          <h1 className="flex items-center gap-1">
-            <span>
-              <RiFileInfoFill />
-            </span>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4">
+      <div
+        className="
+          w-full max-w-2xl
+          rounded-xl
+          bg-[var(--color-bgSecondary)]
+          border border-[var(--color-borderDefault)]
+          shadow-2xl
+          font-google
+          text-[var(--color-textPrimary)]
+        "
+      >
+        {/* HEADER */}
+        <div
+          className="
+            flex items-center justify-between
+            px-4 py-3
+            border-b border-[var(--color-borderDefault)]
+            bg-[var(--color-bgElevated)]
+            rounded-t-xl
+          "
+        >
+          <h1 className="flex items-center gap-2 text-lg font-semibold">
+            <RiFileInfoFill className="text-[var(--color-accentFocus)] text-xl" />
             File Details
           </h1>
           <button
-            className="cursor-pointer"
             onClick={() => setFileDetails(false)}
+            className="
+              cursor-pointer text-xl
+              text-[var(--color-textSecondary)]
+              hover:text-[var(--color-error)]
+              transition-colors
+            "
           >
             <IoCloseCircle />
           </button>
         </div>
 
-        <div className="p-2 flex flex-col gap-2  ">
-          <h1>
-            Name: <span className=" italic">{name}</span>
-          </h1>
-          <h1>
-            size: <span className=" italic">{calSize(size)}</span>
-          </h1>
-          <h1>
-            type: <span className=" uppercase">{extension.substr(1)}</span>
-          </h1>
-          <div className="flex gap-1">
-            <span>path:</span>
-            <div className="flex items-center whitespace-nowrap  italic">
+        {/* CONTENT */}
+        <div className="p-4 flex flex-col gap-3 text-sm sm:text-base">
+          <div className="flex gap-2">
+            <span className="text-[var(--color-textSecondary)]">Name:</span>
+            <span title={name} className="italic break-all truncate">
+              {name}
+            </span>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <span className="text-[var(--color-textSecondary)]">Size:</span>
+            <span className="italic">{calSize(size)}</span>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <span className="text-[var(--color-textSecondary)]">Type:</span>
+            <span className="uppercase font-medium">
+              {extension.substring(1)}
+            </span>
+          </div>
+
+          {/* PATH */}
+          <div className="flex gap-2 items-start">
+            <span className="text-[var(--color-textSecondary)]">Path:</span>
+
+            <div className="flex items-center gap-1 italic text-[var(--color-textPrimary)]">
               {directoryDetails.path.map((p) => (
-                <div key={p.id} className="flex items-center">
+                <div key={p.id} className="flex items-center gap-1">
                   <button
-                    className=" truncate max-w-[150px] hover:underline cursor-pointer select-none capitalize"
+                    className="max-w-[140px] truncate capitalize cursor-pointer hover:underline text-[var(--color-info)]"
                     title={
                       p.name.includes("root") ? p.name.split("-")[0] : p.name
                     }
@@ -58,22 +93,30 @@ export default function ModalFileDetails({
                     {p.name.includes("root") ? p.name.split("-")[0] : p.name}
                   </button>
 
-                  <span className=" flex-shrink-0">
-                    <IoMdArrowDropright />
-                  </span>
+                  <IoMdArrowDropright className="text-[var(--color-textDisabled)]" />
                 </div>
               ))}
+
+              {/* FILE NAME */}
+              <span className="max-w-[160px] truncate italic" title={name}>
+                {name}
+              </span>
             </div>
-            <span className=" italic">{name}</span>
           </div>
-          <h1>
-            _createdAt:
-            <span className=" italic"> {calDateNTime(createdAt)}</span>
-          </h1>
-          <h1>
-            _updatedAt:
-            <span className=" italic"> {calDateNTime(updatedAt)}</span>
-          </h1>
+
+          <div className="flex flex-wrap gap-2">
+            <span className="text-[var(--color-textSecondary)]">
+              Created At:
+            </span>
+            <span className="italic">{calDateNTime(createdAt)}</span>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <span className="text-[var(--color-textSecondary)]">
+              Updated At:
+            </span>
+            <span className="italic">{calDateNTime(updatedAt)}</span>
+          </div>
         </div>
       </div>
     </div>

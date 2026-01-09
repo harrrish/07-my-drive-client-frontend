@@ -1,11 +1,9 @@
 import { useContext, useState } from "react";
-import { MdSave } from "react-icons/md";
-import { FaFolder } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { MdDelete } from "react-icons/md";
+import { MdSave, MdDelete, MdOutlineInfo } from "react-icons/md";
+import { FaFolder, FaRegStar } from "react-icons/fa";
 import { GiCancel } from "react-icons/gi";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
-import { MdOutlineInfo } from "react-icons/md";
 import ModalFolderDetails from "../modals/ModalFolderDetails";
 import { calSize } from "../utils/CalculateFileSize";
 import { axiosError, axiosWithCreds } from "../utils/AxiosInstance";
@@ -32,35 +30,35 @@ export default function CompFolderItem({
   const { setFolderID } = useContext(FolderIDContext);
   const { setError } = useContext(ErrorContext);
   const { setUpdate } = useContext(UpdateContext);
+  const { setUserView } = useContext(UserSettingViewContext);
 
-  // console.log(DirCount, fileCount);
   const [rename, setRename] = useState(false);
   const [directoryName, setDirectoryName] = useState(name);
   const [folderDetails, setFolderDetails] = useState(false);
-
-  const { setUserView } = useContext(UserSettingViewContext);
 
   async function handleRenameFolder() {
     if (!directoryName.trim()) {
       setError((prev) => [...prev, "Please provide a valid folder name"]);
       setTimeout(() => setError((prev) => prev.slice(1)), 3000);
-    } else {
-      try {
-        const { data, status } = await axiosWithCreds.patch(
-          `/directory/${_id || ""}`,
-          { folderName: directoryName },
-        );
-        if (status === 201) {
-          setFolderID(parentFID);
-          handleDirectoryDetails(parentFID);
-          setRename(false);
-        }
-        setUpdate((prev) => [...prev, data.message]);
-        setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
-      } catch (error) {
-        const msg = "Failed to rename folder";
-        axiosError(error, navigate, setError, msg);
+      return;
+    }
+
+    try {
+      const { data, status } = await axiosWithCreds.patch(
+        `/directory/${_id || ""}`,
+        { folderName: directoryName },
+      );
+
+      if (status === 201) {
+        setFolderID(parentFID);
+        handleDirectoryDetails(parentFID);
+        setRename(false);
       }
+
+      setUpdate((prev) => [...prev, data.message]);
+      setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
+    } catch (error) {
+      axiosError(error, navigate, setError, "Failed to rename folder");
     }
   }
 
@@ -69,110 +67,122 @@ export default function CompFolderItem({
       const { data, status } = await axiosWithCreds.delete(
         `/directory/${_id || ""}`,
       );
+
       if (status === 201) {
         setFolderID(parentFID);
         handleDirectoryDetails(parentFID);
-        setRename(false);
       }
+
       setUpdate((prev) => [...prev, data.message]);
       setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
     } catch (error) {
-      const msg = "Failed to delete folder";
-      axiosError(error, navigate, setError, msg);
+      axiosError(error, navigate, setError, "Failed to delete folder");
     }
   }
 
   return (
-    <div>
-      <div>
-        {/* //* ==========>FOLDER DETAILS MODAL */}
-        {folderDetails && (
-          <ModalFolderDetails
-            setFolderDetails={setFolderDetails}
-            fileCount={filesCount}
-            DirCount={foldersCount}
-            createdAt={createdAt}
-            updatedAt={updatedAt}
-            name={name}
-            size={size}
-          />
-        )}
-      </div>
+    <>
+      {/* FOLDER DETAILS MODAL */}
+      {folderDetails && (
+        <ModalFolderDetails
+          setFolderDetails={setFolderDetails}
+          fileCount={filesCount}
+          DirCount={foldersCount}
+          createdAt={createdAt}
+          updatedAt={updatedAt}
+          name={name}
+          size={size}
+        />
+      )}
+
       <div
-        key={_id}
         title={`Size: ${calSize(size)}`}
-        className={`flex justify-between p-2 items-center shadow-md hover:shadow-lg border-1 duration-300 bg-clrDarkGreen border-clrDarkGreen text-clrGray tracking-wider hover:bg-transparent hover:text-black rounded-sm`}
+        className="
+          flex justify-between items-center
+          px-3 py-2
+          rounded-md
+          border border-[var(--color-borderDefault)]
+          bg-[var(--color-bgSecondary)]
+          hover:bg-[var(--color-bgElevated)]
+          transition-all duration-200
+        "
       >
-        <div className={`w-[70%] cursor-pointer `}>
+        {/* LEFT SECTION */}
+        <div className="flex items-center gap-3 w-[70%]">
+          <input
+            type="checkbox"
+            className="scale-110 cursor-pointer accent-[var(--color-accentPrimary)]"
+          />
+
+          <FaRegStar className="text-[var(--color-textDisabled)]" />
+
           {rename ? (
-            <div className="flex items-center gap-2">
-              <span>
-                <FaFolder />
-              </span>
+            <div className="flex items-center gap-2 w-full">
+              <FaFolder className="text-[var(--color-warning)]" />
               <input
-                className="border-2 w-3/4 px-2 py-1 outline-none "
                 value={directoryName}
                 onChange={(e) => setDirectoryName(e.target.value)}
                 autoFocus
+                className="
+                  w-full px-2 py-1 rounded-md
+                  bg-[var(--color-bgPrimary)]
+                  border border-[var(--color-borderHover)]
+                  focus:outline-none
+                  focus:ring-2 focus:ring-[var(--color-accentFocus)]
+                "
               />
-              <button onClick={handleRenameFolder} className=" cursor-pointer">
+              <button
+                onClick={handleRenameFolder}
+                className="cursor-pointer text-[var(--color-success)]"
+              >
                 <MdSave />
               </button>
             </div>
           ) : (
             <Link
               to={`/directory/${_id}`}
-              className="truncate capitalize flex items-center gap-2 w-[95%]"
+              title={name}
+              className="
+                flex items-center gap-2
+                truncate capitalize
+                cursor-pointer
+                hover:underline
+                w-full
+              "
             >
-              <span>
-                <FaFolder />
-              </span>
-              {name}
+              <FaFolder className="text-[var(--color-warning)]" />
+              <span className="truncate">{name}</span>
             </Link>
           )}
         </div>
-        {/* //* ==========>SETTING */}
-        <div className="flex w-[30%] justify-between">
-          {/* //* ==========>INFO */}
-          <div className="flex gap-2 justify-between">
-            <button
-              onClick={() => setFolderDetails(true)}
-              className="flex gap-2 justify-between items-center w-full cursor-pointer  "
-            >
-              <MdOutlineInfo />
-            </button>
-          </div>
 
-          {/* //* ==========>RENAME */}
+        {/* RIGHT ACTIONS */}
+        <div className="flex items-center gap-3 w-[30%] justify-end">
+          <button
+            onClick={() => setFolderDetails(true)}
+            className="cursor-pointer hover:text-[var(--color-info)]"
+          >
+            <MdOutlineInfo />
+          </button>
+
           <button
             onClick={() => {
               setRename((prev) => !prev);
               setUserView(false);
             }}
-            className=" cursor-pointer"
+            className="cursor-pointer hover:text-[var(--color-warning)]"
           >
-            {rename ? (
-              <h1 className="flex gap-2 justify-between items-center  ">
-                <GiCancel />
-              </h1>
-            ) : (
-              <h1 className="flex gap-2 justify-between items-center  ">
-                <MdOutlineDriveFileRenameOutline />
-              </h1>
-            )}
+            {rename ? <GiCancel /> : <MdOutlineDriveFileRenameOutline />}
           </button>
 
-          {/* //* ==========>DELETE */}
-          <div className="flex gap-2 justify-between">
-            <button
-              onClick={handleDeleteFolder}
-              className="flex gap-2 justify-between items-center w-full cursor-pointer  "
-            >
-              <MdDelete />
-            </button>
-          </div>
+          <button
+            onClick={handleDeleteFolder}
+            className="cursor-pointer hover:text-[var(--color-error)]"
+          >
+            <MdDelete />
+          </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }

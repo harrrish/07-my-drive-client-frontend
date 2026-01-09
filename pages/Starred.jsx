@@ -1,25 +1,22 @@
 import { NavLink } from "react-router-dom";
-import { MdWorkspacePremium, MdHome } from "react-icons/md";
+import { MdStar, MdHome } from "react-icons/md";
 
-export default function PurchasePremium() {
+export default function Starred() {
   return (
     <div className="font-google min-h-screen bg-[var(--color-bgPrimary)] flex items-center px-4">
       <div className="w-full max-w-3xl mx-auto bg-[var(--color-bgSecondary)] text-[var(--color-textPrimary)] flex flex-col gap-6 items-center p-6 sm:p-8 rounded-xl border border-[var(--color-borderDefault)] shadow-2xl">
         <h1 className="flex items-center gap-3 text-3xl sm:text-4xl font-semibold tracking-wide">
-          <MdWorkspacePremium className="text-[var(--color-warning)] text-3xl sm:text-4xl" />
+          <MdStar className="text-[var(--color-warning)] text-3xl sm:text-4xl" />
           <span>
-            Purchase{" "}
-            <span className="text-[var(--color-textSecondary)]">Premium</span>
+            Starred{" "}
+            <span className="text-[var(--color-textSecondary)]">Files</span>
           </span>
         </h1>
 
         <p className="text-center text-sm sm:text-base leading-relaxed text-[var(--color-textSecondary)] max-w-xl">
-          Upgrade to{" "}
-          <span className="text-[var(--color-textPrimary)] font-medium">
-            My-Drive Premium
-          </span>{" "}
-          to unlock increased storage, faster uploads, priority access, and
-          enhanced collaboration features designed for power users.
+          Quickly access your most important files. Starred files help you keep
+          frequently used documents, folders, and media at your fingertips in
+          My-Drive.
         </p>
 
         <NavLink

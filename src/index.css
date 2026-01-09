@@ -76,16 +76,31 @@
   --font-google: "google", system-ui, sans-serif;
   --font-googleIt: "google-Italic", system-ui, sans-serif;
 
-  /* Define a single custom color */
-  --color-clrWhite: #ffffff;
-  --color-clrGray: #eeebeb;
-  --color-clrDisable: #eeebeb;
-  --color-clrYellow: #ffba00;
-  --color-clrRed: #ff4131;
-  --color-clrLightGreen: #00831e;
-  --color-clrDarkGreen: #00ad3c;
-  --color-clrLightBlue: #0084ff;
-  --color-clrDarkBlue: #0066dd;
+  /* Backgrounds */
+  --color-bgPrimary: #0b0f14;
+  --color-bgSecondary: #121826;
+  --color-bgElevated: #1a2232;
+
+  /* Text */
+  --color-textPrimary: #e5e7eb;
+  --color-textSecondary: #9ca3af;
+  --color-textDisabled: #6b7280;
+
+  /* Brand / Accent */
+  --color-accentPrimary: #29903a;
+  --color-accentHover: #1f7a31;
+  --color-accentFocus: #4ade80;
+
+  /* Action Colors */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Borders & Dividers */
+  --color-borderDefault: #2a3441;
+  --color-borderHover: #374151;
+  --color-borderActive: #29903a;
 
   --animate-slide: slide 3s ease-in-out 1;
 

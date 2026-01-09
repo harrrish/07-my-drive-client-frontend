@@ -13,27 +13,33 @@ export default function ModalsDiv({
   const { update } = useContext(UpdateContext);
 
   return (
-    <div>
+    <div className="relative z-40 font-google">
+      {/* SUCCESS TOASTS */}
       {Array.isArray(update) &&
         update.map((u, index) => (
-          <h1
+          <div
             key={index}
-            style={{ bottom: `${index * 3 + 2}rem`, right: "0" }}
-            className="max-w-1/2 absolute z-50 py-2 px-8 animate-slide bg-clrDarkGreen text-white tracking-wide"
+            style={{ bottom: `${index * 3 + 2}rem` }}
+            className="fixed right-2 max-w-lg px-4 py-2 rounded-md shadow-lg border border-[var(--color-borderActive)] bg-[var(--color-bgElevated)]
+              text-[var(--color-success)] text-sm animate-slide truncate font-medium"
           >
-            {u} !
-          </h1>
+            {u}
+          </div>
         ))}
+
+      {/* ERROR TOASTS */}
       {Array.isArray(error) &&
         error.map((e, index) => (
-          <h1
+          <div
             key={index}
-            style={{ top: `${index * 3 + 4}rem`, right: "0" }}
-            className="max-w-1/2 absolute z-50 py-2 px-8 animate-slide bg-clrRed text-white tracking-wide"
+            style={{ top: `${index * 3 + 4}rem` }}
+            className="fixed right-2 max-w-lg px-4 py-2 rounded-md shadow-lg border border-[var(--color-error)] bg-[var(--color-bgElevated)] text-[var(--color-error)] text-sm animate-slide truncate font-medium"
           >
-            {e} !
-          </h1>
+            {e}
+          </div>
         ))}
+
+      {/* CREATE FOLDER MODAL */}
       {showCreateFolder && (
         <ModalCreateFolder
           setCreateFolder={setCreateFolder}

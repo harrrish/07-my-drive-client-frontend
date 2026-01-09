@@ -18,66 +18,111 @@ export default function ModalFolderDetails({
   const { directoryDetails } = useContext(DirectoryContext);
 
   return (
-    <div className="fixed inset-0 z-50 w-full min-h-[100vh] bg-black/90 flex items-center justify-center">
-      <div className="w-[90%] sm:max-w-2xl p-4 bg-white rounded-sm">
-        <div className="flex items-center justify-between p-2 bg-clrDarkGreen text-white">
-          <h1 className="flex items-center gap-1">
-            <span>
-              <RiFolderInfoFill />
-            </span>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-3">
+      <div
+        className="
+          w-full max-w-2xl
+          rounded-xl
+          bg-[var(--color-bgSecondary)]
+          border border-[var(--color-borderDefault)]
+          shadow-2xl
+          text-[var(--color-textPrimary)]
+          font-google
+        "
+      >
+        {/* HEADER */}
+        <div
+          className="
+            flex items-center justify-between
+            px-4 py-3
+            border-b border-[var(--color-borderDefault)]
+            bg-[var(--color-bgElevated)]
+            rounded-t-xl
+          "
+        >
+          <h1 className="flex items-center gap-2 text-lg font-medium">
+            <RiFolderInfoFill className="text-[var(--color-accentFocus)] text-xl" />
             Folder Details
           </h1>
+
           <button
-            className="cursor-pointer"
+            className="
+              cursor-pointer
+              text-2xl
+              text-[var(--color-textSecondary)]
+              hover:text-[var(--color-error)]
+              transition-colors
+            "
             onClick={() => setFolderDetails(false)}
           >
             <IoCloseCircle />
           </button>
         </div>
 
-        <div className="p-2 flex flex-col gap-2">
-          <h1>
-            Name: <span className=" italic">{name}</span>
-          </h1>
-          <h1>
-            size: <span className=" italic">{calSize(size)}</span>
-          </h1>
-          <div className="flex gap-1">
-            <span>path:</span>
-            <div className="flex gap-1 items-center whitespace-nowrap  italic">
+        {/* CONTENT */}
+        <div className="px-4 py-4 flex flex-col gap-3 text-sm">
+          <div className="flex justify-between">
+            <span className="text-[var(--color-textSecondary)]">Name</span>
+            <span className="italic truncate max-w-[60%]" title={name}>
+              {name}
+            </span>
+          </div>
+
+          <div className="flex justify-between">
+            <span className="text-[var(--color-textSecondary)]">Size</span>
+            <span className="italic">{calSize(size)}</span>
+          </div>
+
+          {/* PATH */}
+          <div className="flex gap-2 items-start">
+            <span className="text-[var(--color-textSecondary)]">Path</span>
+            <div className="flex items-center gap-1 italic">
               {directoryDetails.path.map((p) => (
-                <div key={p.id} className="flex items-center">
+                <div key={p.id} className="flex items-center gap-1">
                   <button
-                    className=" truncate max-w-[150px] hover:underline cursor-pointer select-none capitalize"
+                    className="
+                      max-w-[140px]
+                      truncate
+                      capitalize
+                      cursor-pointer
+                      hover:underline
+                      text-[var(--color-info)]
+                    "
                     title={
                       p.name.includes("root") ? p.name.split("-")[0] : p.name
                     }
                   >
                     {p.name.includes("root") ? p.name.split("-")[0] : p.name}
                   </button>
-
-                  <span className="flex-shrink-0">
-                    <IoMdArrowDropright />
-                  </span>
+                  <IoMdArrowDropright className="text-[var(--color-textDisabled)]" />
                 </div>
               ))}
+
+              <span className="truncate max-w-[160px] italic" title={name}>
+                {name}
+              </span>
             </div>
-            <span className=" italic capitalize">{name}</span>
           </div>
-          <h1>
-            files: <span className=" italic">{fileCount}</span>
-          </h1>
-          <h1>
-            folders: <span className=" italic">{DirCount}</span>
-          </h1>
-          <h1>
-            _createdAt:
-            <span className=" italic"> {calDateNTime(createdAt)}</span>
-          </h1>
-          <h1>
-            _updatedAt:
-            <span className=" italic"> {calDateNTime(updatedAt)}</span>
-          </h1>
+
+          <div className="flex justify-between">
+            <span className="text-[var(--color-textSecondary)]">Files</span>
+            <span className="italic">{fileCount}</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span className="text-[var(--color-textSecondary)]">Folders</span>
+            <span className="italic">{DirCount}</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span className="text-[var(--color-textSecondary)]">Created</span>
+            <span className="italic">{calDateNTime(createdAt)}</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span className="text-[var(--color-textSecondary)]">Updated</span>
+            <span className="italic">{calDateNTime(updatedAt)}</span>
+          </div>
         </div>
       </div>
     </div>
