@@ -4,6 +4,7 @@ import CompGoogleBtn from "../components/GoogleBtn";
 import { axiosError, axiosWithOutCreds } from "../utils/AxiosInstance";
 import { MdPersonAdd } from "react-icons/md";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import axios from "axios";
 
 export default function PageUserRegister() {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ export default function PageUserRegister() {
         setVerifyOTP(true);
       }
     } catch (error) {
-      axiosError(error, navigate, setError, "Failed to request OTP");
+      axiosError(error, navigate, setError, "Something went wrong !");
     } finally {
       setRequestLoad(false);
     }
@@ -63,7 +64,11 @@ export default function PageUserRegister() {
         setTimeout(() => setUpdate(""), 3000);
       }
     } catch (error) {
-      axiosError(error, navigate, setError, "Failed to verify OTP");
+      const errorMsg = axios.isAxiosError(error)
+        ? error.response?.data?.error
+        : "Something went wrong !";
+      setError(errorMsg);
+      setTimeout(() => setError(""), 3000);
     } finally {
       setVerifyLoad(false);
     }
@@ -73,9 +78,9 @@ export default function PageUserRegister() {
     setRegisterLoad(true);
     try {
       await axiosWithOutCreds.post("/user/register", formData);
-      navigate("/login");
+      navigate("/login", { replace: true });
     } catch (error) {
-      axiosError(error, navigate, setError, "Failed to register user");
+      axiosError(error, navigate, setError, "Something went wrong !");
     } finally {
       setRegisterLoad(false);
     }

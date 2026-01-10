@@ -1,12 +1,13 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { MdSave, MdDelete, MdOutlineInfo } from "react-icons/md";
+import { MdSave, MdOutlineInfo } from "react-icons/md";
 import { FaFolder, FaRegStar } from "react-icons/fa";
 import { GiCancel } from "react-icons/gi";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import ModalFolderDetails from "../modals/ModalFolderDetails";
 import { calSize } from "../utils/CalculateFileSize";
 import { axiosError, axiosWithCreds } from "../utils/AxiosInstance";
+import { MdOutlineAutoDelete } from "react-icons/md";
 
 import {
   ErrorContext,
@@ -25,6 +26,7 @@ export default function CompFolderItem({
   size,
   updatedAt,
   isStarred,
+  isTrashed,
   _id,
   handleDirectoryDetails,
 }) {
@@ -47,7 +49,7 @@ export default function CompFolderItem({
 
     try {
       const { data, status } = await axiosWithCreds.patch(
-        `/directory/${_id || ""}`,
+        `/directory/rename/${_id || ""}`,
         { folderName: directoryName },
       );
 
@@ -60,25 +62,51 @@ export default function CompFolderItem({
       setUpdate((prev) => [...prev, data.message]);
       setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
     } catch (error) {
-      axiosError(error, navigate, setError, "Failed to rename folder");
+      axiosError(error, navigate, setError, "Something went wrong !");
     }
   }
 
-  async function handleDeleteFolder() {
+  async function handleStarFolder(id, isStarred) {
     try {
-      const { data, status } = await axiosWithCreds.delete(
-        `/directory/${_id || ""}`,
+      const { data, status } = await axiosWithCreds.patch(
+        `/directory/star/${_id}`,
+        {
+          isStarred,
+        },
       );
-
+      console.log(data.message);
       if (status === 201) {
-        setFolderID(parentFID);
         handleDirectoryDetails(parentFID);
+        setUpdate((prev) => [...prev, data.message]);
+        setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
       }
-
-      setUpdate((prev) => [...prev, data.message]);
-      setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
     } catch (error) {
-      axiosError(error, navigate, setError, "Failed to delete folder");
+      axiosError(
+        error,
+        navigate,
+        setError,
+        "Failed to add folder to favorites !",
+      );
+    }
+  }
+
+  async function handleTrashFolder(id, isTrashed) {
+    try {
+      const { data, status } = await axiosWithCreds.patch(
+        `/directory/trash/${_id}`,
+        {
+          isTrashed,
+        },
+      );
+      // console.log(data, status);
+      console.log(data.message);
+      if (status === 201) {
+        handleDirectoryDetails(parentFID);
+        setUpdate((prev) => [...prev, data.message]);
+        setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
+      }
+    } catch (error) {
+      axiosError(error, navigate, setError, "Something went wrong !");
     }
   }
 
@@ -125,7 +153,7 @@ export default function CompFolderItem({
 
           <button
             className="cursor-pointer"
-            onClick={() => console.log("Folder marked star !")}
+            onClick={() => handleStarFolder(_id, isStarred)}
           >
             {isStarred ? (
               <FaStar className="text-[var(--color-success)]" />
@@ -194,10 +222,10 @@ export default function CompFolderItem({
           </button>
 
           <button
-            onClick={handleDeleteFolder}
+            onClick={() => handleTrashFolder(_id, isTrashed)}
             className="cursor-pointer hover:text-[var(--color-error)]"
           >
-            <MdDelete />
+            <MdOutlineAutoDelete />
           </button>
         </div>
       </div>

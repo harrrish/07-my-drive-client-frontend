@@ -12,9 +12,11 @@ export const DirectoryContext = createContext();
 export const UserSettingViewContext = createContext();
 export const ListViewContext = createContext();
 
+export const FolderNotFound = createContext();
+
 //* DELETE
-export const FileCountContext = createContext();
-export const FilesContext = createContext();
-export const FolderCountContext = createContext();
-export const FoldersContext = createContext();
-export const PathContext = createContext();
+// export const FileCountContext = createContext();
+// export const FilesContext = createContext();
+// export const FolderCountContext = createContext();
+// export const FoldersContext = createContext();
+// export const PathContext = createContext();

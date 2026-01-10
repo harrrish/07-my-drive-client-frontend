@@ -34,7 +34,7 @@ export default function ModalCreateFolder({
           setCreateLoad(false);
         }
       } catch (error) {
-        axiosError(error, navigate, setError, "Failed to create folder");
+        axiosError(error, navigate, setError, "Something went wrong !");
         setCreateLoad(false);
       }
     }

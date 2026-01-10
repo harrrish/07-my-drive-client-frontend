@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   MdOutlineInfo,
   MdSave,
-  MdDelete,
   MdOutlineDriveFileRenameOutline,
+  MdOutlineAutoDelete,
 } from "react-icons/md";
 import { GiCancel } from "react-icons/gi";
 import { FaDownload } from "react-icons/fa6";
@@ -29,9 +29,12 @@ export default function CompFileItem({
   parentFID,
   basename,
   isStarred,
+  isTrashed,
   handleDirectoryDetails,
   handleUserStorageDetails,
 }) {
+  // console.log(parentFID);
+
   const navigate = useNavigate();
   const [rename, setRename] = useState(false);
   const [itemName, setItemName] = useState(basename);
@@ -49,7 +52,7 @@ export default function CompFileItem({
 
     try {
       const { data, status } = await axiosWithCreds.patch(
-        `/file/${_id || ""}`,
+        `/file/rename/${_id || ""}`,
         {
           newName: `${itemName}${extension}`,
           basename: itemName,
@@ -64,24 +67,47 @@ export default function CompFileItem({
         setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
       }
     } catch (error) {
-      axiosError(error, navigate, setError, "Failed to rename file");
+      axiosError(error, navigate, setError, "Something went wrong !");
     }
   }
 
-  async function handleFileDelete() {
+  async function handleFileStar(id, isStarred) {
+    console.log(id);
+    console.log(isStarred);
     try {
-      const { data, status } = await axiosWithCreds.delete(
-        `/file/${_id || ""}`,
-      );
-
+      const { data, status } = await axiosWithCreds.patch(`/file/star/${_id}`, {
+        isStarred,
+      });
+      console.log(data.message);
       if (status === 201) {
         handleDirectoryDetails(parentFID);
-        setRename(false);
         setUpdate((prev) => [...prev, data.message]);
         setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
       }
     } catch (error) {
-      axiosError(error, navigate, setError, "Failed to delete file");
+      axiosError(
+        error,
+        navigate,
+        setError,
+        "Failed to add file to favorites !",
+      );
+    }
+  }
+
+  async function handleFileTrash(id, isTrashed) {
+    try {
+      const { data, status } = await axiosWithCreds.patch(`/file/trash/${id}`, {
+        isTrashed,
+      });
+      // console.log(data, status);
+      console.log(data.message);
+      if (status === 201) {
+        handleDirectoryDetails(parentFID);
+        setUpdate((prev) => [...prev, data.message]);
+        setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
+      }
+    } catch (error) {
+      axiosError(error, navigate, setError, "Something went wrong !");
     }
   }
 
@@ -118,18 +144,11 @@ export default function CompFileItem({
           <input
             type="checkbox"
             className="scale-110 cursor-pointer accent-[var(--color-accentPrimary)]"
-            onChange={(e) => {
-              if (e.target.checked) {
-                console.log(`Checked, File ID: ${_id}`);
-              } else {
-                console.log(`Unchecked, File ID: ${_id}`);
-              }
-            }}
           />
 
           <button
             className="cursor-pointer"
-            onClick={() => console.log("File marked star !")}
+            onClick={() => handleFileStar(_id, isStarred)}
           >
             {isStarred ? (
               <FaStar className="text-[var(--color-success)]" />
@@ -221,11 +240,10 @@ export default function CompFileItem({
           </button>
 
           <button
-            onClick={handleFileDelete}
+            onClick={() => handleFileTrash(_id, isTrashed)}
             className="cursor-pointer hover:text-[var(--color-error)]"
-            title="Delete"
           >
-            <MdDelete />
+            <MdOutlineAutoDelete />
           </button>
         </div>
       </div>

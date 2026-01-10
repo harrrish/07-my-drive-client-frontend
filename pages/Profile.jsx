@@ -29,7 +29,7 @@ export default function PageUserProfile() {
       });
       setUserDetails({ ...data });
     } catch (error) {
-      axiosError(error, navigate, setError, "Failed to fetch user info");
+      axiosError(error, navigate, setError, "Something went wrong !");
     }
   }, [setUserDetails, navigate, setError]);
 
@@ -40,7 +40,7 @@ export default function PageUserProfile() {
       });
       setUserStorage({ ...data });
     } catch (error) {
-      axiosError(error, navigate, setError, "Failed to fetch storage info");
+      axiosError(error, navigate, setError, "Something went wrong !");
     }
   }, [setUserStorage, navigate, setError]);
 
@@ -89,7 +89,7 @@ export default function PageUserProfile() {
 
         {/* User Info */}
         <div className="flex justify-between items-center bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] rounded-lg px-4 py-2">
-          <span className="font-medium">{userDetails.name}</span>
+          <span className="font-medium capitalize">{userDetails.name}</span>
           <span className="text-sm text-[var(--color-textSecondary)]">
             BASIC
           </span>

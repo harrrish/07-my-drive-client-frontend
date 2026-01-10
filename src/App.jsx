@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DirectoryView from "../pages/Directory";
 import UserRegister from "../pages/Register";
 import UserLogin from "../pages/Login";
-import Trash from "../pages/Trash";
+import Trashed from "../pages/Trashed";
 import UserProfile from "../pages/Profile";
 import PurchasePremium from "../pages/Purchase";
 import Home from "../pages/Home";
@@ -53,8 +53,8 @@ const router = createBrowserRouter([
     element: <Shared />,
   },
   {
-    path: "/trash",
-    element: <Trash />,
+    path: "/trashed",
+    element: <Trashed />,
   },
   {
     path: "/purchase-premium",

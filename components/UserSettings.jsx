@@ -33,7 +33,7 @@ export default function UserSettings() {
         setLogout(false);
       }
     } catch (error) {
-      axiosError(error, navigate, setError, "Failed to logout user");
+      axiosError(error, navigate, setError, "Something went wrong !");
       setLogout(false);
     }
   }
@@ -97,7 +97,7 @@ export default function UserSettings() {
         </button>
 
         <button
-          onClick={() => navigate("/trash")}
+          onClick={() => navigate("/trashed")}
           className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
         >
           <FaTrash className="text-lg" />

@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CompGoogleBtn from "../components/GoogleBtn";
-import { axiosError, axiosWithCreds } from "../utils/AxiosInstance";
+import { axiosWithCreds } from "../utils/AxiosInstance";
 import { UserSettingViewContext } from "../utils/Contexts";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { VscSignIn } from "react-icons/vsc";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 export default function PageUserLogin() {
   const navigate = useNavigate();
@@ -34,12 +35,16 @@ export default function PageUserLogin() {
     } else {
       try {
         const { data } = await axiosWithCreds.post("/user/login", formData);
-        console.log("login:", data.message);
+        console.log(data.message);
         setUserView(false);
-        navigate("/directory");
+        navigate("/directory", { replace: true });
         setLogin(false);
       } catch (error) {
-        axiosError(error, navigate, setError, "Failed to login user");
+        const errorMsg = axios.isAxiosError(error)
+          ? error.response?.data?.error
+          : "Something went wrong !";
+        setError(errorMsg);
+        setTimeout(() => setError(""), 3000);
         setLogin(false);
       }
     }
