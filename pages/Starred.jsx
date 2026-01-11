@@ -20,28 +20,23 @@ export default function Starred() {
   const fetchStarredItems = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await axiosWithCreds.get(`/starred`);
+      const { data } = await axiosWithCreds.get(`/star/contents`);
       setFoldersList(data.folders || []);
       setFilesList(data.files || []);
       setFoldersCount(data.foldersCount || 0);
       setFilesCount(data.filesCount || 0);
     } catch (error) {
-      axiosError(
-        error,
-        navigate,
-        setError,
-        "Failed to fetch starred contents !",
-      );
+      axiosError(error, navigate, setError, "Something went wrong!");
     } finally {
       setLoading(false);
     }
   }, [navigate, setError]);
 
   async function handleStarFolder(_id, isStarred) {
+    const val = !isStarred ? "add" : "remove";
     try {
       const { data, status } = await axiosWithCreds.patch(
-        `/directory/star/${_id}`,
-        { isStarred },
+        `/star/${val}/folder/${_id}`,
       );
       if (status === 201) {
         fetchStarredItems();
@@ -54,10 +49,11 @@ export default function Starred() {
   }
 
   async function handleFileStar(_id, isStarred) {
+    const val = !isStarred ? "add" : "remove";
     try {
-      const { data, status } = await axiosWithCreds.patch(`/file/star/${_id}`, {
-        isStarred,
-      });
+      const { data, status } = await axiosWithCreds.patch(
+        `/star/${val}/file/${_id}`,
+      );
       if (status === 201) {
         fetchStarredItems();
         setUpdate((prev) => [...prev, data.message]);
@@ -116,7 +112,7 @@ export default function Starred() {
             {foldersList.length > 0 && (
               <div className="flex flex-col gap-2">
                 <h2 className="text-sm uppercase tracking-wide text-[var(--color-textSecondary)]">
-                  Starred Folders
+                  Folders
                 </h2>
 
                 {foldersList.map((f) => (
@@ -138,11 +134,7 @@ export default function Starred() {
                       onClick={() => handleStarFolder(f._id, f.isStarred)}
                       title="Un-star folder"
                     >
-                      {f.isStarred ? (
-                        <FaStar className="text-[var(--color-success)]" />
-                      ) : (
-                        <FaRegStar className="text-[var(--color-textDisabled)]" />
-                      )}
+                      <FaStar className="text-[var(--color-success)]" />
                     </button>
                   </div>
                 ))}
@@ -153,7 +145,7 @@ export default function Starred() {
             {filesList.length > 0 && (
               <div className="flex flex-col gap-2">
                 <h2 className="text-sm uppercase tracking-wide text-[var(--color-textSecondary)]">
-                  Starred Files
+                  Files
                 </h2>
 
                 {filesList.map((f) => (
@@ -168,11 +160,7 @@ export default function Starred() {
                       onClick={() => handleFileStar(f._id, f.isStarred)}
                       title="Un-star file"
                     >
-                      {f.isStarred ? (
-                        <FaStar className="text-[var(--color-success)]" />
-                      ) : (
-                        <FaRegStar className="text-[var(--color-textDisabled)]" />
-                      )}
+                      <FaStar className="text-[var(--color-success)]" />
                     </button>
                   </div>
                 ))}

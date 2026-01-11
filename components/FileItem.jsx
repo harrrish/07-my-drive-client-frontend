@@ -71,26 +71,20 @@ export default function CompFileItem({
     }
   }
 
-  async function handleFileStar(id, isStarred) {
-    console.log(id);
-    console.log(isStarred);
+  async function handleFileStar() {
+    const val = !isStarred ? "add" : "remove";
     try {
-      const { data, status } = await axiosWithCreds.patch(`/file/star/${_id}`, {
-        isStarred,
-      });
-      console.log(data.message);
+      const { data, status } = await axiosWithCreds.patch(
+        `/star/${val}/file/${_id}`,
+      );
       if (status === 201) {
+        console.log(data.message);
         handleDirectoryDetails(parentFID);
         setUpdate((prev) => [...prev, data.message]);
         setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
       }
     } catch (error) {
-      axiosError(
-        error,
-        navigate,
-        setError,
-        "Failed to add file to favorites !",
-      );
+      axiosError(error, navigate, setError, "Something went wrong !");
     }
   }
 
@@ -146,10 +140,7 @@ export default function CompFileItem({
             className="scale-110 cursor-pointer accent-[var(--color-accentPrimary)]"
           />
 
-          <button
-            className="cursor-pointer"
-            onClick={() => handleFileStar(_id, isStarred)}
-          >
+          <button className="cursor-pointer" onClick={handleFileStar}>
             {isStarred ? (
               <FaStar className="text-[var(--color-success)]" />
             ) : (

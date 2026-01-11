@@ -80,12 +80,7 @@ export default function Trash() {
       setFoldersCount(data.foldersCount || 0);
       setFilesCount(data.filesCount || 0);
     } catch (error) {
-      axiosError(
-        error,
-        navigate,
-        setError,
-        "Failed to fetch trashed contents !",
-      );
+      axiosError(error, navigate, setError, "Something went wrong !");
     } finally {
       setLoading(false);
     }

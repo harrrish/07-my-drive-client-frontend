@@ -66,31 +66,24 @@ export default function CompFolderItem({
     }
   }
 
-  async function handleStarFolder(id, isStarred) {
+  async function handleStarFolder() {
+    const val = !isStarred ? "add" : "remove";
     try {
       const { data, status } = await axiosWithCreds.patch(
-        `/directory/star/${_id}`,
-        {
-          isStarred,
-        },
+        `/star/${val}/folder/${_id}`,
       );
-      console.log(data.message);
       if (status === 201) {
+        console.log(data.message);
         handleDirectoryDetails(parentFID);
         setUpdate((prev) => [...prev, data.message]);
         setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
       }
     } catch (error) {
-      axiosError(
-        error,
-        navigate,
-        setError,
-        "Failed to add folder to favorites !",
-      );
+      axiosError(error, navigate, setError, "Something went wrong !");
     }
   }
 
-  async function handleTrashFolder(id, isTrashed) {
+  async function handleTrashFolder() {
     try {
       const { data, status } = await axiosWithCreds.patch(
         `/directory/trash/${_id}`,
@@ -151,10 +144,7 @@ export default function CompFolderItem({
             }}
           />
 
-          <button
-            className="cursor-pointer"
-            onClick={() => handleStarFolder(_id, isStarred)}
-          >
+          <button className="cursor-pointer" onClick={handleStarFolder}>
             {isStarred ? (
               <FaStar className="text-[var(--color-success)]" />
             ) : (
@@ -222,7 +212,7 @@ export default function CompFolderItem({
           </button>
 
           <button
-            onClick={() => handleTrashFolder(_id, isTrashed)}
+            onClick={handleTrashFolder}
             className="cursor-pointer hover:text-[var(--color-error)]"
           >
             <MdOutlineAutoDelete />
