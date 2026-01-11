@@ -84,16 +84,14 @@ export default function CompFolderItem({
   }
 
   async function handleTrashFolder() {
+    const val = !isTrashed ? "move" : "remove";
     try {
       const { data, status } = await axiosWithCreds.patch(
-        `/directory/trash/${_id}`,
-        {
-          isTrashed,
-        },
+        `/trash/${val}/folder/${_id}`,
       );
       // console.log(data, status);
-      console.log(data.message);
       if (status === 201) {
+        console.log(data.message);
         handleDirectoryDetails(parentFID);
         setUpdate((prev) => [...prev, data.message]);
         setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);

@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { MdDelete, MdHome } from "react-icons/md";
-import { FaUndo } from "react-icons/fa";
+import { FaFolder, FaUndo } from "react-icons/fa";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { ErrorContext, UpdateContext } from "../utils/Contexts";
 import { axiosError, axiosWithCreds } from "../utils/AxiosInstance";
@@ -8,8 +8,8 @@ import ModalConfirmFolderDelete from "../modals/ModalConfirmFolderDelete";
 import ModalConfirmFileDelete from "../modals/ModalConfirmFileDelete";
 import ModalsDiv from "../modals/ModalsDiv";
 import Shimmer from "../components/Shimmer";
-import TrashPageFolderNotFound from "../modals/TrashPageFolderNotFound";
-import TrashPageFileParentNotFound from "../modals/TrashPageFileParentNotFound";
+import CantRestoreFile from "../modals/CantRestoreFile";
+import CantRestoreFolder from "../modals/CantRestoreFolder";
 
 export default function Trash() {
   const navigate = useNavigate();
@@ -29,10 +29,10 @@ export default function Trash() {
   const [cantRestoreFile, setCantRestoreFile] = useState(false);
 
   async function handleTrashFolder(id, isTrashed) {
+    const val = !isTrashed ? "move" : "remove";
     try {
       const { data, status } = await axiosWithCreds.patch(
-        `/directory/trash/${id}`,
-        { isTrashed },
+        `/trash/${val}/folder/${id}`,
       );
 
       if (status === 201) {
@@ -42,7 +42,7 @@ export default function Trash() {
       }
     } catch (error) {
       const errorMessage = error.response.data.error;
-      if (errorMessage === "Folder may be deleted or Access denied") {
+      if (errorMessage === "Parent folder is not accessible !") {
         setCantRestoreFolder(true);
       } else {
         axiosError(error, navigate, setError, "Something went wrong !");
@@ -51,19 +51,21 @@ export default function Trash() {
   }
 
   async function handleTrashFile(id, isTrashed) {
+    const val = !isTrashed ? "move" : "remove";
     try {
-      const { data, status } = await axiosWithCreds.patch(`/file/trash/${id}`, {
-        isTrashed,
-      });
-
+      const { data, status } = await axiosWithCreds.patch(
+        `/trash/${val}/file/${id}`,
+      );
       if (status === 201) {
+        console.log(data.message);
+        fetchTrashedItems();
         setUpdate((prev) => [...prev, data.message]);
         setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
-        fetchTrashedItems();
       }
     } catch (error) {
-      const errorMessage = error.response.data.error;
-      if (errorMessage === "Folder may be deleted or Access denied") {
+      const errMessage = error.response.data.error;
+      console.log(errMessage);
+      if (errMessage === "Folder containing file is not accessible !") {
         setCantRestoreFile(true);
       } else {
         axiosError(error, navigate, setError, "Something went wrong !");
@@ -74,7 +76,7 @@ export default function Trash() {
   const fetchTrashedItems = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await axiosWithCreds.get(`/trashed`);
+      const { data } = await axiosWithCreds.get(`/trash/contents`);
       setFoldersList(data.folders || []);
       setFilesList(data.files || []);
       setFoldersCount(data.foldersCount || 0);
@@ -99,12 +101,12 @@ export default function Trash() {
         handleDirectoryDetails={() => {}}
       />
       {cantRestoreFile && (
-        <TrashPageFileParentNotFound setCantRestoreFile={setCantRestoreFile} />
+        <CantRestoreFile setCantRestoreFile={setCantRestoreFile} />
+      )}
+      {cantRestoreFolder && (
+        <CantRestoreFolder setCantRestoreFolder={setCantRestoreFolder} />
       )}
 
-      {cantRestoreFolder && (
-        <TrashPageFolderNotFound setCantRestoreFolder={setCantRestoreFolder} />
-      )}
       <div className="min-h-screen bg-[var(--color-bgPrimary)] px-4 py-6 font-google text-[var(--color-textPrimary)]">
         {deleteFolderID && (
           <ModalConfirmFolderDelete
@@ -186,14 +188,20 @@ export default function Trash() {
                       key={f._id}
                       className="flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] border border-[var(--color-borderDefault)] hover:border-[var(--color-borderHover)]"
                     >
-                      <span className="capitalize truncate w-[85%]">
-                        {f.name}
-                      </span>
+                      {/* FOLDER NAME */}
+                      <div className="flex items-center gap-2 w-[85%] min-w-0">
+                        <FaFolder className="text-[var(--color-warning)] flex-shrink-0" />
+                        <span className="capitalize truncate text-[var(--color-textPrimary)]">
+                          {f.name}
+                        </span>
+                      </div>
 
+                      {/* ACTIONS */}
                       <div className="flex items-center gap-4">
                         <FaUndo
                           onClick={() => handleTrashFolder(f._id, f.isTrashed)}
                           className="cursor-pointer text-[var(--color-success)] hover:scale-110 transition"
+                          title="Restore folder"
                         />
 
                         <MdDelete
@@ -202,6 +210,7 @@ export default function Trash() {
                             setDeleteFileID(null);
                           }}
                           className="cursor-pointer text-[var(--color-error)] opacity-70 hover:opacity-100"
+                          title="Delete permanently"
                         />
                       </div>
                     </div>

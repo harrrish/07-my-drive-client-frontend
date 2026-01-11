@@ -88,14 +88,14 @@ export default function CompFileItem({
     }
   }
 
-  async function handleFileTrash(id, isTrashed) {
+  async function handleFileTrash() {
+    const val = !isTrashed ? "move" : "remove";
     try {
-      const { data, status } = await axiosWithCreds.patch(`/file/trash/${id}`, {
-        isTrashed,
-      });
-      // console.log(data, status);
-      console.log(data.message);
+      const { data, status } = await axiosWithCreds.patch(
+        `/trash/${val}/file/${_id}`,
+      );
       if (status === 201) {
+        console.log(data.message);
         handleDirectoryDetails(parentFID);
         setUpdate((prev) => [...prev, data.message]);
         setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
