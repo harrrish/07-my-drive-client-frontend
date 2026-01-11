@@ -63,7 +63,8 @@ export default function PageDirectoryView() {
   const handleDirectoryDetails = useCallback(
     async (dirID) => {
       try {
-        const { data } = await axiosWithCreds.get(`/directory/${dirID || ""}`);
+        const endpoint = dirID ? `/directory/${dirID}` : `/directory`;
+        const { data } = await axiosWithCreds.get(endpoint);
         setDirectoryDetails((prev) => ({
           ...prev,
           ...data,
@@ -77,7 +78,7 @@ export default function PageDirectoryView() {
       } catch (error) {
         const notFound =
           error.response?.data?.error ===
-          "Folder may be deleted or Access denied";
+          "Folder may be deleted or Access denied !";
         if (notFound) {
           setFolderNotFound(true);
         } else {

@@ -18,11 +18,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/directory",
-    element: <DirectoryView />,
+    element: <DirectoryView key="root" />,
   },
   {
     path: "/directory/:dirID",
-    element: <DirectoryView />,
+    element: <DirectoryView key="folder" />,
   },
   {
     path: "/register",
