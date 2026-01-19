@@ -5,6 +5,7 @@ import {
   MdSave,
   MdOutlineDriveFileRenameOutline,
   MdOutlineAutoDelete,
+  MdBlock,
 } from "react-icons/md";
 import { GiCancel } from "react-icons/gi";
 import { FaDownload } from "react-icons/fa6";
@@ -16,6 +17,9 @@ import ModalFileDetails from "../modals/ModalFileDetails";
 import { calSize } from "../utils/CalculateFileSize";
 import { ErrorContext, UpdateContext } from "../utils/Contexts";
 import { axiosError, axiosWithCreds } from "../utils/AxiosInstance";
+import { fileTypes } from "../utils/FileTypes";
+import { TbEyeCancel } from "react-icons/tb";
+import ShareFile from "../modals/ShareFile";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -30,15 +34,17 @@ export default function CompFileItem({
   basename,
   isStarred,
   isTrashed,
+  sharedWith,
   handleDirectoryDetails,
   handleUserStorageDetails,
 }) {
-  // console.log(parentFID);
-
   const navigate = useNavigate();
   const [rename, setRename] = useState(false);
   const [itemName, setItemName] = useState(basename);
   const [fileDetails, setFileDetails] = useState(false);
+
+  const [share, setShare] = useState(false);
+  const [sharedLink, setSharedLink] = useState(null);
 
   const { setUpdate } = useContext(UpdateContext);
   const { setError } = useContext(ErrorContext);
@@ -52,7 +58,7 @@ export default function CompFileItem({
 
     try {
       const { data, status } = await axiosWithCreds.patch(
-        `/file/rename/${_id || ""}`,
+        `/file/rename/${_id}`,
         {
           newName: `${itemName}${extension}`,
           basename: itemName,
@@ -78,7 +84,6 @@ export default function CompFileItem({
         `/star/${val}/file/${_id}`,
       );
       if (status === 201) {
-        console.log(data.message);
         handleDirectoryDetails(parentFID);
         setUpdate((prev) => [...prev, data.message]);
         setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
@@ -95,10 +100,25 @@ export default function CompFileItem({
         `/trash/${val}/file/${_id}`,
       );
       if (status === 201) {
-        console.log(data.message);
         handleDirectoryDetails(parentFID);
         setUpdate((prev) => [...prev, data.message]);
         setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
+      }
+    } catch (error) {
+      axiosError(error, navigate, setError, "Something went wrong !");
+    }
+  }
+
+  async function handleShareFile() {
+    try {
+      const { data, status } = await axiosWithCreds.get(
+        `/share/file/url/${_id}`,
+      );
+      if (status === 200) {
+        setShare(true);
+        setSharedLink(data.message);
+        // setUpdate((prev) => [...prev, data.message]);
+        // setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
       }
     } catch (error) {
       axiosError(error, navigate, setError, "Something went wrong !");
@@ -119,53 +139,77 @@ export default function CompFileItem({
         />
       )}
 
+      {share && (
+        <ShareFile
+          setShare={setShare}
+          sharedLink={sharedLink}
+          name={name}
+          parentFID={parentFID}
+          handleDirectoryDetails={handleDirectoryDetails}
+          _id={_id}
+        />
+      )}
+
       <div
         title={`Name: ${name}\nSize: ${calSize(size)}\nCreated: ${new Date(
           createdAt,
         ).toLocaleString()}`}
         className="
-          flex justify-between items-center
-          px-3 py-2
-          rounded-md
+          group flex items-center justify-between
+          px-3 py-2.5
+          rounded-lg
           border border-[var(--color-borderDefault)]
           bg-[var(--color-bgSecondary)]
           hover:bg-[var(--color-bgElevated)]
-          transition-all duration-200
+          hover:border-[var(--color-borderHover)]
+          transition-all duration-150
         "
       >
         {/* LEFT SECTION */}
-        <div className="flex items-center gap-3 w-[70%]">
+        <div className="flex items-center gap-3 min-w-0 flex-1">
           <input
             type="checkbox"
-            className="scale-110 cursor-pointer accent-[var(--color-accentPrimary)]"
+            className="
+              scale-110 cursor-pointer
+              accent-[var(--color-accentPrimary)]
+            "
           />
 
-          <button className="cursor-pointer" onClick={handleFileStar}>
+          <button
+            onClick={handleFileStar}
+            className="cursor-pointer"
+            title={isStarred ? "Unstar" : "Star"}
+          >
             {isStarred ? (
               <FaStar className="text-[var(--color-success)]" />
             ) : (
-              <FaRegStar className="text-[var(--color-textDisabled)]" />
+              <FaRegStar className="text-[var(--color-textDisabled)] group-hover:text-[var(--color-textSecondary)]" />
             )}
           </button>
 
           {rename ? (
-            <div className="flex items-center gap-2 w-full">
+            <div className="flex items-center gap-2 min-w-0 flex-1">
               <CompFileIcon ext={extension} />
+
               <input
                 value={itemName}
                 onChange={(e) => setItemName(e.target.value)}
                 autoFocus
                 className="
-                  w-full px-2 py-1 rounded-md
+                  w-full px-2 py-1 text-sm
+                  rounded-md
                   bg-[var(--color-bgPrimary)]
                   border border-[var(--color-borderHover)]
+                  text-[var(--color-textPrimary)]
                   focus:outline-none
                   focus:ring-2 focus:ring-[var(--color-accentFocus)]
                 "
               />
+
               <button
                 onClick={handleFileRename}
-                className="cursor-pointer text-[var(--color-success)]"
+                className="cursor-pointer text-[var(--color-success)] hover:scale-110 transition"
+                title="Save"
               >
                 <MdSave />
               </button>
@@ -184,10 +228,11 @@ export default function CompFileItem({
               }}
               title={basename}
               className="
-                flex items-center gap-2
+                flex items-center gap-2 min-w-0
                 truncate cursor-pointer
+                text-sm
+                text-[var(--color-textPrimary)]
                 hover:underline
-                w-full
               "
             >
               <CompFileIcon ext={extension} />
@@ -196,8 +241,25 @@ export default function CompFileItem({
           )}
         </div>
 
+        {/* PREVIEW DISABLED */}
+        {!fileTypes.includes(extension) && (
+          <span
+            className="text-[var(--color-textDisabled)] mx-2"
+            title="Preview not available, File format not supported !"
+          >
+            <TbEyeCancel />
+          </span>
+        )}
+
         {/* RIGHT ACTIONS */}
-        <div className="flex items-center gap-3 w-[30%] justify-end">
+        <div
+          className="
+            flex items-center gap-3
+            text-[var(--color-textSecondary)]
+            opacity-40 group-hover:opacity-100
+            transition-opacity duration-150
+          "
+        >
           <button
             onClick={() => setFileDetails(true)}
             className="cursor-pointer hover:text-[var(--color-info)]"
@@ -207,7 +269,7 @@ export default function CompFileItem({
           </button>
 
           <button
-            onClick={() => console.log(`Share: ${_id} | ${name}`)}
+            onClick={handleShareFile}
             className="cursor-pointer hover:text-[var(--color-info)]"
             title="Share"
           >
@@ -230,12 +292,19 @@ export default function CompFileItem({
             {rename ? <GiCancel /> : <MdOutlineDriveFileRenameOutline />}
           </button>
 
-          <button
-            onClick={() => handleFileTrash(_id, isTrashed)}
-            className="cursor-pointer hover:text-[var(--color-error)]"
-          >
-            <MdOutlineAutoDelete />
-          </button>
+          {sharedWith.length > 0 ? (
+            <span title="Shared File cannot be Deleted !">
+              <MdBlock />
+            </span>
+          ) : (
+            <button
+              onClick={handleFileTrash}
+              className="cursor-pointer hover:text-[var(--color-error)]"
+              title="Move to trash"
+            >
+              <MdOutlineAutoDelete />
+            </button>
+          )}
         </div>
       </div>
     </>

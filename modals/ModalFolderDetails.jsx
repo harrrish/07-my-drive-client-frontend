@@ -51,22 +51,22 @@ export default function ModalFolderDetails({
 
         {/* CONTENT */}
         <div className="px-4 py-4 flex flex-col gap-3 text-sm">
-          <div className="flex justify-between">
-            <span className="text-[var(--color-textSecondary)]">Name</span>
-            <span className="italic truncate max-w-[60%]" title={name}>
+          <div className="flex items-center gap-1">
+            <span className="text-[var(--color-textSecondary)]">Name:</span>
+            <span className=" truncate max-w-[60%]" title={name}>
               {name}
             </span>
           </div>
 
-          <div className="flex justify-between">
-            <span className="text-[var(--color-textSecondary)]">Size</span>
-            <span className="italic">{calSize(size)}</span>
+          <div className="flex items-center gap-1">
+            <span className="text-[var(--color-textSecondary)]">Size:</span>
+            <span className="">{calSize(size)}</span>
           </div>
 
           {/* PATH */}
           <div className="flex gap-2 items-start">
-            <span className="text-[var(--color-textSecondary)]">Path</span>
-            <div className="flex items-center gap-1 italic">
+            <span className="text-[var(--color-textSecondary)]">Path:</span>
+            <div className="flex items-center gap-1 ">
               {directoryDetails.path.map((p) => (
                 <div key={p.id} className="flex items-center gap-1">
                   <button
@@ -75,8 +75,7 @@ export default function ModalFolderDetails({
                       truncate
                       capitalize
                       cursor-pointer
-                      hover:underline
-                      text-[var(--color-info)]
+                     
                     "
                     title={
                       p.name.includes("root") ? p.name.split("-")[0] : p.name
@@ -88,30 +87,30 @@ export default function ModalFolderDetails({
                 </div>
               ))}
 
-              <span className="truncate max-w-[160px] italic" title={name}>
+              <span className="truncate max-w-[160px] " title={name}>
                 {name}
               </span>
             </div>
           </div>
 
-          <div className="flex justify-between">
-            <span className="text-[var(--color-textSecondary)]">Files</span>
-            <span className="italic">{fileCount}</span>
+          <div className="flex items-center gap-1">
+            <span className="text-[var(--color-textSecondary)]">Files:</span>
+            <span className="">{fileCount}</span>
           </div>
 
-          <div className="flex justify-between">
-            <span className="text-[var(--color-textSecondary)]">Folders</span>
-            <span className="italic">{DirCount}</span>
+          <div className="flex items-center gap-1">
+            <span className="text-[var(--color-textSecondary)]">Folders:</span>
+            <span className="">{DirCount}</span>
           </div>
 
-          <div className="flex justify-between">
-            <span className="text-[var(--color-textSecondary)]">Created</span>
-            <span className="italic">{calDateNTime(createdAt)}</span>
+          <div className="flex items-center gap-1">
+            <span className="text-[var(--color-textSecondary)]">Created:</span>
+            <span className="">{calDateNTime(createdAt)}</span>
           </div>
 
-          <div className="flex justify-between">
-            <span className="text-[var(--color-textSecondary)]">Updated</span>
-            <span className="italic">{calDateNTime(updatedAt)}</span>
+          <div className="flex items-center gap-1">
+            <span className="text-[var(--color-textSecondary)]">Updated:</span>
+            <span className="">{calDateNTime(updatedAt)}</span>
           </div>
         </div>
       </div>

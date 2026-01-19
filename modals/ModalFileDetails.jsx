@@ -60,14 +60,14 @@ export default function ModalFileDetails({
         <div className="p-4 flex flex-col gap-3 text-sm sm:text-base">
           <div className="flex gap-2">
             <span className="text-[var(--color-textSecondary)]">Name:</span>
-            <span title={name} className="italic break-all truncate">
+            <span title={name} className=" break-all truncate">
               {name}
             </span>
           </div>
 
           <div className="flex flex-wrap gap-2">
             <span className="text-[var(--color-textSecondary)]">Size:</span>
-            <span className="italic">{calSize(size)}</span>
+            <span className="">{calSize(size)}</span>
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -81,11 +81,11 @@ export default function ModalFileDetails({
           <div className="flex gap-2 items-start">
             <span className="text-[var(--color-textSecondary)]">Path:</span>
 
-            <div className="flex items-center gap-1 italic text-[var(--color-textPrimary)]">
+            <div className="flex items-center gap-1  text-[var(--color-textPrimary)]">
               {directoryDetails.path.map((p) => (
                 <div key={p.id} className="flex items-center gap-1">
                   <button
-                    className="max-w-[140px] truncate capitalize cursor-pointer hover:underline text-[var(--color-info)]"
+                    className="max-w-[140px] truncate capitalize cursor-pointer hover:underline "
                     title={
                       p.name.includes("root") ? p.name.split("-")[0] : p.name
                     }
@@ -98,7 +98,7 @@ export default function ModalFileDetails({
               ))}
 
               {/* FILE NAME */}
-              <span className="max-w-[160px] truncate italic" title={name}>
+              <span className="max-w-[160px] truncate " title={name}>
                 {name}
               </span>
             </div>
@@ -108,14 +108,14 @@ export default function ModalFileDetails({
             <span className="text-[var(--color-textSecondary)]">
               Created At:
             </span>
-            <span className="italic">{calDateNTime(createdAt)}</span>
+            <span className="">{calDateNTime(createdAt)}</span>
           </div>
 
           <div className="flex flex-wrap gap-2">
             <span className="text-[var(--color-textSecondary)]">
               Updated At:
             </span>
-            <span className="italic">{calDateNTime(updatedAt)}</span>
+            <span className="">{calDateNTime(updatedAt)}</span>
           </div>
         </div>
       </div>

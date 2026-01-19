@@ -119,20 +119,24 @@ export default function CompFolderItem({
       <div
         title={`Size: ${calSize(size)}`}
         className="
-          flex justify-between items-center
-          px-3 py-2
-          rounded-md
+          group flex items-center justify-between
+          px-3 py-2.5
+          rounded-lg
           border border-[var(--color-borderDefault)]
           bg-[var(--color-bgSecondary)]
           hover:bg-[var(--color-bgElevated)]
-          transition-all duration-200
+          hover:border-[var(--color-borderHover)]
+          transition-all duration-150
         "
       >
         {/* LEFT SECTION */}
-        <div className="flex items-center gap-3 w-[70%]">
+        <div className="flex items-center gap-3 min-w-0 flex-1">
           <input
             type="checkbox"
-            className="scale-110 cursor-pointer accent-[var(--color-accentPrimary)]"
+            className="
+              scale-110 cursor-pointer
+              accent-[var(--color-accentPrimary)]
+            "
             onChange={(e) => {
               if (e.target.checked) {
                 console.log(`Checked, Folder ID: ${_id}`);
@@ -142,32 +146,41 @@ export default function CompFolderItem({
             }}
           />
 
-          <button className="cursor-pointer" onClick={handleStarFolder}>
+          <button
+            onClick={handleStarFolder}
+            className="cursor-pointer"
+            title={isStarred ? "Unstar folder" : "Star folder"}
+          >
             {isStarred ? (
               <FaStar className="text-[var(--color-success)]" />
             ) : (
-              <FaRegStar className="text-[var(--color-textDisabled)]" />
+              <FaRegStar className="text-[var(--color-textDisabled)] group-hover:text-[var(--color-textSecondary)]" />
             )}
           </button>
 
           {rename ? (
-            <div className="flex items-center gap-2 w-full">
+            <div className="flex items-center gap-2 min-w-0 flex-1">
               <FaFolder className="text-[var(--color-warning)]" />
+
               <input
                 value={directoryName}
                 onChange={(e) => setDirectoryName(e.target.value)}
                 autoFocus
                 className="
-                  w-full px-2 py-1 rounded-md
+                  w-full px-2 py-1 text-sm
+                  rounded-md
                   bg-[var(--color-bgPrimary)]
                   border border-[var(--color-borderHover)]
+                  text-[var(--color-textPrimary)]
                   focus:outline-none
                   focus:ring-2 focus:ring-[var(--color-accentFocus)]
                 "
               />
+
               <button
                 onClick={handleRenameFolder}
-                className="cursor-pointer text-[var(--color-success)]"
+                className="cursor-pointer text-[var(--color-success)] hover:scale-110 transition"
+                title="Save"
               >
                 <MdSave />
               </button>
@@ -177,11 +190,11 @@ export default function CompFolderItem({
               to={`/directory/${_id}`}
               title={name}
               className="
-                flex items-center gap-2
-                truncate capitalize
-                cursor-pointer
+                flex items-center gap-2 min-w-0
+                truncate capitalize cursor-pointer
+                text-sm
+                text-[var(--color-textPrimary)]
                 hover:underline
-                w-full
               "
             >
               <FaFolder className="text-[var(--color-warning)]" />
@@ -191,10 +204,18 @@ export default function CompFolderItem({
         </div>
 
         {/* RIGHT ACTIONS */}
-        <div className="flex items-center gap-3 w-[30%] justify-end">
+        <div
+          className="
+            flex items-center gap-3
+            text-[var(--color-textSecondary)]
+            opacity-40 group-hover:opacity-100
+            transition-opacity duration-150
+          "
+        >
           <button
             onClick={() => setFolderDetails(true)}
             className="cursor-pointer hover:text-[var(--color-info)]"
+            title="Folder details"
           >
             <MdOutlineInfo />
           </button>
@@ -205,6 +226,7 @@ export default function CompFolderItem({
               setUserView(false);
             }}
             className="cursor-pointer hover:text-[var(--color-warning)]"
+            title={rename ? "Cancel rename" : "Rename folder"}
           >
             {rename ? <GiCancel /> : <MdOutlineDriveFileRenameOutline />}
           </button>
@@ -212,6 +234,7 @@ export default function CompFolderItem({
           <button
             onClick={handleTrashFolder}
             className="cursor-pointer hover:text-[var(--color-error)]"
+            title="Move folder to trash"
           >
             <MdOutlineAutoDelete />
           </button>

@@ -141,12 +141,10 @@ export default function PageDirectoryView() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[var(--color-bgPrimary)]">
-        <div className="w-10 h-10 border-4 border-[var(--color-borderHover)] border-t-[var(--color-accentPrimary)] rounded-full animate-spin" />
+        <div className="w-10 h-10 border-4 border-[var(--color-borderHover)] border-t-[var(--color-accentPrimary)] rounded-full animate-spin" />{" "}
       </div>
     );
-  }
-
-  if (folderNotFound) {
+  } else if (folderNotFound) {
     return (
       <div className="min-h-screen w-full flex items-center justify-center bg-[var(--color-bgPrimary)] px-4 font-google">
         <div

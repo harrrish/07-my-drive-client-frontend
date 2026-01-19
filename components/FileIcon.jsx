@@ -31,5 +31,9 @@ export default function CompFileIcon({ ext }) {
   if ([".ico"].includes(ext)) {
     return <TbFavicon />;
   }
-  return <TbFileUnknown />;
+  return (
+    <span className="text-lg">
+      <TbFileUnknown />
+    </span>
+  );
 }

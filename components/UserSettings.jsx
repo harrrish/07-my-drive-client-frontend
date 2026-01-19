@@ -85,7 +85,7 @@ export default function UserSettings() {
           className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
         >
           <AiOutlineUserSwitch className="text-lg" />
-          Files Shared with Me
+          Contents Shared
         </button>
 
         <button
