@@ -69,7 +69,7 @@ export default function Starred() {
   }, [fetchStarredItems]);
 
   return (
-    <div className="min-h-screen bg-[var(--color-bgPrimary)] px-4 py-6 font-google text-[var(--color-textPrimary)]">
+    <div className="min-h-screen font-medium bg-[var(--color-bgPrimary)] px-4 py-6 font-google text-[var(--color-textPrimary)]">
       <div className="w-full max-w-4xl mx-auto bg-[var(--color-bgSecondary)] border border-[var(--color-borderDefault)] rounded-xl shadow-xl p-5 sm:p-8 flex flex-col gap-6">
         {/* HEADER */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">

@@ -5,7 +5,7 @@ import { BsCloudCheck } from "react-icons/bs";
 
 export default function Notifications() {
   return (
-    <div className="font-google min-h-screen bg-[var(--color-bgPrimary)] flex items-center px-4">
+    <div className="font-google font-medium min-h-screen bg-[var(--color-bgPrimary)] flex items-center px-4">
       <div className="w-full max-w-3xl mx-auto bg-[var(--color-bgSecondary)] text-[var(--color-textPrimary)] flex flex-col gap-6 p-6 sm:p-8 rounded-xl border border-[var(--color-borderDefault)] shadow-2xl">
         {/* HEADER */}
         <h1 className="flex items-center gap-3 text-3xl sm:text-4xl font-semibold">

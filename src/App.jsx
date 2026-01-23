@@ -6,10 +6,10 @@ import Trashed from "../pages/Trashed";
 import UserProfile from "../pages/Profile";
 import PurchasePremium from "../pages/Purchase";
 import Home from "../pages/Home";
-import About from "../pages/About";
 import Notifications from "../pages/Notifications";
 import Starred from "../pages/Starred";
 import Shared from "../pages/Shared";
+import Error from "../pages/Error";
 
 const router = createBrowserRouter([
   {
@@ -37,10 +37,6 @@ const router = createBrowserRouter([
     element: <UserProfile />,
   },
   {
-    path: "/about",
-    element: <About />,
-  },
-  {
     path: "/notifications",
     element: <Notifications />,
   },
@@ -59,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: "/purchase-premium",
     element: <PurchasePremium />,
+  },
+  {
+    path: "/*",
+    element: <Error />,
   },
 ]);
 

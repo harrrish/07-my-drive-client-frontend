@@ -34,7 +34,7 @@ export default function CompFileItem({
   basename,
   isStarred,
   isTrashed,
-  sharedWith,
+  sharedTo,
   handleDirectoryDetails,
   handleUserStorageDetails,
 }) {
@@ -292,7 +292,7 @@ export default function CompFileItem({
             {rename ? <GiCancel /> : <MdOutlineDriveFileRenameOutline />}
           </button>
 
-          {sharedWith.length > 0 ? (
+          {sharedTo.length > 0 ? (
             <span title="Shared File cannot be Deleted !">
               <MdBlock />
             </span>

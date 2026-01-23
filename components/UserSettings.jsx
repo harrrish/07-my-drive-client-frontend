@@ -138,11 +138,6 @@ export default function UserSettings() {
           <IoLogOut className="text-lg" />
           {logout ? "Logging out..." : "Logout"}
         </button>
-
-        <button className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-error)] transition-all">
-          <IoLogOut className="text-lg" />
-          Logout from All Devices
-        </button>
       </div>
     </div>
   );

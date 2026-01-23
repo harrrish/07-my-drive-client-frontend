@@ -3,7 +3,7 @@ import { MdWorkspacePremium, MdHome, MdCheckCircle } from "react-icons/md";
 
 export default function PurchasePremium() {
   return (
-    <div className="font-google min-h-screen bg-[var(--color-bgPrimary)] flex items-center px-4">
+    <div className="font-google font-medium min-h-screen bg-[var(--color-bgPrimary)] flex items-center px-4">
       <div className="w-full max-w-5xl mx-auto bg-[var(--color-bgSecondary)] text-[var(--color-textPrimary)] flex flex-col gap-8 p-6 sm:p-8 rounded-xl border border-[var(--color-borderDefault)] shadow-2xl">
         {/* HEADER */}
         <div className="text-center flex flex-col gap-3">
@@ -23,30 +23,30 @@ export default function PurchasePremium() {
 
         {/* PLANS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* BASIC PLAN (SELECTED) */}
+          {/* FREE PLAN */}
           <div className="rounded-xl border-2 border-[var(--color-borderActive)] bg-[var(--color-bgElevated)] p-6 flex flex-col gap-4 shadow-lg">
-            <h2 className="text-xl font-semibold">Basic</h2>
+            <h2 className="text-xl font-semibold">Free</h2>
             <p className="text-sm text-[var(--color-textSecondary)]">
-              For personal use
+              Personal users who want to try the platform
             </p>
 
             <div className="text-3xl font-bold text-[var(--color-success)]">
-              100 MB
+              ₹0
             </div>
 
             <ul className="flex flex-col gap-2 text-sm">
-              <li className="flex items-center gap-2">
-                <MdCheckCircle className="text-[var(--color-success)]" />
-                Upload files
-              </li>
-              <li className="flex items-center gap-2">
-                <MdCheckCircle className="text-[var(--color-success)]" />
-                Download files
-              </li>
-              <li className="flex items-center gap-2">
-                <MdCheckCircle className="text-[var(--color-success)]" />
-                View & delete files
-              </li>
+              {[
+                "500 MB secure storage",
+                "100 MB per file",
+                "1 device access",
+                "Standard speed",
+                "Email support",
+              ].map((f) => (
+                <li key={f} className="flex items-center gap-2">
+                  <MdCheckCircle className="text-[var(--color-success)]" />
+                  {f}
+                </li>
+              ))}
             </ul>
 
             <div className="mt-auto text-center text-sm font-medium text-[var(--color-accentPrimary)]">
@@ -60,28 +60,28 @@ export default function PurchasePremium() {
               Pro
             </h2>
             <p className="text-sm text-[var(--color-textSecondary)]">
-              For advanced users
+              Students, freelancers, or small teams
             </p>
 
-            <div className="text-3xl font-bold">1 GB</div>
+            <div className="text-3xl font-bold">₹299 / month</div>
 
             <ul className="flex flex-col gap-2 text-sm">
-              <li className="flex items-center gap-2">
-                <MdCheckCircle className="text-[var(--color-info)]" />
-                All Basic features
-              </li>
-              <li className="flex items-center gap-2">
-                <MdCheckCircle className="text-[var(--color-info)]" />
-                Star important files & folders
-              </li>
-              <li className="flex items-center gap-2">
-                <MdCheckCircle className="text-[var(--color-info)]" />
-                Share files via links
-              </li>
+              {[
+                "200 GB secure storage",
+                "2 GB per file",
+                "Access from up to 3 devices",
+                "Priority upload/download speed",
+                "Email & chat support",
+              ].map((f) => (
+                <li key={f} className="flex items-center gap-2">
+                  <MdCheckCircle className="text-[var(--color-info)]" />
+                  {f}
+                </li>
+              ))}
             </ul>
 
             <button className="mt-auto w-full py-2 rounded-md bg-[var(--color-bgSecondary)] border border-[var(--color-borderHover)] text-sm cursor-pointer group-hover:bg-[var(--color-accentPrimary)] group-hover:border-[var(--color-borderActive)] transition">
-              Upgrade to Pro
+              Subscribe Now
             </button>
           </div>
 
@@ -91,28 +91,28 @@ export default function PurchasePremium() {
               Premium
             </h2>
             <p className="text-sm text-[var(--color-textSecondary)]">
-              For teams & power users
+              Professionals & creators handling large files
             </p>
 
-            <div className="text-3xl font-bold">10 GB</div>
+            <div className="text-3xl font-bold">₹699 / month</div>
 
             <ul className="flex flex-col gap-2 text-sm">
-              <li className="flex items-center gap-2">
-                <MdCheckCircle className="text-[var(--color-warning)]" />
-                All Pro features
-              </li>
-              <li className="flex items-center gap-2">
-                <MdCheckCircle className="text-[var(--color-warning)]" />
-                Share with other users
-              </li>
-              <li className="flex items-center gap-2">
-                <MdCheckCircle className="text-[var(--color-warning)]" />
-                Re-upload & edit access
-              </li>
+              {[
+                "2 TB secure storage",
+                "10 GB per file",
+                "Access from up to 3 devices",
+                "Priority upload/download speed",
+                "Priority customer support",
+              ].map((f) => (
+                <li key={f} className="flex items-center gap-2">
+                  <MdCheckCircle className="text-[var(--color-warning)]" />
+                  {f}
+                </li>
+              ))}
             </ul>
 
             <button className="mt-auto w-full py-2 rounded-md bg-[var(--color-bgSecondary)] border border-[var(--color-borderHover)] text-sm cursor-pointer group-hover:bg-[var(--color-accentPrimary)] group-hover:border-[var(--color-borderActive)] transition">
-              Upgrade to Premium
+              Subscribe Now
             </button>
           </div>
         </div>

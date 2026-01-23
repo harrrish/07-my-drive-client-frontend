@@ -13,8 +13,8 @@ export default function PageUserLogin() {
   const [login, setLogin] = useState(false);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
-    email: "u1@gmail.com",
-    password: "Edu19@06#2022",
+    email: "DummyUser@gmail.com",
+    password: "Quality@098765432",
   });
 
   const { setUserView } = useContext(UserSettingViewContext);

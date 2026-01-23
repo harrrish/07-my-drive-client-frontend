@@ -124,7 +124,7 @@ export default function Trash() {
           />
         )}
 
-        <div className="w-full max-w-4xl mx-auto bg-[var(--color-bgSecondary)] rounded-xl border border-[var(--color-borderDefault)] shadow-2xl p-6 sm:p-8 flex flex-col gap-6">
+        <div className="w-full max-w-4xl mx-auto bg-[var(--color-bgSecondary)] rounded-xl border border-[var(--color-borderDefault)] shadow-2xl p-6 sm:p-8 flex flex-col gap-6 font-medium">
           {/* HEADER */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <h1 className="flex items-center gap-3 text-3xl font-semibold">
