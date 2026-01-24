@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 @font-face {
   font-family: "google";
   src: url("./Fonts/google/ProductSans-Thin.ttf");
