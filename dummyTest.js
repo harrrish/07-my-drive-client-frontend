@@ -1,9 +1,11 @@
-const shouldTestPass = true;
+// const testPass = Math.random < 0.5;
 
-if (shouldTestPass) {
-  console.log("Test Passed !");
+const testPass = true;
+
+if (testPass) {
+  console.log("test passed !");
   process.exit(0);
 } else {
-  console.log("Test Failed !");
+  console.log("test failed !");
   process.exit(1);
 }
