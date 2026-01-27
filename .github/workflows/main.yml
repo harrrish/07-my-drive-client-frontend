@@ -10,7 +10,7 @@ jobs:
       S3_BUCKET_NAME: client-my-drive
       CLOUDFRONT_DISTRIBUTION_ID: E20TISSBXDS97F
       VITE_GOOGLE_CLIENT_ID: 438673384254-15tpgatnhvig0v4fon193u623mv2tnvv.apps.googleusercontent.com
-      VITE_BACKEND_BASE_URL: https://api.uvds.store
+      VITE_BASE_URL: https://api.uvds.store
 
     steps:
       - name: Clone frontend repository
