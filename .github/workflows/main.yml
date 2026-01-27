@@ -1,4 +1,4 @@
-name: Deploy StorageApp Frontend
+name: Deploy UVDS-My Drive Frontend
 
 on: [push, workflow_dispatch]
 
@@ -21,5 +21,30 @@ jobs:
         with:
           node-version: "23"
 
-      - name: node version 
-        run: node -v
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build app
+        run: npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Upload to S3
+        run: aws s3 sync dist/ "s3://${S3_BUCKET_NAME}/" --delete
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" \
+            --paths "/index.html"
+
+      - name: Deployment complete
+        run: echo "Frontend Deployed Successfully..."
