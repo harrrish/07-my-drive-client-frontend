@@ -69,7 +69,7 @@ export default function Home() {
             to="/register"
             className="px-6 py-3 rounded-lg bg-[var(--color-accentPrimary)] text-black hover:bg-[var(--color-accentHover)] cursor-pointer"
           >
-            Get Started Free
+            Get Started
           </NavLink>
           <NavLink
             to="/login"
