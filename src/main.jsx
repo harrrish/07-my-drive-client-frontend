@@ -13,7 +13,7 @@ import { DirectoryProvider } from "../Contexts/DirectoryProvider.jsx";
 import { UserSettingViewProvider } from "../Contexts/UserSettingViewProvider.jsx";
 import { ListViewProvider } from "../Contexts/ListViewProvider.jsx";
 
-export const clientId = import.meta.env.VITE_GOOGLE_CLIENT_Id;
+export const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 export const baseURL = import.meta.env.VITE_BASE_URL;
 
 if (import.meta.env.VITE_ENV === "development") {
@@ -52,5 +52,5 @@ createRoot(document.getElementById("root")).render(
         </ListViewProvider>
       </GoogleOAuthProvider>
     </QueryClientProvider>
-  </StrictMode>
+  </StrictMode>,
 );
