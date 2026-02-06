@@ -18,104 +18,75 @@ export default function ModalFileDetails({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4">
-      <div
-        className="
-          w-full max-w-2xl
-          rounded-xl
-          bg-[var(--color-bgSecondary)]
-          border border-[var(--color-borderDefault)]
-          shadow-2xl
-          font-google
-          text-[var(--color-textPrimary)]
-        "
-      >
-        {/* HEADER */}
-        <div
-          className="
-            flex items-center justify-between
-            px-4 py-3
-            border-b border-[var(--color-borderDefault)]
-            bg-[var(--color-bgElevated)]
-            rounded-t-xl
-          "
-        >
-          <h1 className="flex items-center gap-2 text-lg font-semibold">
-            <RiFileInfoFill className="text-[var(--color-accentFocus)] text-xl" />
-            File Details
+      <div className="w-full max-w-2xl rounded-xl bg-bgSecondary border border-borderDefault shadow-xl font-google text-textPrimary">
+        <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-borderDefault bg-bgElevated rounded-t-xl">
+          <h1 className="flex items-center gap-2 sm:gap-3 text-base sm:text-lg font-semibold">
+            <RiFileInfoFill className="text-accentFocus size-5 sm:size-6" />
+            <span>File Details</span>
           </h1>
           <button
             onClick={() => setFileDetails(false)}
-            className="
-              cursor-pointer text-xl
-              text-[var(--color-textSecondary)]
-              hover:text-[var(--color-error)]
-              transition-colors
-            "
+            className="cursor-pointer text-xl text-textSecondary hover:text-error transition-colors"
           >
             <IoCloseCircle />
           </button>
         </div>
-
-        {/* CONTENT */}
-        <div className="p-4 flex flex-col gap-3 text-sm sm:text-base">
-          <div className="flex gap-2">
-            <span className="text-[var(--color-textSecondary)]">Name:</span>
-            <span title={name} className=" break-all truncate">
+        <div className="p-4 sm:p-6 flex flex-col gap-2 text-sm">
+          <div className="flex items-center">
+            <span className="text-textSecondary w-15">Name:</span>
+            <span
+              title={name}
+              className="break-all truncate text-textPrimary font-medium"
+            >
               {name}
             </span>
           </div>
-
-          <div className="flex flex-wrap gap-2">
-            <span className="text-[var(--color-textSecondary)]">Size:</span>
-            <span className="">{calSize(size)}</span>
+          <div className="flex items-center">
+            <span className="text-textSecondary w-15">Size:</span>
+            <span className="text-textPrimary font-medium">
+              {calSize(size)}
+            </span>
           </div>
-
-          <div className="flex flex-wrap gap-2">
-            <span className="text-[var(--color-textSecondary)]">Type:</span>
-            <span className="uppercase font-medium">
+          <div className="flex items-center">
+            <span className="text-textSecondary w-15">Type:</span>
+            <span className="uppercase font-medium text-textPrimary">
               {extension.substring(1)}
             </span>
           </div>
-
-          {/* PATH */}
-          <div className="flex gap-2 items-start">
-            <span className="text-[var(--color-textSecondary)]">Path:</span>
-
-            <div className="flex items-center gap-1  text-[var(--color-textPrimary)]">
-              {directoryDetails.path.map((p) => (
-                <div key={p.id} className="flex items-center gap-1">
-                  <button
-                    className="max-w-[140px] truncate capitalize cursor-pointer hover:underline "
-                    title={
-                      p.name.includes("root") ? p.name.split("-")[0] : p.name
-                    }
-                  >
-                    {p.name.includes("root") ? p.name.split("-")[0] : p.name}
-                  </button>
-
-                  <IoMdArrowDropright className="text-[var(--color-textDisabled)]" />
-                </div>
-              ))}
-
-              {/* FILE NAME */}
-              <span className="max-w-[160px] truncate " title={name}>
-                {name}
-              </span>
+          <div className="flex items-start">
+            <span className="text-textSecondary w-15 mt-0.5">Path:</span>
+            <div className="flex flex-wrap items-center text-textPrimary">
+              <div className="flex flex-wrap items-center">
+                {directoryDetails.path.map((p) => (
+                  <div key={p.id} className="flex items-center">
+                    <button
+                      className="max-w-28 sm:max-w-36 truncate capitalize cursor-pointer hover:underline hover:text-accentPrimary transition-colors px-1 py-0.5 rounded"
+                      title={
+                        p.name.includes("root") ? p.name.split("-")[0] : p.name
+                      }
+                    >
+                      {p.name.includes("root") ? p.name.split("-")[0] : p.name}
+                    </button>
+                    <IoMdArrowDropright className="text-textDisabled size-3" />
+                  </div>
+                ))}
+                <span className="max-w-32 sm:max-w-40 truncate font-medium px-1 py-0.5 bg-bgElevated rounded border border-borderDefault">
+                  {name}
+                </span>
+              </div>
             </div>
           </div>
-
-          <div className="flex flex-wrap gap-2">
-            <span className="text-[var(--color-textSecondary)]">
-              Created At:
+          <div className="flex items-center">
+            <span className="text-textSecondary w-15">Created:</span>
+            <span className="text-textPrimary font-medium">
+              {calDateNTime(createdAt)}
             </span>
-            <span className="">{calDateNTime(createdAt)}</span>
           </div>
-
-          <div className="flex flex-wrap gap-2">
-            <span className="text-[var(--color-textSecondary)]">
-              Updated At:
+          <div className="flex items-center">
+            <span className="text-textSecondary w-15">Updated:</span>
+            <span className="text-textPrimary font-medium">
+              {calDateNTime(updatedAt)}
             </span>
-            <span className="">{calDateNTime(updatedAt)}</span>
           </div>
         </div>
       </div>

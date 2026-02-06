@@ -10,6 +10,7 @@ import Notifications from "../pages/Notifications";
 import Starred from "../pages/Starred";
 import Shared from "../pages/Shared";
 import Error from "../pages/Error";
+import About from "../pages/About";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
   {
     path: "/purchase-premium",
     element: <PurchasePremium />,
+  },
+  {
+    path: "/about",
+    element: <About />,
   },
   {
     path: "/*",

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { ErrorContext, UserSettingViewContext } from "../utils/Contexts";
-import { FaGoogleDrive, FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
@@ -39,18 +39,18 @@ export default function UserSettings() {
   }
 
   return (
-    <div className="min-h-screen w-full sm:max-w-md bg-[var(--color-bgSecondary)] text-[var(--color-textPrimary)] flex flex-col justify-between p-4 shadow-2xl border-l border-[var(--color-borderDefault)]">
+    <div className="min-h-screen w-full sm:max-w-md bg-bgSecondary text-textPrimary flex flex-col justify-between p-4 shadow-2xl border-l border-borderDefault">
       {/* HEADER */}
-      <div className="flex items-center justify-between pb-3 border-b border-[var(--color-borderHover)]">
+      <div className="flex items-center justify-between pb-3 border-b border-borderHover">
         <h1 className="flex items-center gap-2 text-xl font-semibold">
-          <IoCloudUploadOutline className="text-2xl text-[var(--color-accentFocus)]" />
+          <IoCloudUploadOutline className="text-2xl text-accentFocus" />
           My-Drive
         </h1>
         <button
           onClick={() => setUserView(false)}
-          className="cursor-pointer p-1 rounded-md hover:bg-[var(--color-bgElevated)] transition"
+          className="cursor-pointer p-1.5 rounded-md hover:bg-bgElevated transition-colors"
         >
-          <IoIosClose className="text-2xl" />
+          <IoIosClose className="text-2xl text-textSecondary hover:text-textPrimary" />
         </button>
       </div>
 
@@ -58,85 +58,89 @@ export default function UserSettings() {
       <div className="flex flex-col gap-2 py-4 text-sm">
         <button
           onClick={() => navigate("/notifications")}
-          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
+          className="cursor-pointer flex items-center justify-between px-3 py-2.5 rounded-md bg-bgElevated hover:bg-borderHover transition-colors font-medium"
         >
-          <IoIosNotifications className="text-lg" />
-          Notifications
+          <div className="flex items-center gap-3">
+            <IoIosNotifications className="text-base text-info" />
+            <span>Notifications</span>
+          </div>
+        </button>
+
+        <button
+          onClick={() => navigate("/profile")}
+          className="cursor-pointer flex items-center justify-between px-3 py-2.5 rounded-md bg-bgElevated hover:bg-borderHover transition-colors font-medium"
+        >
+          <div className="flex items-center gap-3">
+            <FaUser className="text-base text-accentPrimary" />
+            <span>Profile</span>
+          </div>
         </button>
 
         <button
           onClick={() => navigate("/starred")}
-          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
+          className="cursor-pointer flex items-center justify-between px-3 py-2.5 rounded-md bg-bgElevated hover:bg-borderHover transition-colors font-medium"
         >
-          <FaStar className="text-lg" />
-          Starred Files/Folders
-        </button>
-
-        <button
-          onClick={() => navigate("/profile")}
-          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
-        >
-          <FaGoogleDrive className="text-lg" />
-          Import from Google Drive
+          <div className="flex items-center gap-3">
+            <FaStar className="text-base text-warning" />
+            <span>Starred Files/Folders</span>
+          </div>
         </button>
 
         <button
           onClick={() => navigate("/shared")}
-          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
+          className="cursor-pointer flex items-center justify-between px-3 py-2.5 rounded-md bg-bgElevated hover:bg-borderHover transition-colors font-medium"
         >
-          <AiOutlineUserSwitch className="text-lg" />
-          Contents Shared
-        </button>
-
-        <button
-          onClick={() => navigate("/profile")}
-          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
-        >
-          <FaUser className="text-lg" />
-          Profile
+          <div className="flex items-center gap-3">
+            <AiOutlineUserSwitch className="text-base text-accentFocus" />
+            <span>Contents Shared</span>
+          </div>
         </button>
 
         <button
           onClick={() => navigate("/trashed")}
-          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
+          className="cursor-pointer flex items-center justify-between px-3 py-2.5 rounded-md bg-bgElevated hover:bg-borderHover transition-colors font-medium"
         >
-          <FaTrash className="text-lg" />
-          Trash Bin
+          <div className="flex items-center gap-3">
+            <FaTrash className="text-base text-error" />
+            <span>Trash Bin</span>
+          </div>
         </button>
 
         <button
           onClick={() => navigate("/purchase-premium")}
-          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-borderHover)] transition-all font-medium"
+          className="cursor-pointer flex items-center justify-between px-3 py-2.5 rounded-md bg-bgElevated hover:bg-borderHover transition-colors font-medium"
         >
-          <BiSolidPurchaseTag className="text-lg" />
-          Upgrade Plan
+          <div className="flex items-center gap-3">
+            <BiSolidPurchaseTag className="text-base text-warning" />
+            <span>Upgrade Plan</span>
+          </div>
         </button>
       </div>
 
       {/* STORAGE + ACTIONS */}
-      <div className="flex flex-col gap-3 pt-4 border-t border-[var(--color-borderHover)]">
-        <div className="w-full bg-[var(--color-borderDefault)] h-2 rounded-full overflow-hidden">
+      <div className="flex flex-col gap-3 pt-4 border-t border-borderHover">
+        <div className="w-full bg-borderDefault h-2 rounded-full overflow-hidden">
           <div
-            className="h-full bg-[var(--color-accentPrimary)]"
+            className="h-full bg-accentPrimary"
             style={{
-              width: `${
-                (userStorage.size / userStorage.maxStorageInBytes) * 100
-              }%`,
+              width: `${(userStorage.size / userStorage.maxStorageInBytes) * 100}%`,
             }}
           />
         </div>
 
-        <p className="text-xs text-center text-[var(--color-textSecondary)]">
+        <p className="text-xs text-center text-textSecondary">
           Used {calSize(userStorage.size)} of{" "}
           {calSize(userStorage.maxStorageInBytes)}
         </p>
 
         <button
           onClick={handleLogout}
-          className="cursor-pointer flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] hover:bg-[var(--color-error)] transition-all"
+          className="cursor-pointer flex items-center justify-between px-3 py-2.5 rounded-md bg-bgElevated hover:bg-error hover:text-textPrimary transition-colors"
         >
-          <IoLogOut className="text-lg" />
-          {logout ? "Logging out..." : "Logout"}
+          <div className="flex items-center gap-3 tracking-wider">
+            <IoLogOut className="text-base" />
+            <span>{logout ? "Logging out..." : "Logout"}</span>
+          </div>
         </button>
       </div>
     </div>

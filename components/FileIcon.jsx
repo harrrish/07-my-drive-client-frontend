@@ -1,11 +1,10 @@
 import { FaFileImage } from "react-icons/fa6";
 import { MdAudioFile } from "react-icons/md";
-import { FaFileVideo } from "react-icons/fa6";
-import { FaFilePdf } from "react-icons/fa6";
+import { FaFileVideo, FaFilePdf } from "react-icons/fa6";
 import { BiSolidFileDoc } from "react-icons/bi";
 import { AiFillFileText } from "react-icons/ai";
-import { TbFileUnknown } from "react-icons/tb";
-import { TbFavicon } from "react-icons/tb";
+import { TbFileUnknown, TbFavicon } from "react-icons/tb";
+import { FaFileCode } from "react-icons/fa6";
 
 export default function CompFileIcon({ ext }) {
   if (
@@ -30,6 +29,28 @@ export default function CompFileIcon({ ext }) {
   }
   if ([".ico"].includes(ext)) {
     return <TbFavicon />;
+  }
+  if (
+    [
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx",
+      ".html",
+      ".css",
+      ".py",
+      ".java",
+      ".cpp",
+      ".c",
+      ".rb",
+      ".php",
+      ".go",
+      ".rs",
+      ".swift",
+      ".kt",
+    ].includes(ext)
+  ) {
+    return <FaFileCode className="text-blue-400" />;
   }
   return (
     <span className="text-lg">

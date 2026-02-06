@@ -1,129 +1,158 @@
 import { NavLink } from "react-router-dom";
 import { MdWorkspacePremium, MdHome, MdCheckCircle } from "react-icons/md";
+import { FaStar, FaBolt, FaCrown, FaCheckCircle } from "react-icons/fa";
 
 export default function PurchasePremium() {
   return (
-    <div className="font-google font-medium min-h-screen bg-[var(--color-bgPrimary)] flex items-center px-4">
-      <div className="w-full max-w-5xl mx-auto bg-[var(--color-bgSecondary)] text-[var(--color-textPrimary)] flex flex-col gap-8 p-6 sm:p-8 rounded-xl border border-[var(--color-borderDefault)] shadow-2xl">
+    <div className="font-google font-medium min-h-screen bg-bgPrimary flex items-center px-4 py-8">
+      <div className="w-full max-w-5xl mx-auto bg-bgSecondary text-textPrimary flex flex-col gap-6 p-5 sm:p-6 rounded-xl border border-borderDefault shadow-xl">
         {/* HEADER */}
-        <div className="text-center flex flex-col gap-3">
-          <h1 className="flex items-center justify-center gap-3 text-3xl sm:text-4xl font-semibold">
-            <MdWorkspacePremium className="text-[var(--color-warning)] text-4xl" />
+        <div className="text-center flex flex-col gap-2">
+          <h1 className="flex items-center justify-center gap-3 text-2xl sm:text-3xl font-bold">
+            <MdWorkspacePremium className="text-warning text-3xl" />
             Plans & Pricing
           </h1>
-
-          <p className="text-sm sm:text-base text-[var(--color-textSecondary)] max-w-2xl mx-auto">
+          <p className="text-sm text-textSecondary max-w-2xl mx-auto">
             Choose the plan that fits your storage and collaboration needs on{" "}
-            <span className="text-[var(--color-textPrimary)] font-medium">
-              My-Drive
-            </span>
-            .
+            <span className="text-textPrimary font-medium">My-Drive</span>.
           </p>
         </div>
 
         {/* PLANS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {/* FREE PLAN */}
-          <div className="rounded-xl border-2 border-[var(--color-borderActive)] bg-[var(--color-bgElevated)] p-6 flex flex-col gap-4 shadow-lg">
-            <h2 className="text-xl font-semibold">Free</h2>
-            <p className="text-sm text-[var(--color-textSecondary)]">
+          <div className="relative rounded-2xl border-2 border-borderHover bg-bgSecondary p-5 flex flex-col gap-4">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+              <span className="px-3 py-1 rounded-full bg-accentPrimary text-black text-xs font-bold uppercase">
+                You are here
+              </span>
+            </div>
+            <div className="text-center">
+              <div className="inline-block p-2 rounded-full bg-bgPrimary/50 mb-3 text-xl text-accentFocus">
+                <FaStar />
+              </div>
+              <h3 className="text-2xl font-black text-textPrimary mb-1">
+                Free
+              </h3>
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-4xl font-black text-accentFocus">₹0</span>
+                <span className="text-textSecondary text-sm">/forever</span>
+              </div>
+            </div>
+            <p className="text-xs text-textSecondary text-center">
               Personal users who want to try the platform
             </p>
-
-            <div className="text-3xl font-bold text-[var(--color-success)]">
-              ₹0
-            </div>
-
-            <ul className="flex flex-col gap-2 text-sm">
+            <ul className="space-y-2.5">
               {[
-                "500 MB secure storage",
-                "100 MB per file",
-                "1 device access",
-                "Standard speed",
+                "100 MB secure storage",
+                "10 MB/file limit",
+                "Basic sharing",
                 "Email support",
+                "1 device access",
               ].map((f) => (
-                <li key={f} className="flex items-center gap-2">
-                  <MdCheckCircle className="text-[var(--color-success)]" />
-                  {f}
+                <li key={f} className="flex items-start gap-2 text-xs">
+                  <FaCheckCircle className="text-success mt-0.5 shrink-0" />
+                  <span className="text-textSecondary">{f}</span>
                 </li>
               ))}
             </ul>
-
-            <div className="mt-auto text-center text-sm font-medium text-[var(--color-accentPrimary)]">
+            <div className="text-center text-xs font-medium text-accentPrimary mt-2">
               Current Plan
             </div>
           </div>
 
           {/* PRO PLAN */}
-          <div className="group rounded-xl border border-[var(--color-borderDefault)] bg-[var(--color-bgElevated)] p-6 flex flex-col gap-4 transition-all duration-300 hover:border-[var(--color-borderActive)] hover:shadow-xl hover:scale-[1.02]">
-            <h2 className="text-xl font-semibold group-hover:text-[var(--color-accentPrimary)]">
-              Pro
-            </h2>
-            <p className="text-sm text-[var(--color-textSecondary)]">
+          <div className="relative rounded-2xl border-2 border-warning bg-bgElevated p-5 flex flex-col gap-4 group">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+              <span className="px-3 py-1 rounded-full bg-warning text-black text-xs font-bold uppercase">
+                Popular
+              </span>
+            </div>
+            <div className="text-center">
+              <div className="inline-block p-2 rounded-full bg-bgPrimary/50 mb-3 text-xl text-accentFocus">
+                <FaBolt />
+              </div>
+              <h3 className="text-2xl font-black text-textPrimary mb-1">Pro</h3>
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-4xl font-black text-accentFocus">
+                  ₹50
+                </span>
+                <span className="text-textSecondary text-sm">/per month</span>
+              </div>
+            </div>
+            <p className="text-xs text-textSecondary text-center">
               Students, freelancers, or small teams
             </p>
-
-            <div className="text-3xl font-bold">₹299 / month</div>
-
-            <ul className="flex flex-col gap-2 text-sm">
+            <ul className="space-y-2.5">
               {[
-                "200 GB secure storage",
-                "2 GB per file",
-                "Access from up to 3 devices",
-                "Priority upload/download speed",
-                "Email & chat support",
+                "1 GB high-speed storage",
+                "100 MB/file limit",
+                "Advanced sharing",
+                "Priority support",
+                "3 device access",
               ].map((f) => (
-                <li key={f} className="flex items-center gap-2">
-                  <MdCheckCircle className="text-[var(--color-info)]" />
-                  {f}
+                <li key={f} className="flex items-start gap-2 text-xs">
+                  <FaCheckCircle className="text-success mt-0.5 shrink-0" />
+                  <span className="text-textSecondary">{f}</span>
                 </li>
               ))}
             </ul>
-
-            <button className="mt-auto w-full py-2 rounded-md bg-[var(--color-bgSecondary)] border border-[var(--color-borderHover)] text-sm cursor-pointer group-hover:bg-[var(--color-accentPrimary)] group-hover:border-[var(--color-borderActive)] transition">
+            <button className="cursor-pointer w-full py-2.5 rounded-lg bg-bgSecondary border border-borderHover hover:bg-accentPrimary hover:border-accentPrimary hover:text-black transition-colors duration-150 text-sm font-medium">
               Subscribe Now
             </button>
           </div>
 
           {/* PREMIUM PLAN */}
-          <div className="group rounded-xl border border-[var(--color-borderDefault)] bg-[var(--color-bgElevated)] p-6 flex flex-col gap-4 transition-all duration-300 hover:border-[var(--color-borderActive)] hover:shadow-xl hover:scale-[1.02]">
-            <h2 className="text-xl font-semibold group-hover:text-[var(--color-warning)]">
-              Premium
-            </h2>
-            <p className="text-sm text-[var(--color-textSecondary)]">
+          <div className="relative rounded-2xl border-2 border-accentFocus bg-bgElevated p-5 flex flex-col gap-4 group">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+              <span className="px-3 py-1 rounded-full bg-accentPrimary text-black text-xs font-bold uppercase">
+                Ultimate
+              </span>
+            </div>
+            <div className="text-center">
+              <div className="inline-block p-2 rounded-full bg-bgPrimary/50 mb-3 text-xl text-accentFocus">
+                <FaCrown />
+              </div>
+              <h3 className="text-2xl font-black text-textPrimary mb-1">
+                Premium
+              </h3>
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-4xl font-black text-accentFocus">
+                  ₹500
+                </span>
+                <span className="text-textSecondary text-sm">/per month</span>
+              </div>
+            </div>
+            <p className="text-xs text-textSecondary text-center">
               Professionals & creators handling large files
             </p>
-
-            <div className="text-3xl font-bold">₹699 / month</div>
-
-            <ul className="flex flex-col gap-2 text-sm">
+            <ul className="space-y-2.5">
               {[
-                "2 TB secure storage",
-                "10 GB per file",
-                "Access from up to 3 devices",
-                "Priority upload/download speed",
-                "Priority customer support",
+                "10 GB premium storage",
+                "500 MB/file limit",
+                "Team collaboration",
+                "24/7 phone support",
+                "5 device access",
               ].map((f) => (
-                <li key={f} className="flex items-center gap-2">
-                  <MdCheckCircle className="text-[var(--color-warning)]" />
-                  {f}
+                <li key={f} className="flex items-start gap-2 text-xs">
+                  <FaCheckCircle className="text-success mt-0.5 shrink-0" />
+                  <span className="text-textSecondary">{f}</span>
                 </li>
               ))}
             </ul>
-
-            <button className="mt-auto w-full py-2 rounded-md bg-[var(--color-bgSecondary)] border border-[var(--color-borderHover)] text-sm cursor-pointer group-hover:bg-[var(--color-accentPrimary)] group-hover:border-[var(--color-borderActive)] transition">
+            <button className="cursor-pointer w-full py-2.5 rounded-lg bg-bgSecondary border border-borderHover hover:bg-accentPrimary hover:border-accentPrimary hover:text-black transition-colors duration-150 text-sm font-medium">
               Subscribe Now
             </button>
           </div>
         </div>
 
         {/* FOOTER */}
-        <div className="pt-6 border-t border-[var(--color-borderDefault)] flex justify-center">
+        <div className="pt-5 border-t border-borderDefault flex justify-center">
           <NavLink
             to="/directory"
-            className="inline-flex items-center gap-2 px-6 py-2 rounded-lg bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] hover:bg-[var(--color-accentPrimary)] hover:border-[var(--color-borderActive)] transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--color-accentFocus)]"
+            className="cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-bgElevated border border-borderHover hover:bg-accentPrimary hover:border-accentPrimary hover:text-black transition-colors duration-150 focus:outline-none focus:ring-1 focus:ring-accentFocus"
           >
-            <MdHome className="text-lg" />
+            <MdHome className="text-base" />
             Back to Home
           </NavLink>
         </div>

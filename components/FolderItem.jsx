@@ -122,8 +122,8 @@ export default function CompFolderItem({
           group flex items-center justify-between
           px-3 py-2.5
           rounded-lg
-          border border-[var(--color-borderDefault)]
-          bg-[var(--color-bgSecondary)]
+          border border-borderDefault
+          bg-bgSecondary
           hover:bg-[var(--color-bgElevated)]
           hover:border-[var(--color-borderHover)]
           transition-all duration-150
@@ -154,7 +154,7 @@ export default function CompFolderItem({
             {isStarred ? (
               <FaStar className="text-[var(--color-success)]" />
             ) : (
-              <FaRegStar className="text-[var(--color-textDisabled)] group-hover:text-[var(--color-textSecondary)]" />
+              <FaRegStar className="text-[var(--color-textDisabled)] group-hover:text-textSecondary" />
             )}
           </button>
 
@@ -169,9 +169,9 @@ export default function CompFolderItem({
                 className="
                   w-full px-2 py-1 text-sm
                   rounded-md
-                  bg-[var(--color-bgPrimary)]
+                  bg-bgPrimary
                   border border-[var(--color-borderHover)]
-                  text-[var(--color-textPrimary)]
+                  text-textPrimary
                   focus:outline-none
                   focus:ring-2 focus:ring-[var(--color-accentFocus)]
                 "
@@ -193,7 +193,7 @@ export default function CompFolderItem({
                 flex items-center gap-2 min-w-0
                 truncate capitalize cursor-pointer
                 text-sm
-                text-[var(--color-textPrimary)]
+                text-textPrimary
                 hover:underline
               "
             >
@@ -207,7 +207,7 @@ export default function CompFolderItem({
         <div
           className="
             flex items-center gap-3
-            text-[var(--color-textSecondary)]
+            text-textSecondary
             opacity-40 group-hover:opacity-100
             transition-opacity duration-150
           "
@@ -233,7 +233,7 @@ export default function CompFolderItem({
 
           <button
             onClick={handleTrashFolder}
-            className="cursor-pointer hover:text-[var(--color-error)]"
+            className="cursor-pointer hover:text-error"
             title="Move folder to trash"
           >
             <MdOutlineAutoDelete />

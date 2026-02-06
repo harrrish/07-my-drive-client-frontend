@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { axiosError, axiosWithCreds } from "../utils/AxiosInstance";
 import { useContext } from "react";
 import { ErrorContext, UpdateContext } from "../utils/Contexts";
+import { MdDeleteForever } from "react-icons/md";
 
 export default function ModalConfirmFileDelete({
   deleteFileID,
@@ -33,28 +34,34 @@ export default function ModalConfirmFileDelete({
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
-      <div className="w-[90%] max-w-md bg-[var(--color-bgSecondary)] border border-[var(--color-borderDefault)] rounded-lg p-6 flex flex-col gap-4 shadow-xl">
-        <h1 className="text-lg font-semibold text-[var(--color-textPrimary)]">
-          Permanently delete file?
-        </h1>
-
-        <p className="text-sm text-[var(--color-textSecondary)]">
-          This file will be permanently deleted and cannot be restored.
-        </p>
-
-        <div className="flex justify-end gap-3 pt-2">
+    <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center px-4 font-medium">
+      <div className="w-full max-w-md bg-bgSecondary border border-borderDefault rounded-xl p-4 sm:p-6 flex flex-col gap-3 sm:gap-4 shadow-xl">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center w-10 h-10">
+            <MdDeleteForever className="text-error size-5" />
+          </div>
+          <div>
+            <h1 className="text-base sm:text-lg font-semibold text-textPrimary">
+              Permanently delete file?
+            </h1>
+            <p className="text-xs sm:text-sm text-textSecondary">
+              This file will be permanently deleted and cannot be restored.
+            </p>
+          </div>
+        </div>
+        <div className="flex justify-end gap-3 pt-1">
           <button
             onClick={() => setDeleteFileID(null)}
-            className="px-4 py-2 rounded-md border border-[var(--color-borderHover)] text-sm cursor-pointer hover:bg-[var(--color-bgElevated)]"
+            className="cursor-pointer px-4 py-2.5 rounded-lg border border-borderHover text-sm text-textPrimary hover:bg-bgElevated transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={() => handleFileDelete(deleteFileID)}
-            className="px-4 py-2 rounded-md bg-[var(--color-error)] text-white text-sm cursor-pointer hover:opacity-90"
+            className="cursor-pointer px-4 py-2.5 rounded-lg bg-error text-white text-sm hover:bg-error/90 transition-colors flex items-center gap-2"
           >
-            Delete
+            <MdDeleteForever className="size-4" />
+            <span>Delete</span>
           </button>
         </div>
       </div>

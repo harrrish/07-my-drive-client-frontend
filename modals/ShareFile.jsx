@@ -84,25 +84,22 @@ export default function ShareFile({
         className="
           w-full max-w-2xl
           rounded-xl
-          bg-[var(--color-bgSecondary)]
-          border border-[var(--color-borderDefault)]
+          bg-bgSecondary
+          border border-borderDefault
           shadow-2xl
           p-5 sm:p-6
           flex flex-col gap-6
-          text-[var(--color-textPrimary)]
+          text-textPrimary
         "
       >
         {/* HEADER */}
         <div className="flex items-start justify-between border-b border-[var(--color-borderHover)] pb-3">
           <div className="min-w-0">
             <h2 className="flex items-center gap-2 text-lg font-semibold">
-              <IoCloudUploadOutline className="text-xl text-[var(--color-accentFocus)] shrink-0" />
+              <IoCloudUploadOutline className="text-xl text-accentFocus shrink-0" />
               Share
             </h2>
-            <p
-              className="text-sm text-[var(--color-textSecondary)] truncate"
-              title={name}
-            >
+            <p className="text-sm text-textSecondary truncate" title={name}>
               {name}
             </p>
           </div>
@@ -127,7 +124,7 @@ export default function ShareFile({
             Share link
           </h3>
 
-          <p className="text-sm text-[var(--color-textSecondary)]">
+          <p className="text-sm text-textSecondary">
             Anyone with the link can view this file.
           </p>
 
@@ -140,9 +137,9 @@ export default function ShareFile({
               flex items-center gap-2
               px-3 py-2
               rounded-md
-              bg-[var(--color-bgPrimary)]
+              bg-bgPrimary
               border border-[var(--color-borderHover)]
-              text-[var(--color-textSecondary)]
+              text-textSecondary
               truncate
             "
           >
@@ -178,7 +175,7 @@ export default function ShareFile({
                 flex items-center justify-center gap-2
                 px-4 py-2
                 rounded-md
-                bg-[var(--color-accentPrimary)]
+                bg-(--color-accentPrimary)
                 hover:bg-[var(--color-accentHover)]
                 transition
                 text-sm font-medium
@@ -197,11 +194,11 @@ export default function ShareFile({
         {/* ===== SHARE ACCESS ===== */}
         <section className="flex flex-col gap-3">
           <h3 className="text-sm font-semibold flex items-center gap-2">
-            <FaUserPlus className="text-[var(--color-accentFocus)]" />
+            <FaUserPlus className="text-accentFocus" />
             Share with people
           </h3>
 
-          <p className="text-sm text-[var(--color-textSecondary)]">
+          <p className="text-sm text-textSecondary">
             Share this file with a specific user using their email address.
             Shared users can only view this file.
           </p>
@@ -213,7 +210,7 @@ export default function ShareFile({
 
           <div className="flex flex-col gap-1">
             {/* INPUT ROW */}
-            <div className="flex items-center gap-2 px-3 py-2 rounded-md bg-[var(--color-bgPrimary)] border border-[var(--color-borderHover)] focus-within:border-[var(--color-borderActive)] transition">
+            <div className="flex items-center gap-2 px-3 py-2 rounded-md bg-bgPrimary border border-[var(--color-borderHover)] focus-within:border-[var(--color-borderActive)] transition">
               <FaUserPlus className="text-[var(--color-textDisabled)] shrink-0" />
 
               <input
@@ -221,7 +218,7 @@ export default function ShareFile({
                 placeholder="Enter email address"
                 value={user}
                 onChange={(e) => setUser(e.target.value)}
-                className="w-full bg-transparent outline-none text-sm text-[var(--color-textPrimary)] placeholder:text-[var(--color-textDisabled)]"
+                className="w-full bg-transparent outline-none text-sm text-textPrimary placeholder:text-[var(--color-textDisabled)]"
               />
             </div>
 
@@ -239,8 +236,8 @@ export default function ShareFile({
               disabled={!user}
               className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition ${
                 !user
-                  ? `cursor-not-allowed bg-[var(--color-borderDefault)] text-[var(--color-textDisabled)] opacity-60 `
-                  : `cursor-pointer bg-[var(--color-accentPrimary)] text-black hover:bg-[var(--color-accentHover)] active:scale-[0.98]`
+                  ? `cursor-not-allowed bg-borderDefault text-[var(--color-textDisabled)] opacity-60 `
+                  : `cursor-pointer bg-(--color-accentPrimary) text-black hover:bg-[var(--color-accentHover)] active:scale-[0.98]`
               }`}
             >
               Share access

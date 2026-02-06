@@ -69,8 +69,8 @@ export default function Starred() {
   }, [fetchStarredItems]);
 
   return (
-    <div className="min-h-screen font-medium bg-[var(--color-bgPrimary)] px-4 py-6 font-google text-[var(--color-textPrimary)]">
-      <div className="w-full max-w-4xl mx-auto bg-[var(--color-bgSecondary)] border border-[var(--color-borderDefault)] rounded-xl shadow-xl p-5 sm:p-8 flex flex-col gap-6">
+    <div className="min-h-screen font-medium bg-bgPrimary px-4 py-6 font-google text-textPrimary">
+      <div className="w-full max-w-4xl mx-auto bg-bgSecondary border border-borderDefault rounded-xl shadow-xl p-5 sm:p-8 flex flex-col gap-6">
         {/* HEADER */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <h1 className="flex items-center gap-3 text-2xl sm:text-3xl font-semibold">
@@ -78,29 +78,21 @@ export default function Starred() {
             Starred
           </h1>
 
-          <div className="flex gap-6 text-sm text-[var(--color-textSecondary)]">
+          <div className="flex gap-6 text-sm text-textSecondary">
             <span>
               Folders{" "}
-              <strong className="text-[var(--color-textPrimary)]">
-                {foldersCount}
-              </strong>
+              <strong className="text-textPrimary">{foldersCount}</strong>
             </span>
             <span>
-              Files{" "}
-              <strong className="text-[var(--color-textPrimary)]">
-                {filesCount}
-              </strong>
+              Files <strong className="text-textPrimary">{filesCount}</strong>
             </span>
           </div>
         </div>
 
         {/* DESCRIPTION */}
-        <p className="text-sm sm:text-base text-[var(--color-textSecondary)] max-w-2xl">
+        <p className="text-sm sm:text-base text-textSecondary max-w-2xl">
           Your starred files and folders for quick access in{" "}
-          <span className="text-[var(--color-textPrimary)] font-medium">
-            My-Drive
-          </span>
-          .
+          <span className="text-textPrimary font-medium">My-Drive</span>.
         </p>
 
         {/* CONTENT */}
@@ -111,7 +103,7 @@ export default function Starred() {
             {/* FOLDERS */}
             {foldersList.length > 0 && (
               <div className="flex flex-col gap-2">
-                <h2 className="text-sm uppercase tracking-wide text-[var(--color-textSecondary)]">
+                <h2 className="text-sm uppercase tracking-wide text-textSecondary">
                   Folders
                 </h2>
 
@@ -122,7 +114,7 @@ export default function Starred() {
                       flex items-center justify-between
                       px-4 py-2 rounded-md
                       bg-[var(--color-bgElevated)]
-                      border border-[var(--color-borderDefault)]
+                      border border-borderDefault
                       hover:border-[var(--color-borderActive)]
                       transition
                     "
@@ -144,14 +136,14 @@ export default function Starred() {
             {/* FILES */}
             {filesList.length > 0 && (
               <div className="flex flex-col gap-2">
-                <h2 className="text-sm uppercase tracking-wide text-[var(--color-textSecondary)]">
+                <h2 className="text-sm uppercase tracking-wide text-textSecondary">
                   Files
                 </h2>
 
                 {filesList.map((f) => (
                   <div
                     key={f._id}
-                    className="flex items-center justify-between px-4 py-2 rounded-md bg-[var(--color-bgElevated)] border border-[var(--color-borderDefault)] hover:border-[var(--color-borderActive)] transition"
+                    className="flex items-center justify-between px-4 py-2 rounded-md bg-[var(--color-bgElevated)] border border-borderDefault hover:border-[var(--color-borderActive)] transition"
                   >
                     <span className="truncate w-[85%]">{f.name}</span>
 
@@ -177,7 +169,7 @@ export default function Starred() {
         )}
 
         {/* FOOTER */}
-        <div className="pt-4 border-t border-[var(--color-borderDefault)] flex justify-end">
+        <div className="pt-4 border-t border-borderDefault flex justify-end">
           <NavLink
             to="/directory"
             className="
@@ -185,7 +177,7 @@ export default function Starred() {
               px-5 py-2 rounded-md
               bg-[var(--color-bgElevated)]
               border border-[var(--color-borderHover)]
-              hover:bg-[var(--color-accentPrimary)]
+              hover:bg-(--color-accentPrimary)
               hover:border-[var(--color-borderActive)]
               transition
               cursor-pointer

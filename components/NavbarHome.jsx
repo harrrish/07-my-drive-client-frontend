@@ -9,7 +9,7 @@ export default function CompNavbar() {
   const { setUserView } = useContext(UserSettingViewContext);
 
   return (
-    <nav className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto p-3 rounded-md bg-[var(--color-bgSecondary)] border border-[var(--color-borderDefault)] flex justify-between items-center">
+    <nav className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto p-3 rounded-md bg-bgSecondary border border-borderDefault flex justify-between items-center">
       <button
         onClick={() => navigate("/directory")}
         className="flex items-center gap-2 cursor-pointer"

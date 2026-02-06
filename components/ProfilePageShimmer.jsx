@@ -1,11 +1,11 @@
 import React from "react";
 
 export default function ProfilePageShimmer() {
-  const shimmer = "animate-pulse bg-[var(--color-borderDefault)] rounded-md";
+  const shimmer = "animate-pulse bg-borderDefault rounded-md";
 
   return (
-    <div className="min-h-screen flex items-center justify-center font-google bg-[var(--color-bgPrimary)] px-4">
-      <div className="w-full max-w-xl bg-[var(--color-bgSecondary)] border border-[var(--color-borderDefault)] rounded-2xl p-6 sm:p-8 flex flex-col gap-6 shadow-2xl">
+    <div className="min-h-screen flex items-center justify-center font-google bg-bgPrimary px-4">
+      <div className="w-full max-w-xl bg-bgSecondary border border-borderDefault rounded-2xl p-6 sm:p-8 flex flex-col gap-6 shadow-2xl">
         {/* HEADER */}
         <div className="flex justify-between items-center gap-3">
           <div className={`h-7 w-36 ${shimmer}`} />
@@ -31,7 +31,7 @@ export default function ProfilePageShimmer() {
 
         {/* STORAGE */}
         <div className="flex flex-col gap-2">
-          <div className="w-full h-2 rounded-full bg-[var(--color-borderDefault)] overflow-hidden">
+          <div className="w-full h-2 rounded-full bg-borderDefault overflow-hidden">
             <div className="h-full w-1/3 bg-[var(--color-borderHover)] animate-pulse" />
           </div>
           <div className={`h-3 w-40 mx-auto ${shimmer}`} />

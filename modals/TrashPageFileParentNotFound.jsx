@@ -8,8 +8,8 @@ export default function TrashPageFileParentNotFound({ setCantRestoreFile }) {
         className="
           w-full max-w-md
           rounded-xl
-          bg-[var(--color-bgSecondary)]
-          border border-[var(--color-borderDefault)]
+          bg-bgSecondary
+          border border-borderDefault
           shadow-2xl
           p-6
           flex flex-col gap-4
@@ -21,10 +21,10 @@ export default function TrashPageFileParentNotFound({ setCantRestoreFile }) {
         </h1>
 
         {/* MESSAGE */}
-        <div className="flex flex-col gap-2 text-sm text-[var(--color-textSecondary)] leading-relaxed">
+        <div className="flex flex-col gap-2 text-sm text-textSecondary leading-relaxed">
           <p>
             Unable to remove this file from Trash because its{" "}
-            <span className="text-[var(--color-textPrimary)] font-medium">
+            <span className="text-textPrimary font-medium">
               parent folder no longer exists !
             </span>
           </p>
@@ -35,7 +35,7 @@ export default function TrashPageFileParentNotFound({ setCantRestoreFile }) {
         </div>
 
         {/* ACTION */}
-        <div className="flex justify-end pt-3 border-t border-[var(--color-borderDefault)]">
+        <div className="flex justify-end pt-3 border-t border-borderDefault">
           <button
             onClick={() => setCantRestoreFile(false)}
             className="
@@ -43,8 +43,8 @@ export default function TrashPageFileParentNotFound({ setCantRestoreFile }) {
               rounded-md
               bg-[var(--color-bgElevated)]
               border border-[var(--color-borderHover)]
-              text-[var(--color-textPrimary)]
-              hover:bg-[var(--color-accentPrimary)]
+              text-textPrimary
+              hover:bg-(--color-accentPrimary)
               hover:border-[var(--color-borderActive)]
               transition-all duration-200
               cursor-pointer

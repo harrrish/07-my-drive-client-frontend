@@ -7,6 +7,16 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import { VscSignIn } from "react-icons/vsc";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import {
+  IoMailOutline,
+  IoLockClosed,
+  IoArrowForwardCircle,
+  IoKeyOutline,
+} from "react-icons/io5";
+import { FaShieldAlt, FaUserPlus, FaRegQuestionCircle } from "react-icons/fa";
+import { BiLogInCircle } from "react-icons/bi";
+import { IoHomeOutline, IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
+import { FaKey } from "react-icons/fa";
 
 export default function PageUserLogin() {
   const navigate = useNavigate();
@@ -14,7 +24,7 @@ export default function PageUserLogin() {
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
+    password: "ABCdef@123456",
   });
 
   const { setUserView } = useContext(UserSettingViewContext);
@@ -51,83 +61,87 @@ export default function PageUserLogin() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center font-google bg-[var(--color-bgPrimary)] px-4 font-medium">
-      <div className="w-full max-w-xl bg-[var(--color-bgSecondary)] border border-[var(--color-borderDefault)] rounded-2xl p-6 sm:p-8 flex flex-col gap-6 shadow-2xl text-[var(--color-textPrimary)]">
+    <div className="min-h-screen flex items-center justify-center font-google bg-bgPrimary px-4 font-medium py-8 sm:py-12">
+      <div className="w-full max-w-md bg-bgSecondary border border-borderDefault rounded-2xl p-6 sm:p-8 flex flex-col gap-6 shadow-xl text-textPrimary">
         {/* App Title */}
-        <h1 className="flex items-center justify-center gap-2 text-3xl font-semibold">
-          <IoCloudUploadOutline className="text-4xl text-[var(--color-accentFocus)]" />
-          <span>My-Drive</span>
-        </h1>
+        <div className="flex flex-col items-center justify-center gap-3">
+          <div className="flex items-center justify-center gap-2 text-2xl font-bold">
+            <IoCloudUploadOutline className="text-3xl text-accentFocus" />
+            <span className="text-textPrimary">UVDS</span>
+            <span className="text-textSecondary">· My-Drive</span>
+          </div>
+          <div className="h-px w-12 bg-linear-to-r from-transparent via-accentFocus to-transparent rounded-full"></div>
+        </div>
 
         {/* Page Title */}
-        <h2 className="flex items-center justify-center gap-2 text-xl text-[var(--color-textSecondary)]">
-          <VscSignIn className="text-2xl" />
-          Login to your account
+        <h2 className="flex items-center justify-center gap-2 text-xl font-semibold text-center">
+          <VscSignIn className="text-xl text-accentFocus" />
+          <span className="bg-linear-to-r from-accentFocus to-info bg-clip-text text-transparent">
+            Account Login
+          </span>
+          <FaShieldAlt className="text-xl text-accentFocus" />
         </h2>
 
         {/* FORM */}
         <div className="flex flex-col gap-4">
           {/* EMAIL */}
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1.5 group">
             <label
               htmlFor="email"
-              className="text-sm text-[var(--color-textSecondary)]"
+              className="text-xs font-medium text-textSecondary flex items-center gap-1.5"
             >
-              Email
+              <IoMailOutline className="text-sm" /> Email
             </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="harish@example.com"
-              className="
-                w-full px-3 py-2 rounded-md
-                bg-[var(--color-bgElevated)]
-                border border-[var(--color-borderHover)]
-                text-[var(--color-textPrimary)]
-                focus:outline-none
-                focus:border-[var(--color-borderActive)]
-                focus:ring-2 focus:ring-[var(--color-accentFocus)]
-              "
-            />
+            <div className="relative">
+              <IoMailOutline className="absolute left-3 top-1/2 -translate-y-1/2 text-textSecondary text-sm group-focus-within:text-accentFocus transition-colors z-10" />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="harishs1906@outlook.com"
+                className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-bgElevated border border-borderHover text-textPrimary focus:outline-none focus:border-accentFocus focus:ring-1 focus:ring-accentFocus/30 transition-colors duration-150 placeholder-textDisabled text-sm"
+              />
+            </div>
           </div>
 
           {/* PASSWORD */}
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1.5 group">
             <label
               htmlFor="password"
-              className="text-sm text-[var(--color-textSecondary)]"
+              className="text-xs font-medium text-textSecondary flex items-center gap-1.5"
             >
-              Password
+              <IoLockClosed className="text-sm" /> Password
             </label>
-
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="********"
-              className="w-full px-3 py-2 rounded-md bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] text-[var(--color-textPrimary)] focus:outline-none focus:border-[var(--color-borderActive)] focus:ring-2 focus:ring-[var(--color-accentFocus)]"
-            />
+            <div className="relative">
+              <IoLockClosed className="absolute left-3 top-1/2 -translate-y-1/2 text-textSecondary text-sm group-focus-within:text-accentFocus transition-colors z-10" />
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="••••••••"
+                className="w-full pl-9 pr-9 py-2.5 rounded-lg bg-bgElevated border border-borderHover text-textPrimary focus:outline-none focus:border-accentFocus focus:ring-1 focus:ring-accentFocus/30 transition-colors duration-150 placeholder-textDisabled tracking-widest text-sm"
+              />
+            </div>
 
             {/* FORGOT PASSWORD */}
-            <div className="flex justify-end">
+            <div className="flex justify-end pt-1">
               <button
                 type="button"
-                className="mt-1 text-xs text-[var(--color-info)] hover:underline cursor-pointer transition-colors"
+                className="text-xs text-info hover:text-accentFocus hover:underline cursor-pointer transition-colors font-medium flex items-center gap-1"
               >
-                Forgot password?
+                <FaRegQuestionCircle className="text-xs" /> Forgot password?
               </button>
             </div>
           </div>
 
           {/* ERROR */}
           {error.length > 0 && (
-            <div className="text-center text-sm py-2 rounded-md bg-[var(--color-error)] text-white font-medium">
-              {error}
+            <div className="text-center text-xs py-2.5 px-3 rounded-lg bg-error/20 border border-error text-error font-medium flex items-center justify-center gap-1.5">
+              <span className="text-base">⚠</span> {error}
             </div>
           )}
 
@@ -135,31 +149,49 @@ export default function PageUserLogin() {
           <button
             type="button"
             onClick={handleLogin}
-            className="
-              cursor-pointer w-full py-2 rounded-md font-semibold
-              bg-[var(--color-accentPrimary)]
-              hover:bg-[var(--color-accentHover)]
-              disabled:bg-[var(--color-borderHover)]
-              transition-all duration-300
-            "
+            className="cursor-pointer w-full py-2.5 rounded-lg font-semibold text-base bg-accentPrimary hover:bg-accentHover disabled:bg-borderHover disabled:text-textDisabled transition-colors duration-150 shadow flex items-center justify-center gap-2"
           >
-            {login ? "Logging in..." : "Login"}
+            {login ? (
+              <span className="flex items-center gap-2">
+                <span className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-white"></span>{" "}
+                Logging in...
+              </span>
+            ) : (
+              <>
+                <BiLogInCircle className="text-lg" /> Login
+              </>
+            )}
           </button>
         </div>
 
         {/* FOOTER */}
-        <div className="flex flex-col items-center gap-2 pt-2">
-          <p className="font-google text-lg">
-            Do not have an account?{" "}
+        <div className="flex flex-col items-center gap-3.5 pt-2">
+          <div className="relative w-full flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-borderDefault"></div>
+            </div>
+            <span className="relative bg-bgSecondary px-3 text-xs text-textSecondary font-medium">
+              New to UVDS?
+            </span>
+          </div>
+
+          <p className="font-google text-sm text-center">
+            <span className="text-textSecondary">Create your account </span>
             <NavLink
               to={"/register"}
-              className="hover:underline hover:text-sky-600 text-sky-300"
+              className="hover:underline text-info hover:text-accentFocus font-semibold cursor-pointer transition-colors"
             >
               Sign up
+              <IoArrowForwardCircle className="inline ml-0.5 text-accentFocus/70 text-lg" />
             </NavLink>
           </p>
-          <span className="text-sm text-[var(--color-textSecondary)]">Or</span>
-          <CompGoogleBtn />
+
+          <span className="text-xs text-textSecondary font-medium">
+            Or continue with
+          </span>
+          <div className="w-full">
+            <CompGoogleBtn />
+          </div>
         </div>
       </div>
     </div>

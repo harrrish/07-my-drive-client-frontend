@@ -13,8 +13,8 @@ export async function uploadSingleFile(listItem, dirID, navigate, setError) {
       return { status, uploadSignedUrl, fileID };
     }
   } catch (error) {
-    const message = "Failed to initiate file upload";
-    axiosError(error, navigate, setError, message);
+    const message = error.response.data.error;
+    return axiosError(error, navigate, setError, message);
   }
 }
 
@@ -48,9 +48,12 @@ export async function startSingleUpload(
     });
 
     if (res.status === 200 || res.status === 201) {
-      await axiosWithCreds.post("/file/upload/complete", { fileID, size });
+      const { data } = await axiosWithCreds.post("/file/upload/complete", {
+        fileID,
+        size,
+      });
       handleDirectoryDetails(dirID);
-      setUpdate((prev) => [...prev, `File "${name}" uploaded`]);
+      setUpdate((prev) => [...prev, `${data.message}`]);
       setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
       setUploadFilesList((prev) => prev.slice(1));
       handleDirectoryDetails(dirID);

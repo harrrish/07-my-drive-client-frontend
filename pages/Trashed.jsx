@@ -10,6 +10,7 @@ import ModalsDiv from "../modals/ModalsDiv";
 import Shimmer from "../components/Shimmer";
 import CantRestoreFile from "../modals/CantRestoreFile";
 import CantRestoreFolder from "../modals/CantRestoreFolder";
+import { MdInfo } from "react-icons/md";
 
 export default function Trash() {
   const navigate = useNavigate();
@@ -107,7 +108,7 @@ export default function Trash() {
         <CantRestoreFolder setCantRestoreFolder={setCantRestoreFolder} />
       )}
 
-      <div className="min-h-screen bg-[var(--color-bgPrimary)] px-4 py-6 font-google text-[var(--color-textPrimary)]">
+      <div className="min-h-screen bg-bgPrimary px-4 py-6 font-google text-textPrimary">
         {deleteFolderID && (
           <ModalConfirmFolderDelete
             deleteFolderID={deleteFolderID}
@@ -115,7 +116,6 @@ export default function Trash() {
             fetchTrashedItems={fetchTrashedItems}
           />
         )}
-
         {deleteFileID && (
           <ModalConfirmFileDelete
             deleteFileID={deleteFileID}
@@ -124,24 +124,23 @@ export default function Trash() {
           />
         )}
 
-        <div className="w-full max-w-4xl mx-auto bg-[var(--color-bgSecondary)] rounded-xl border border-[var(--color-borderDefault)] shadow-2xl p-6 sm:p-8 flex flex-col gap-6 font-medium">
+        <div className="w-full max-w-4xl mx-auto bg-bgSecondary rounded-xl border border-borderDefault shadow-xl p-4 sm:p-6 md:p-8 flex flex-col gap-4 sm:gap-6 font-medium">
           {/* HEADER */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <h1 className="flex items-center gap-3 text-3xl font-semibold">
-              <MdDelete className="text-[var(--color-error)]" />
-              Trash
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+            <h1 className="flex items-center gap-2 sm:gap-3 text-2xl sm:text-3xl font-semibold">
+              <MdDelete className="text-error size-6 sm:size-7" />
+              <span>Trash</span>
             </h1>
-
-            <div className="flex gap-4 text-sm text-[var(--color-textSecondary)]">
+            <div className="flex gap-3 sm:gap-4 text-xs sm:text-sm text-textSecondary">
               <span>
                 Folders:{" "}
-                <span className="text-[var(--color-textPrimary)] font-medium">
+                <span className="text-textPrimary font-medium">
                   {foldersCount}
                 </span>
               </span>
               <span>
                 Files:{" "}
-                <span className="text-[var(--color-textPrimary)] font-medium">
+                <span className="text-textPrimary font-medium">
                   {filesCount}
                 </span>
               </span>
@@ -149,17 +148,17 @@ export default function Trash() {
           </div>
 
           {/* INFO CARD */}
-          <div className="rounded-lg border border-[var(--color-borderDefault)] bg-[var(--color-bgElevated)] p-4 flex flex-col gap-3">
-            <p className="text-sm leading-relaxed text-[var(--color-textSecondary)] text-center">
-              Items moved to Trash are stored temporarily. You can restore them
-              back to{" "}
-              <span className="text-[var(--color-textPrimary)] font-medium">
-                My-Drive
-              </span>{" "}
-              or permanently delete them.
-            </p>
-
-            <div className="rounded-md border border-[var(--color-warning)] bg-[var(--color-bgSecondary)] px-3 py-2 text-sm text-[var(--color-warning)] font-medium text-center">
+          <div className="rounded-lg border border-borderDefault bg-bgElevated p-3 sm:p-4 flex flex-col gap-2 sm:gap-3">
+            <div className="flex items-center gap-2 justify-center text-textSecondary">
+              <MdInfo className="size-4 sm:size-5" />
+              <p className="text-xs sm:text-sm text-center">
+                Items moved to Trash are stored temporarily. You can restore
+                them back to{" "}
+                <span className="text-textPrimary font-medium">My-Drive</span>{" "}
+                or permanently delete them.
+              </p>
+            </div>
+            <div className="rounded-md border border-warning/30 bg-bgSecondary/50 px-3 py-2 text-xs sm:text-sm text-warning font-medium text-center">
               <span className="font-semibold">Important:</span> Files and
               folders in Trash{" "}
               <span className="font-semibold">
@@ -175,86 +174,87 @@ export default function Trash() {
           {loading ? (
             <Shimmer />
           ) : (
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4 sm:gap-6 min-h-[50vh]">
               {/* FOLDERS */}
               {foldersList.length > 0 && (
                 <div className="flex flex-col gap-2">
-                  <h2 className="text-xs uppercase tracking-wide text-[var(--color-textSecondary)]">
+                  <h2 className="text-xs uppercase tracking-wide text-textSecondary font-medium">
                     Folders
                   </h2>
-
-                  {foldersList.map((f) => (
-                    <div
-                      key={f._id}
-                      className="flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] border border-[var(--color-borderDefault)] hover:border-[var(--color-borderHover)]"
-                    >
-                      {/* FOLDER NAME */}
-                      <div className="flex items-center gap-2 w-[85%] min-w-0">
-                        <FaFolder className="text-[var(--color-warning)] flex-shrink-0" />
-                        <span className="capitalize truncate text-[var(--color-textPrimary)]">
-                          {f.name}
-                        </span>
+                  <div className="flex flex-col gap-2">
+                    {foldersList.map((f) => (
+                      <div
+                        key={f._id}
+                        className="flex items-center justify-between px-3 py-2.5 sm:py-3 rounded-lg bg-bgElevated border border-borderDefault hover:border-borderHover transition-colors"
+                      >
+                        <div className="flex items-center gap-2 min-w-0 flex-1">
+                          <FaFolder className="text-warning size-5 shrink-0" />
+                          <span className="truncate text-textPrimary text-sm sm:text-base">
+                            {f.name}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3 sm:gap-4 ml-2">
+                          <FaUndo
+                            onClick={() =>
+                              handleTrashFolder(f._id, f.isTrashed)
+                            }
+                            className="cursor-pointer text-success size-4 hover:scale-110 transition-transform"
+                            title="Restore folder"
+                          />
+                          <MdDelete
+                            onClick={() => {
+                              setDeleteFolderID(f._id);
+                              setDeleteFileID(null);
+                            }}
+                            className="cursor-pointer text-error size-5 hover:opacity-100 opacity-70 transition-opacity"
+                            title="Delete permanently"
+                          />
+                        </div>
                       </div>
-
-                      {/* ACTIONS */}
-                      <div className="flex items-center gap-4">
-                        <FaUndo
-                          onClick={() => handleTrashFolder(f._id, f.isTrashed)}
-                          className="cursor-pointer text-[var(--color-success)] hover:scale-110 transition"
-                          title="Restore folder"
-                        />
-
-                        <MdDelete
-                          onClick={() => {
-                            setDeleteFolderID(f._id);
-                            setDeleteFileID(null);
-                          }}
-                          className="cursor-pointer text-[var(--color-error)] opacity-70 hover:opacity-100"
-                          title="Delete permanently"
-                        />
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               )}
 
               {/* FILES */}
               {filesList.length > 0 && (
                 <div className="flex flex-col gap-2">
-                  <h2 className="text-xs uppercase tracking-wide text-[var(--color-textSecondary)]">
+                  <h2 className="text-xs uppercase tracking-wide text-textSecondary font-medium">
                     Files
                   </h2>
-
-                  {filesList.map((f) => (
-                    <div
-                      key={f._id}
-                      className="flex items-center justify-between px-3 py-2 rounded-md bg-[var(--color-bgElevated)] border border-[var(--color-borderDefault)] hover:border-[var(--color-borderHover)]"
-                    >
-                      <span className="capitalize truncate w-[85%]">
-                        {f.name}
-                      </span>
-
-                      <div className="flex items-center gap-4">
-                        <FaUndo
-                          onClick={() => handleTrashFile(f._id, f.isTrashed)}
-                          className="cursor-pointer text-[var(--color-success)] hover:scale-110 transition"
-                        />
-                        <MdDelete
-                          onClick={() => {
-                            setDeleteFolderID(null);
-                            setDeleteFileID(f._id);
-                          }}
-                          className="cursor-pointer text-[var(--color-error)] opacity-70 hover:opacity-100"
-                        />
+                  <div className="flex flex-col gap-2">
+                    {filesList.map((f) => (
+                      <div
+                        key={f._id}
+                        className="flex items-center justify-between px-3 py-2.5 sm:py-3 rounded-lg bg-bgElevated border border-borderDefault hover:border-borderHover transition-colors"
+                      >
+                        <span className="truncate text-textPrimary text-sm sm:text-base flex-1">
+                          {f.name}
+                        </span>
+                        <div className="flex items-center gap-3 sm:gap-4 ml-2">
+                          <FaUndo
+                            onClick={() => handleTrashFile(f._id, f.isTrashed)}
+                            className="cursor-pointer text-success size-4 hover:scale-110 transition-transform"
+                            title="Restore file"
+                          />
+                          <MdDelete
+                            onClick={() => {
+                              setDeleteFolderID(null);
+                              setDeleteFileID(f._id);
+                            }}
+                            className="cursor-pointer text-error size-5 hover:opacity-100 opacity-70 transition-opacity"
+                            title="Delete permanently"
+                          />
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               )}
 
               {/* EMPTY */}
               {foldersList.length === 0 && filesList.length === 0 && (
-                <div className="text-center text-sm text-[var(--color-textDisabled)] py-12">
+                <div className="text-center text-sm text-textDisabled py-8 sm:py-12">
                   No trashed files or folders found.
                 </div>
               )}
@@ -264,10 +264,10 @@ export default function Trash() {
           {/* FOOTER */}
           <NavLink
             to="/directory"
-            className="self-center mt-4 inline-flex items-center gap-2 px-6 py-2 rounded-lg bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] hover:bg-[var(--color-accentPrimary)] hover:border-[var(--color-borderActive)] transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--color-accentFocus)]"
+            className="self-center mt-2 sm:mt-4 inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg bg-bgElevated border border-borderHover hover:bg-accentPrimary hover:border-borderActive hover:text-white transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-accentFocus"
           >
-            <MdHome />
-            Back to Home
+            <MdHome className="size-5" />
+            <span className="text-sm sm:text-base">Back to Home</span>
           </NavLink>
         </div>
       </div>

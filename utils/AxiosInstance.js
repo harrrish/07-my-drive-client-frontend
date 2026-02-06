@@ -10,16 +10,38 @@ export const axiosWithOutCreds = axios.create({
   baseURL,
 });
 
-const serverErr = "Internal server error";
+export function axiosError(
+  error,
+  navigate,
+  setError,
+  actionFunction,
+  customErr = "Something went wrong !",
+) {
+  const errorValue = error.response?.data?.error || customErr;
 
-export function axiosError(error, navigate, setError, customErr) {
-  const errorMsg = axios.isAxiosError(error)
-    ? error.response?.data?.error || customErr
-    : serverErr;
-  if (error.status === 401 && errorMsg === "Expired or Invalid Session")
+  //* INVALID SESSION
+  if (error.status === 401 && errorValue === "INVALID_SESSION") {
     navigate("/login", { replace: true });
+  }
+
+  //* FOLDER NOT FOUND
+  else if (error.status === 404 && errorValue === "FOLDER_NOT_FOUND") {
+    actionFunction(true);
+    setError((prev) => [...prev, errorValue]);
+    setTimeout(() => setError((prev) => prev.slice(1)), 3000);
+    return { status: 507, uploadSignedUrl: null, fileID: null };
+  }
+
+  //* LARGE FILE ERROR
+  else if (error.status === 507) {
+    setError((prev) => [...prev, errorValue]);
+    setTimeout(() => setError((prev) => prev.slice(1)), 3000);
+    return { status: 507, uploadSignedUrl: null, fileID: null };
+  }
+
+  //* REST OF THE ERRORS
   else {
-    setError((prev) => [...prev, errorMsg]);
+    setError((prev) => [...prev, errorValue]);
     setTimeout(() => setError((prev) => prev.slice(1)), 3000);
   }
 }

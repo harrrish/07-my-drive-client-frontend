@@ -20,6 +20,18 @@ import { axiosError, axiosWithCreds } from "../utils/AxiosInstance";
 import { fileTypes } from "../utils/FileTypes";
 import { TbEyeCancel } from "react-icons/tb";
 import ShareFile from "../modals/ShareFile";
+import {
+  FaEyeSlash,
+  FaTrashAlt,
+  FaEdit,
+  FaSave,
+  FaTimes,
+} from "react-icons/fa";
+import {
+  IoInformationCircle,
+  IoShareSocial,
+  IoCloudDownload,
+} from "react-icons/io5";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -151,28 +163,14 @@ export default function CompFileItem({
       )}
 
       <div
-        title={`Name: ${name}\nSize: ${calSize(size)}\nCreated: ${new Date(
-          createdAt,
-        ).toLocaleString()}`}
-        className="
-          group flex items-center justify-between
-          px-3 py-2.5
-          rounded-lg
-          border border-[var(--color-borderDefault)]
-          bg-[var(--color-bgSecondary)]
-          hover:bg-[var(--color-bgElevated)]
-          hover:border-[var(--color-borderHover)]
-          transition-all duration-150
-        "
+        title={`Name: ${name}\nSize: ${calSize(size)}\nCreated: ${new Date(createdAt).toLocaleString()}`}
+        className="group flex items-center justify-between px-3 py-2.5 rounded-lg border border-borderDefault bg-bgSecondary hover:bg-bgElevated hover:border-borderHover transition-colors duration-150"
       >
         {/* LEFT SECTION */}
         <div className="flex items-center gap-3 min-w-0 flex-1">
           <input
             type="checkbox"
-            className="
-              scale-110 cursor-pointer
-              accent-[var(--color-accentPrimary)]
-            "
+            className="scale-110 cursor-pointer accent-accentPrimary"
           />
 
           <button
@@ -181,37 +179,27 @@ export default function CompFileItem({
             title={isStarred ? "Unstar" : "Star"}
           >
             {isStarred ? (
-              <FaStar className="text-[var(--color-success)]" />
+              <FaStar className="text-success" />
             ) : (
-              <FaRegStar className="text-[var(--color-textDisabled)] group-hover:text-[var(--color-textSecondary)]" />
+              <FaRegStar className="text-textDisabled group-hover:text-textSecondary" />
             )}
           </button>
 
           {rename ? (
             <div className="flex items-center gap-2 min-w-0 flex-1">
               <CompFileIcon ext={extension} />
-
               <input
                 value={itemName}
                 onChange={(e) => setItemName(e.target.value)}
                 autoFocus
-                className="
-                  w-full px-2 py-1 text-sm
-                  rounded-md
-                  bg-[var(--color-bgPrimary)]
-                  border border-[var(--color-borderHover)]
-                  text-[var(--color-textPrimary)]
-                  focus:outline-none
-                  focus:ring-2 focus:ring-[var(--color-accentFocus)]
-                "
+                className="w-full px-2 py-1.5 text-sm rounded-md bg-bgPrimary border border-borderHover text-textPrimary focus:outline-none focus:border-accentFocus focus:ring-1 focus:ring-accentFocus/30"
               />
-
               <button
                 onClick={handleFileRename}
-                className="cursor-pointer text-[var(--color-success)] hover:scale-110 transition"
+                className="cursor-pointer text-success hover:text-accentFocus transition-colors"
                 title="Save"
               >
-                <MdSave />
+                <FaSave />
               </button>
             </div>
           ) : (
@@ -227,13 +215,7 @@ export default function CompFileItem({
                 );
               }}
               title={basename}
-              className="
-                flex items-center gap-2 min-w-0
-                truncate cursor-pointer
-                text-sm
-                text-[var(--color-textPrimary)]
-                hover:underline
-              "
+              className="flex items-center gap-2 min-w-0 truncate cursor-pointer text-sm text-textPrimary hover:text-accentFocus hover:underline transition-colors"
             >
               <CompFileIcon ext={extension} />
               <span className="truncate">{basename}</span>
@@ -244,65 +226,61 @@ export default function CompFileItem({
         {/* PREVIEW DISABLED */}
         {!fileTypes.includes(extension) && (
           <span
-            className="text-[var(--color-textDisabled)] mx-2"
+            className="text-textDisabled mx-2"
             title="Preview not available, File format not supported !"
           >
-            <TbEyeCancel />
+            <FaEyeSlash />
           </span>
         )}
 
         {/* RIGHT ACTIONS */}
-        <div
-          className="
-            flex items-center gap-3
-            text-[var(--color-textSecondary)]
-            opacity-40 group-hover:opacity-100
-            transition-opacity duration-150
-          "
-        >
+        <div className="flex items-center gap-3 text-textSecondary opacity-40 group-hover:opacity-100 transition-opacity duration-150">
           <button
             onClick={() => setFileDetails(true)}
-            className="cursor-pointer hover:text-[var(--color-info)]"
+            className="cursor-pointer hover:text-info transition-colors"
             title="File details"
           >
-            <MdOutlineInfo />
+            <IoInformationCircle />
           </button>
 
           <button
             onClick={handleShareFile}
-            className="cursor-pointer hover:text-[var(--color-info)]"
+            className="cursor-pointer hover:text-info transition-colors"
             title="Share"
           >
-            <IoMdShare />
+            <IoShareSocial />
           </button>
 
           <a
             href={`${baseURL}/file/${_id}?action=download`}
-            className="cursor-pointer hover:text-[var(--color-success)]"
+            className="cursor-pointer hover:text-success transition-colors"
             title="Download"
           >
-            <FaDownload />
+            <IoCloudDownload />
           </a>
 
           <button
             onClick={() => setRename((prev) => !prev)}
-            className="cursor-pointer hover:text-[var(--color-warning)]"
+            className="cursor-pointer hover:text-warning transition-colors"
             title={rename ? "Cancel rename" : "Rename"}
           >
-            {rename ? <GiCancel /> : <MdOutlineDriveFileRenameOutline />}
+            {rename ? <FaTimes /> : <FaEdit />}
           </button>
 
           {sharedTo.length > 0 ? (
-            <span title="Shared File cannot be Deleted !">
+            <span
+              className="cursor-not-allowed text-textDisabled"
+              title="Shared File cannot be Deleted !"
+            >
               <MdBlock />
             </span>
           ) : (
             <button
               onClick={handleFileTrash}
-              className="cursor-pointer hover:text-[var(--color-error)]"
+              className="cursor-pointer hover:text-error transition-colors"
               title="Move to trash"
             >
-              <MdOutlineAutoDelete />
+              <FaTrashAlt />
             </button>
           )}
         </div>

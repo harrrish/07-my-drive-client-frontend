@@ -82,19 +82,18 @@ export default function Shared() {
           handleDirectoryDetails={() => {}}
         />
       </div>
-      <div className="font-google min-h-screen bg-[var(--color-bgPrimary)] px-4 py-6 font-medium">
-        <div className="w-full max-w-6xl mx-auto bg-[var(--color-bgSecondary)] text-[var(--color-textPrimary)] flex flex-col gap-8 p-6 sm:p-8 rounded-xl border border-[var(--color-borderDefault)] shadow-2xl">
+      <div className="font-google min-h-screen bg-bgPrimary px-4 py-6 font-medium">
+        <div className="w-full max-w-6xl mx-auto bg-bgSecondary text-textPrimary flex flex-col gap-8 p-6 sm:p-8 rounded-xl border border-borderDefault shadow-2xl">
           {/* HEADER */}
           <div className="flex flex-col items-center gap-3 text-center">
             <h1 className="flex items-center gap-3 text-3xl sm:text-4xl font-semibold tracking-wide">
               <MdShare className="text-[var(--color-info)] text-3xl sm:text-4xl" />
               <span>
-                Shared{" "}
-                <span className="text-[var(--color-textSecondary)]">Files</span>
+                Shared <span className="text-textSecondary">Files</span>
               </span>
             </h1>
 
-            <p className="text-sm sm:text-base text-[var(--color-textSecondary)] max-w-2xl">
+            <p className="text-sm sm:text-base text-textSecondary max-w-2xl">
               Files you’ve shared with others and files others have shared with
               you, organized for easy access.
             </p>
@@ -104,24 +103,24 @@ export default function Shared() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* SHARED BY USER */}
             {loadingByUser ? (
-              <div className="py-8 text-center text-sm text-[var(--color-textSecondary)]">
+              <div className="py-8 text-center text-sm text-textSecondary">
                 Loading shared files…
               </div>
             ) : (
               <section className="flex flex-col rounded-lg bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] overflow-hidden">
                 {/* HEADER */}
-                <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--color-borderDefault)]">
+                <div className="flex items-center justify-between px-4 py-3 border-b border-borderDefault">
                   <div className="flex items-center gap-2">
                     <MdUpload className="text-[var(--color-accentPrimary)] text-lg" />
                     <h2 className="text-base font-semibold">Shared by me</h2>
                   </div>
-                  <span className="text-xs text-[var(--color-textSecondary)]">
+                  <span className="text-xs text-textSecondary">
                     {filesCountByUser}
                   </span>
                 </div>
 
                 {/* SUBTEXT */}
-                <p className="px-4 py-2 text-xs text-[var(--color-textSecondary)]">
+                <p className="px-4 py-2 text-xs text-textSecondary">
                   Files you’ve shared with other people
                 </p>
 
@@ -132,26 +131,26 @@ export default function Shared() {
                       {filesByUser.map(({ _id, name, sharedTo }) => (
                         <li
                           key={_id}
-                          className="group px-4 py-3 hover:bg-[var(--color-bgPrimary)] transition flex items-center gap-4"
+                          className="group px-4 py-3 hover:bg-bgPrimary transition flex items-center gap-4"
                         >
                           {/* FILE INFO (PRIMARY ACTION) */}
                           <div className="min-w-0 flex-1 text-left rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accentFocus)] focus:ring-offset-2 focus:ring-offset-[var(--color-bgElevated)]">
                             <p
-                              className="text-sm font-medium truncate text-[var(--color-textPrimary)] leading-snug group-hover:underline"
+                              className="text-sm font-medium truncate text-textPrimary leading-snug group-hover:underline"
                               title={name}
                             >
                               {name}
                             </p>
-                            <p className="mt-0.5 text-xs text-[var(--color-textSecondary)]">
+                            <p className="mt-0.5 text-xs text-textSecondary">
                               Users count shared to:{" "}
-                              <span className="font-medium text-[var(--color-textPrimary)]">
+                              <span className="font-medium text-textPrimary">
                                 {sharedTo.length}
                               </span>
                             </p>
                           </div>
 
                           {/* ACTION ZONE */}
-                          <div className="flex items-center pl-3 border-l border-[var(--color-borderDefault)]">
+                          <div className="flex items-center pl-3 border-l border-borderDefault">
                             <button
                               title="View List access"
                               onClick={() =>
@@ -159,7 +158,7 @@ export default function Shared() {
                                   `View file access list for file ID:${_id}`,
                                 )
                               }
-                              className="cursor-pointer opacity-30 group-hover:opacity-100 transition-opacity text-[var(--color-textDisabled)] hover:text-[var(--color-error)] p-1.5 rounded-md hover:bg-[var(--color-bgElevated)] focus:outline-none focus:ring-2 focus:ring-[var(--color-error)] focus:ring-offset-2 focus:ring-offset-[var(--color-bgElevated)]"
+                              className="cursor-pointer opacity-30 group-hover:opacity-100 transition-opacity text-[var(--color-textDisabled)] hover:text-error p-1.5 rounded-md hover:bg-[var(--color-bgElevated)] focus:outline-none focus:ring-2 focus:ring-[var(--color-error)] focus:ring-offset-2 focus:ring-offset-[var(--color-bgElevated)]"
                             >
                               <FaClipboardList className="text-lg" />
                             </button>
@@ -178,24 +177,24 @@ export default function Shared() {
 
             {/* SHARED WITH USER */}
             {loadingWithUser ? (
-              <div className="py-8 text-center text-sm text-[var(--color-textSecondary)]">
+              <div className="py-8 text-center text-sm text-textSecondary">
                 Loading shared files…
               </div>
             ) : (
               <section className="flex flex-col rounded-lg bg-[var(--color-bgElevated)] border border-[var(--color-borderHover)] overflow-hidden">
                 {/* HEADER */}
-                <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--color-borderDefault)]">
+                <div className="flex items-center justify-between px-4 py-3 border-b border-borderDefault">
                   <div className="flex items-center gap-2">
                     <MdUpload className="text-[var(--color-accentPrimary)] text-lg" />
                     <h2 className="text-base font-semibold">Shared with me</h2>
                   </div>
-                  <span className="text-xs text-[var(--color-textSecondary)]">
+                  <span className="text-xs text-textSecondary">
                     {filesCountWithUser}
                   </span>
                 </div>
 
                 {/* SUBTEXT */}
-                <p className="px-4 py-2 text-xs text-[var(--color-textSecondary)]">
+                <p className="px-4 py-2 text-xs text-textSecondary">
                   Files you’ve shared with other people
                 </p>
 
@@ -207,26 +206,26 @@ export default function Shared() {
                         ({ fileID, filename, userEmail, userID }) => (
                           <li
                             key={fileID}
-                            className="group px-4 py-3 hover:bg-[var(--color-bgPrimary)] transition flex items-center gap-4"
+                            className="group px-4 py-3 hover:bg-bgPrimary transition flex items-center gap-4"
                           >
                             {/* FILE INFO (PRIMARY ACTION) */}
                             <div className="min-w-0 flex-1 text-left rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accentFocus)] focus:ring-offset-2 focus:ring-offset-[var(--color-bgElevated)]">
                               <p
-                                className="text-sm font-medium truncate text-[var(--color-textPrimary)] leading-snug group-hover:underline"
+                                className="text-sm font-medium truncate text-textPrimary leading-snug group-hover:underline"
                                 title={filename}
                               >
                                 {filename}
                               </p>
-                              <p className="mt-0.5 text-xs text-[var(--color-textSecondary)]">
+                              <p className="mt-0.5 text-xs text-textSecondary">
                                 Owner of the Content:{" "}
-                                <span className="font-medium text-[var(--color-textPrimary)]">
+                                <span className="font-medium text-textPrimary">
                                   {userEmail}
                                 </span>
                               </p>
                             </div>
 
                             {/* ACTION ZONE */}
-                            <div className="flex items-center pl-3 border-l border-[var(--color-borderDefault)]">
+                            <div className="flex items-center pl-3 border-l border-borderDefault">
                               <button
                                 title="Refuse file access !"
                                 onClick={() =>
@@ -237,7 +236,7 @@ export default function Shared() {
                                     userID,
                                   )
                                 }
-                                className="cursor-pointer opacity-30 group-hover:opacity-100 transition-opacity text-[var(--color-textDisabled)] hover:text-[var(--color-error)] p-1.5 rounded-md hover:bg-[var(--color-bgElevated)] focus:outline-none focus:ring-2 focus:ring-[var(--color-error)] focus:ring-offset-2 focus:ring-offset-[var(--color-bgElevated)]"
+                                className="cursor-pointer opacity-30 group-hover:opacity-100 transition-opacity text-[var(--color-textDisabled)] hover:text-error p-1.5 rounded-md hover:bg-[var(--color-bgElevated)] focus:outline-none focus:ring-2 focus:ring-[var(--color-error)] focus:ring-offset-2 focus:ring-offset-[var(--color-bgElevated)]"
                               >
                                 <MdRemoveCircleOutline className="text-lg" />
                               </button>
@@ -263,10 +262,10 @@ export default function Shared() {
               className="
               inline-flex items-center gap-2
               px-6 py-2 rounded-lg
-              bg-[var(--color-bgSecondary)]
-              text-[var(--color-textPrimary)]
+              bg-bgSecondary
+              text-textPrimary
               border border-[var(--color-borderHover)]
-              hover:bg-[var(--color-accentPrimary)]
+              hover:bg-(--color-accentPrimary)
               hover:border-[var(--color-borderActive)]
               transition-all duration-300
               focus:outline-none
