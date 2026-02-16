@@ -300,7 +300,7 @@ export default function PageUserRegister() {
           <span className="text-xs text-textSecondary font-medium">
             Or continue with
           </span>
-          <div className="w-full">
+          <div className="w-fit mx-auto">
             <CompGoogleBtn />
           </div>
         </div>
