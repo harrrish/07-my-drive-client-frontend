@@ -20,7 +20,7 @@ export default function PageUserLogin() {
   const [login, setLogin] = useState(false);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
-    email: "basic@uvds.store",
+    email: "Basic@uvds.store",
     password: "Qwerty@1234",
   });
 

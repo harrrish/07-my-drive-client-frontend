@@ -12553,7 +12553,7 @@ function K6() {
                 f.jsx("span", {
                   className:
                     "text-md px-2 py-0.5 rounded-full bg-borderDefault text-textSecondary",
-                  children: "BASIC",
+                  children: "Basic",
                 }),
               ],
             }),

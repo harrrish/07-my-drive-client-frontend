@@ -43,7 +43,7 @@ export default function PurchasePremium() {
   }, [handleGetUserPlan]);
 
   const getIcon = (name) => {
-    if (name === "basic") return <FaStar />;
+    if (name === "Basic") return <FaStar />;
     if (name === "pro") return <FaBolt />;
     if (name === "premium") return <FaCrown />;
     return <MdWorkspacePremium />;
