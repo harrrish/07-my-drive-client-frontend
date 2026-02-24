@@ -21,7 +21,7 @@ export default function ModalsDiv({
           <div
             key={index}
             style={{ bottom: `${index * 3 + 2}rem` }}
-            className="fixed right-2 max-w-lg px-4 py-2.5 rounded-lg shadow-lg border border-success bg-linear-to-r from-success/10 to-bgElevated text-success text-sm animate-slide truncate font-medium flex items-center gap-2 backdrop-blur-sm z-50 mt-1"
+            className="fixed right-2 max-w-lg px-4 py-2.5 rounded-lg shadow-lg border border-success bg-linear-to-r from-success/10 to-bgElevated text-success text-md animate-slide truncate font-medium flex items-center gap-2 backdrop-blur-sm z-50 mt-1"
           >
             <div className="flex items-center gap-3">
               <div className="p-1 rounded-full bg-success/20">
@@ -39,7 +39,7 @@ export default function ModalsDiv({
           <div
             key={index}
             style={{ bottom: `${index * 3 + 2}rem` }}
-            className="fixed left-2 max-w-lg px-4 py-2.5 rounded-lg shadow-lg border border-error bg-linear-to-r from-error/10 to-bgElevated text-error text-sm animate-slideFromLeft truncate font-medium flex items-center gap-2 backdrop-blur-sm z-50"
+            className="fixed left-2 max-w-lg px-4 py-2.5 rounded-lg shadow-lg border border-error bg-linear-to-r from-error/10 to-bgElevated text-error text-md animate-slideFromLeft truncate font-medium flex items-center gap-2 backdrop-blur-sm z-50"
           >
             <div className="flex items-center gap-3">
               <div className="p-1 rounded-full bg-error/20">

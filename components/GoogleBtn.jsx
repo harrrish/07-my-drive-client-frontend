@@ -6,7 +6,7 @@ import { useContext } from "react";
 
 export default function CompGoogleBtn() {
   const navigate = useNavigate();
-  const { setUserView } = useContext(UserSettingViewContext);
+  const { setOpenSettings } = useContext(UserSettingViewContext);
 
   return (
     <GoogleLogin
@@ -19,7 +19,7 @@ export default function CompGoogleBtn() {
         const res = await loginWithGoogle(credentialResponse.credential);
         if (res === 200 || res === 201) {
           navigate("/directory");
-          setUserView(false);
+          setOpenSettings(false);
         }
       }}
       onError={() => {

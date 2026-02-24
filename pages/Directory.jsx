@@ -4,6 +4,7 @@ import {
   DirectoryContext,
   ErrorContext,
   UpdateContext,
+  UserDetailsContext,
   UserSettingViewContext,
   UserStorageContext,
 } from "../utils/Contexts.js";
@@ -23,7 +24,7 @@ import {
 } from "../utils/UploadSingleFile.js";
 import { BiFolderOpen } from "react-icons/bi";
 import UploadFile from "../components/UploadFile.jsx";
-import UserSettings from "../components/UserSettings.jsx";
+import Menu from "../components/UserSettings.jsx";
 import { MdDelete, MdOutlineDriveFileMove } from "react-icons/md";
 import { MdFolderOff, MdHome } from "react-icons/md";
 import { IoArrowForward, IoHome, IoTrashBin } from "react-icons/io5";
@@ -34,6 +35,8 @@ import {
   FaFolder,
   FaFile,
 } from "react-icons/fa";
+import DirectoryShimmer from "../components/DirectoryShimmer.jsx";
+import EmptyDirectory from "../components/EmptyDirectory.jsx";
 
 export default function PageDirectoryView() {
   const { dirID } = useParams();
@@ -49,7 +52,8 @@ export default function PageDirectoryView() {
   const { setUserStorage } = useContext(UserStorageContext);
   const { directoryDetails, setDirectoryDetails } =
     useContext(DirectoryContext);
-  const { userView } = useContext(UserSettingViewContext);
+  const { userDetails, setUserDetails } = useContext(UserDetailsContext);
+  const { openSettings } = useContext(UserSettingViewContext);
 
   const [folderNotFound, setFolderNotFound] = useState(false);
 
@@ -74,6 +78,7 @@ export default function PageDirectoryView() {
         setLoading(true);
         const endpoint = dirID ? `/directory/${dirID}` : `/directory`;
         const { data } = await axiosWithCreds.get(endpoint);
+        console.log(data);
         setDirectoryDetails((prev) => ({
           ...prev,
           ...data,
@@ -83,6 +88,11 @@ export default function PageDirectoryView() {
           foldersCount: data?.foldersCount || 0,
           filesCount: data?.filesCount || 0,
         }));
+        setUserDetails((prev) => ({
+          ...prev,
+          role: data?.role,
+          roleCode: data?.roleCode,
+        }));
         handleUserStorageDetails();
       } catch (error) {
         axiosError(error, navigate, setError, null, setFolderNotFound);
@@ -90,7 +100,13 @@ export default function PageDirectoryView() {
         setLoading(false);
       }
     },
-    [handleUserStorageDetails, navigate, setDirectoryDetails, setError],
+    [
+      handleUserStorageDetails,
+      navigate,
+      setDirectoryDetails,
+      setError,
+      setUserDetails,
+    ],
   );
 
   //* FILE UPLOAD
@@ -164,7 +180,7 @@ export default function PageDirectoryView() {
               Folder Not Found
             </h1>
 
-            <p className="text-sm sm:text-base text-textSecondary max-w-lg">
+            <p className="text-md sm:text-base text-textSecondary max-w-lg">
               The folder you’re trying to access does not exist or you don’t
               have permission to view it.
             </p>
@@ -174,7 +190,7 @@ export default function PageDirectoryView() {
           <div className="border-t border-borderDefault" />
 
           {/* POSSIBLE REASONS */}
-          <div className="flex flex-col gap-4 text-sm sm:text-base">
+          <div className="flex flex-col gap-4 text-md sm:text-base">
             {/* TRASH OPTION */}
             <div
               className="
@@ -190,7 +206,7 @@ export default function PageDirectoryView() {
                 <h2 className="font-medium text-textPrimary">
                   Folder may be in Trash
                 </h2>
-                <p className="text-textSecondary text-sm">
+                <p className="text-textSecondary text-md">
                   The folder might have been moved to Trash and can still be
                   restored.
                 </p>
@@ -220,7 +236,7 @@ export default function PageDirectoryView() {
                 <h2 className="font-medium text-textPrimary">
                   Folder permanently deleted or access revoked
                 </h2>
-                <p className="text-textSecondary text-sm">
+                <p className="text-textSecondary text-md">
                   If the folder was deleted permanently or access was removed,
                   you can safely return to Home.
                 </p>
@@ -251,9 +267,9 @@ export default function PageDirectoryView() {
 
       {/* USER SETTINGS OVERLAY */}
       <div
-        className={`fixed inset-0 z-20 bg-black/70 transition-opacity ${userView ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+        className={`fixed inset-0 z-20 bg-black/70 transition-opacity ${openSettings ? "opacity-100" : "opacity-0 pointer-events-none"}`}
       >
-        <UserSettings />
+        <Menu />
       </div>
 
       <div className="flex flex-col gap-3 p-3 sm:p-4">
@@ -265,12 +281,12 @@ export default function PageDirectoryView() {
             <div key={p.id} className="flex items-center">
               <button
                 onClick={() => navigate(`/directory/${p.id}`)}
-                className="truncate max-w-35 capitalize hover:underline cursor-pointer text-sm hover:text-accentFocus transition-colors"
+                className="truncate max-w-35 capitalize hover:underline cursor-pointer text-md hover:text-accentFocus transition-colors"
                 title={p.name}
               >
                 {p.name.includes("root") ? p.name.split("-")[0] : p.name}
               </button>
-              <IoArrowForward className="text-textDisabled mx-1 text-xs" />
+              <IoArrowForward className="text-textDisabled mx-1 text-md" />
             </div>
           ))}
         </div>
@@ -282,12 +298,12 @@ export default function PageDirectoryView() {
             className="flex-1 h-10 rounded-md border border-borderHover bg-bgSecondary hover:bg-bgElevated cursor-pointer flex items-center justify-center gap-2 transition-colors"
           >
             <FaFolderPlus className="text-lg text-accentPrimary" />
-            <span className="text-sm font-medium">Create Folder</span>
+            <span className="text-md font-medium">Create Folder</span>
           </button>
 
           <label className="flex-1 h-10 rounded-md border border-borderHover bg-bgSecondary hover:bg-bgElevated cursor-pointer flex items-center justify-center gap-2 transition-colors">
             <FaCloudUploadAlt className="text-lg text-info" />
-            <span className="text-sm font-medium">Upload Files</span>
+            <span className="text-md font-medium">Upload Files</span>
             <input
               type="file"
               multiple
@@ -298,19 +314,27 @@ export default function PageDirectoryView() {
         </div>
 
         {/* //* SEARCH + SORT */}
-        {/* <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto flex flex-col sm:flex-row h-auto sm:h-10 rounded-md overflow-hidden border border-borderDefault bg-bgSecondary">
+        <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto flex flex-col sm:flex-row h-auto sm:h-10 rounded-md overflow-hidden border border-borderDefault bg-bgSecondary">
           <div className="flex items-center flex-1 px-3 py-2 sm:py-0">
-            <FaSearch className="text-textDisabled mr-2 text-sm" />
+            <FaSearch className="text-textDisabled mr-2 text-md" />
             <input
               type="text"
               placeholder="Search files or folders"
-              className="w-full bg-transparent outline-none text-sm placeholder-textDisabled"
+              disabled={
+                userDetails.role === "Basic" && userDetails.roleCode === 1
+              }
+              className="w-full bg-transparent outline-none text-md placeholder-textDisabled disabled:cursor-not-allowed"
             />
           </div>
 
           <div className="flex items-center gap-2 px-3 py-2 sm:py-0 border-t sm:border-t-0 sm:border-l border-borderDefault">
-            <FaFilter className="text-textSecondary text-sm" />
-            <select className="bg-bgSecondary text-textPrimary border border-borderHover rounded px-2 py-1.5 outline-none cursor-pointer text-sm focus:border-borderActive focus:ring-1 focus:ring-accentFocus text-center font-medium w-full sm:w-auto">
+            <FaFilter className="text-textSecondary text-md" />
+            <select
+              disabled={
+                userDetails.role === "Basic" && userDetails.roleCode === 1
+              }
+              className="bg-bgSecondary text-textPrimary border border-borderHover rounded px-2 py-1.5 outline-none cursor-pointer text-md focus:border-borderActive focus:ring-1 focus:ring-accentFocus text-center font-medium w-full sm:w-auto disabled:cursor-not-allowed disabled:text-textDisabled"
+            >
               <option className="bg-bgSecondary text-textPrimary font-medium">
                 Name (A–Z)
               </option>
@@ -325,74 +349,52 @@ export default function PageDirectoryView() {
               </option>
             </select>
           </div>
-        </div> */}
+        </div>
 
         {/* //* GROUP MOVE && GROUP DELETE */}
-        {/* <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 py-3 px-4 rounded-md bg-bgSecondary border border-borderDefault">
+        <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 py-3 px-4 rounded-md bg-bgSecondary border border-borderDefault">
           <div className="flex gap-3 items-center">
-            <span
-              className="text-xl text-textSecondary hover:text-accentFocus cursor-pointer transition-colors"
+            <button
+              disabled={
+                userDetails.role === "Basic" && userDetails.roleCode === 1
+              }
+              className="text-xl text-textSecondary hover:text-accentFocus cursor-pointer transition-colors disabled:cursor-not-allowed disabled:text-textDisabled"
               title="Move the file to different folders !"
             >
               <MdOutlineDriveFileMove />
-            </span>
-            <span
-              className="text-lg text-textSecondary hover:text-error cursor-pointer transition-colors"
+            </button>
+            <button
+              disabled={
+                userDetails.role === "Basic" && userDetails.roleCode === 1
+              }
+              className="text-lg text-textSecondary hover:text-error cursor-pointer transition-colors disabled:cursor-not-allowed disabled:text-textDisabled"
               title="Delete"
             >
               <IoTrashBin />
-            </span>
+            </button>
           </div>
 
           <div className="flex gap-4 items-center text-base text-textSecondary">
             <span className="flex items-center gap-1.5">
-              <FaFolder className="text-accentPrimary text-sm" />
+              <FaFolder className="text-accentPrimary text-md" />
               <span className="font-medium">
                 {directoryDetails.foldersCount}
               </span>
             </span>
             <span className="flex items-center gap-1.5">
-              <FaFile className="text-info text-sm" />
+              <FaFile className="text-info text-md" />
               <span className="font-medium">{directoryDetails.filesCount}</span>
             </span>
           </div>
-        </div> */}
+        </div>
 
         {loading ? (
-          <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto flex flex-col gap-2">
-            {[1, 2, 3, 4, 5].map((e, index) => (
-              <div
-                key={index}
-                className="group flex items-center justify-between px-3 py-2.5 rounded-lg border border-borderDefault bg-bgSecondary animate-loading"
-              >
-                <div className="flex items-center gap-3 min-w-0 flex-1">
-                  <div className="scale-110 w-4 h-4 rounded bg-borderHover"></div>
-                  <div className="w-4 h-4 rounded bg-borderHover"></div>
-                  <div className="flex items-center gap-2 min-w-0 flex-1">
-                    <div className="w-6 h-6 rounded bg-borderHover"></div>
-                    <div className="w-32 h-4 rounded bg-borderHover"></div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 opacity-40">
-                  <div className="w-4 h-4 rounded bg-borderHover"></div>
-                  <div className="w-4 h-4 rounded bg-borderHover"></div>
-                  <div className="w-4 h-4 rounded bg-borderHover"></div>
-                  <div className="w-4 h-4 rounded bg-borderHover"></div>
-                  <div className="w-4 h-4 rounded bg-borderHover"></div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <DirectoryShimmer />
         ) : (
           <div>
             {directoryDetails.foldersCount === 0 &&
               directoryDetails.filesCount === 0 &&
-              !isUploading && (
-                <div className="flex flex-col items-center justify-center min-h-[40vh] text-textSecondary">
-                  <BiFolderOpen className="text-4xl mb-2" />
-                  <span className="text-sm">Empty folder</span>
-                </div>
-              )}
+              !isUploading && <EmptyDirectory />}
 
             <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto flex flex-col gap-2">
               {directoryDetails.folders.map((f) => (

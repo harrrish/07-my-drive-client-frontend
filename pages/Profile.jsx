@@ -1,13 +1,31 @@
+import {
+  FaDatabase,
+  FaFolder,
+  FaShareSquare,
+  FaRocket,
+  FaStar,
+} from "react-icons/fa";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { ErrorContext, UserDetailsContext } from "../utils/Contexts";
 import { calSize } from "../utils/CalculateFileSize";
 import { useNavigate } from "react-router-dom";
 import { baseURL } from "../src/main";
-import { IoCloudUploadOutline, IoLogOut } from "react-icons/io5";
-import { FaHome } from "react-icons/fa";
+import {
+  IoCloudUploadOutline,
+  IoLogOut,
+  IoPersonCircle,
+} from "react-icons/io5";
+import {
+  FaUserCircle,
+  FaCrown,
+  FaKey,
+  FaTrashAlt,
+  FaHome,
+} from "react-icons/fa";
+import { MdVerified } from "react-icons/md";
 import { axiosError, axiosWithCreds } from "../utils/AxiosInstance";
-import { FaUserCircle, FaCrown, FaKey, FaTrashAlt } from "react-icons/fa";
-import { IoPersonCircle } from "react-icons/io5";
+import { FaBell, FaInfoCircle } from "react-icons/fa";
+import { FaInbox, FaPaperPlane } from "react-icons/fa";
 
 export default function PageUserProfile() {
   const { userDetails, setUserDetails } = useContext(UserDetailsContext);
@@ -20,7 +38,6 @@ export default function PageUserProfile() {
       const { data } = await axiosWithCreds.get(`/user/profile`, {
         withCredentials: true,
       });
-      console.log(data);
       setUserDetails({ ...data });
     } catch (error) {
       axiosError(error, navigate, setError, "Something went wrong !");
@@ -35,143 +52,321 @@ export default function PageUserProfile() {
     if (res.ok) navigate("/login");
   }
 
+  const fetchStarredItems = useCallback(async () => {
+    try {
+      const { data } = await axiosWithCreds.get(`/star/contents`);
+      // console.log("Star:", data.filesCount + data.foldersCount);
+      setUserDetails((prev) => ({
+        ...prev,
+        starredFiles:
+          (prev.starredFiles ?? 0) + data.filesCount + data.foldersCount,
+      }));
+    } catch (error) {
+      axiosError(error, navigate, setError, "Something went wrong!");
+    }
+  }, [navigate, setError, setUserDetails]);
+
+  const fetchTrashedItems = useCallback(async () => {
+    try {
+      const { data } = await axiosWithCreds.get(`/trash/contents`);
+      // console.log("Trash:", data.filesCount + data.foldersCount);
+      setUserDetails((prev) => ({
+        ...prev,
+        trashedFiles:
+          (prev.trashedFiles ?? 0) + data.filesCount + data.foldersCount,
+      }));
+    } catch (error) {
+      axiosError(error, navigate, setError, "Something went wrong !");
+    }
+  }, [navigate, setError, setUserDetails]);
+
+  const fetchSharedWithUserItems = useCallback(async () => {
+    try {
+      const { data } = await axiosWithCreds.get(`/share/file/with-user`);
+      // console.log("WithMe:", data.filesCount);
+      setUserDetails((prev) => ({
+        ...prev,
+        sharedFilesWithMe: (prev.sharedFilesWithMe ?? 0) + data.filesCount,
+      }));
+    } catch (error) {
+      axiosError(error, navigate, setError, "Something went wrong!");
+    }
+  }, [navigate, setError, setUserDetails]);
+
+  const fetchSharedByUserItems = useCallback(async () => {
+    try {
+      const { data } = await axiosWithCreds.get(`/share/file/by-user`);
+      // console.log("ByMe:", data.filesCount);
+      setUserDetails((prev) => ({
+        ...prev,
+        sharedFilesByMe: (prev.sharedFilesByMe ?? 0) + data.filesCount,
+      }));
+    } catch (error) {
+      axiosError(error, navigate, setError, "Something went wrong!");
+    }
+  }, [navigate, setError, setUserDetails]);
+
   useEffect(() => {
     handleUserProfileData();
-  }, [handleUserProfileData]);
+    fetchStarredItems();
+    fetchTrashedItems();
+    fetchSharedByUserItems();
+    fetchSharedWithUserItems();
+  }, [
+    handleUserProfileData,
+    fetchStarredItems,
+    fetchTrashedItems,
+    fetchSharedByUserItems,
+    fetchSharedWithUserItems,
+  ]);
 
   useEffect(() => {
     setImgError(false);
   }, [userDetails?.picture]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center font-google bg-bgPrimary text-textPrimary px-4 font-medium py-8">
-      <div className="w-full max-w-xl bg-bgSecondary border border-borderDefault rounded-2xl p-5 sm:p-6 flex flex-col gap-5 shadow-xl relative overflow-hidden">
-        {/* Shimmer Effect */}
-        <div className="absolute inset-0 bg-linear-to-br from-transparent via-bgElevated/5 to-transparent animate-[slide_3s_ease-in-out_infinite]" />
-
-        {/* HEADER */}
-        <div className="flex justify-between items-center gap-3 pb-3 border-b border-borderHover relative z-10">
-          <h2 className="flex items-center gap-2 text-xl font-bold">
-            <IoCloudUploadOutline className="text-2xl text-accentFocus" />
-            <span>My-Drive</span>
-            <span className="text-textSecondary">· Profile</span>
-          </h2>
-          <span
-            className="text-xs text-textSecondary truncate max-w-[45%] sm:max-w-[55%] bg-bgElevated px-2 py-1 rounded border border-borderDefault"
-            title={userDetails.email}
-          >
-            {userDetails.email}
-          </span>
+    <div className="min-h-screen font-google font-medium bg-bgPrimary text-textPrimary flex flex-col">
+      {/* TOP NAVBAR */}
+      <div className="w-full bg-bgSecondary border-b border-borderDefault px-4 sm:px-6 py-3 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <IoCloudUploadOutline className="text-accentFocus text-4xl" />
+          <span className="font-bold text-2xl">My-Drive Dashboard</span>
         </div>
 
-        {/* AVATAR */}
-        <div className="flex justify-center relative z-10">
-          {userDetails?.picture && !imgError ? (
-            <div className="relative">
-              <div className="absolute inset-0 rounded-full bg-linear-to-br from-accentPrimary/20 to-accentFocus/20 blur-xl animate-pulse" />
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => navigate("/directory")}
+            className="cursor-pointer flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-bgElevated transition-colors"
+          >
+            <FaHome />
+            <span className="hidden sm:inline text-xl">Home</span>
+          </button>
+
+          <button
+            onClick={handleLogout}
+            className="cursor-pointer flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-info hover:text-black transition-colors"
+          >
+            <IoLogOut />
+            <span className="hidden sm:inline text-xl">Logout</span>
+          </button>
+        </div>
+      </div>
+
+      {/* MAIN CONTENT */}
+      <div className="flex flex-col gap-4 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
+        {/* PROFILE HERO */}
+        <div className="relative bg-linear-to-br from-bgSecondary via-bgElevated to-bgSecondary border border-borderDefault rounded-2xl px-5 py-5 sm:px-6 sm:py-6 flex flex-col sm:flex-row items-center sm:items-start gap-5 shadow-elevated overflow-hidden">
+          {/* subtle glow accent */}
+          <div className="absolute -top-20 -right-20 w-40 h-40 bg-accentPrimary/10 blur-3xl rounded-full pointer-events-none" />
+
+          {/* avatar */}
+          <div className="relative shrink-0">
+            {userDetails?.picture && !imgError ? (
               <img
                 src={userDetails.picture}
-                alt={`${userDetails.name}'s profile picture`}
                 onError={() => setImgError(true)}
-                className="w-40 h-40 sm:w-48 sm:h-48 rounded-full object-cover border-2 border-borderHover shadow-lg relative z-10"
+                className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border border-borderHover shadow-md"
               />
-            </div>
-          ) : (
-            <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-full flex items-center justify-center text-5xl font-bold bg-linear-to-br from-bgElevated to-borderDefault border-2 border-borderHover text-accentFocus shadow-lg">
-              {userDetails?.name?.charAt(0)?.toUpperCase() || (
-                <IoPersonCircle className="text-4xl" />
-              )}
-            </div>
-          )}
-        </div>
+            ) : (
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-bgElevated border border-borderHover flex items-center justify-center text-accentFocus text-4xl font-bold shadow-md">
+                {userDetails?.name?.charAt(0)?.toUpperCase() || (
+                  <IoPersonCircle />
+                )}
+              </div>
+            )}
 
-        {/* USER INFO */}
-        <div className="flex justify-between items-center bg-linear-to-r from-bgElevated to-borderDefault/50 border border-borderHover rounded-lg px-3 py-2.5 relative z-10">
-          <div className="flex items-center gap-2">
-            <FaUserCircle className="text-accentPrimary text-xl" />
-            <span className="font-medium capitalize text-textPrimary">
-              {userDetails.name}
+            {/* premium indicator */}
+            {userDetails?.role?.toLowerCase() === "premium" && (
+              <div className="absolute -bottom-1 -right-1 bg-warning text-black rounded-full p-1.5 border border-bgSecondary">
+                <FaCrown className="text-md" />
+              </div>
+            )}
+          </div>
+
+          {/* info block */}
+          <div className="flex flex-col items-center sm:items-start gap-1 text-center sm:text-left flex-1 min-w-0">
+            {/* name */}
+            <div className="flex items-center gap-2 flex-wrap justify-center sm:justify-start">
+              <span className="text-lg sm:text-2xl font-semibold capitalize text-textPrimary truncate max-w-50 sm:max-w-none">
+                {userDetails.name}
+              </span>
+
+              <MdVerified className="text-info text-base shrink-0" />
+            </div>
+
+            {/* email */}
+            <span className="text-textSecondary text-xl truncate max-w-62.5 sm:max-w-none">
+              {userDetails.email}
+            </span>
+
+            {/* role + upgrade */}
+            <div className="flex items-center gap-2 mt-2 flex-wrap justify-center sm:justify-start">
+              <span className="px-3 py-1 rounded-sm bg-accentPrimary text-black text-md font-semibold capitalize tracking-wide shadow-sm">
+                {userDetails.role}
+              </span>
+
+              <button
+                onClick={() => navigate("/purchase-premium")}
+                className="cursor-pointer px-3 py-1 rounded-sm bg-warning text-black text-md font-semibold flex items-center gap-1 hover:bg-highlightPrimary transition-colors shadow-sm"
+              >
+                <FaCrown className="text-md" />
+                Upgrade
+              </button>
+            </div>
+          </div>
+
+          {/* right side quick stat */}
+          <div className="hidden sm:flex flex-col items-end gap-1 shrink-0">
+            <span className="text-textMuted text-md uppercase tracking-wide">
+              Account Status
+            </span>
+
+            <span className="text-success text-md font-semibold">Active</span>
+          </div>
+        </div>
+        {/* STATS GRID */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-2">
+          {/* STORAGE USED */}
+          <div className="bg-bgSecondary border border-borderDefault rounded-xl p-5 flex flex-col gap-2 justify-center">
+            <FaDatabase className="text-accentFocus text-xl" />
+            <span className="text-textSecondary text-md font-medium">
+              Storage Used
+            </span>
+            <span className="font-bold text-textPrimary text-xl">
+              {calSize(userDetails.size)}
             </span>
           </div>
-          <span className="text-xs px-3 py-1 rounded-full bg-linear-to-r from-borderDefault to-bgElevated text-textSecondary font-medium border border-borderHover">
-            {userDetails.role}
-          </span>
+
+          {/* MAX STORAGE */}
+          <div className="bg-bgSecondary border border-borderDefault rounded-xl p-5 flex flex-col gap-2 justify-center">
+            <FaDatabase className="text-accentFocus text-xl" />
+            <span className="text-textSecondary text-md font-medium">
+              Max Storage
+            </span>
+            <span className="font-bold text-textPrimary text-xl">
+              {calSize(userDetails.maxStorageInBytes)}
+            </span>
+          </div>
+
+          {/* STARRED */}
+          <button
+            onClick={() => navigate("/starred")}
+            className="cursor-pointer bg-bgSecondary border border-borderDefault rounded-xl p-5 flex flex-col gap-2 justify-center hover:border-accentPrimary transition-colors group text-left"
+          >
+            <FaFolder className="text-accentFocus text-xl" />
+            <span className="text-textSecondary text-md font-medium">
+              Starred Content
+            </span>
+            <span className="font-bold text-textPrimary text-xl">
+              {userDetails.starredFiles ?? 0}
+            </span>
+          </button>
+
+          {/* SHARED with Me*/}
+          <button
+            onClick={() => navigate("/shared")}
+            className="cursor-pointer bg-bgSecondary border border-borderDefault rounded-xl p-5 flex flex-col gap-2 justify-center hover:border-accentPrimary transition-colors group text-left"
+          >
+            <FaInbox className="text-accentFocus text-xl" />
+            <span className="text-textSecondary text-md font-medium">
+              Shared Files with Me
+            </span>
+            <span className="font-bold text-textPrimary text-xl">
+              {userDetails.sharedFilesWithMe ?? 0}
+            </span>
+          </button>
+
+          {/* SHARED by Me */}
+          <button
+            onClick={() => navigate("/shared")}
+            className="cursor-pointer bg-bgSecondary border border-borderDefault rounded-xl p-5 flex flex-col gap-2 justify-center hover:border-accentPrimary transition-colors group text-left"
+          >
+            <FaPaperPlane className="text-accentFocus text-xl" />
+            <span className="text-textSecondary text-md font-medium">
+              Shared Files by Me
+            </span>
+            <span className="font-bold text-textPrimary text-xl">
+              {userDetails.sharedFilesByMe ?? 0}
+            </span>
+          </button>
+
+          {/* TRASH */}
+          <button
+            onClick={() => navigate("/trash")}
+            className="cursor-pointer bg-bgSecondary border border-borderDefault rounded-xl p-5 flex flex-col gap-2 justify-center hover:border-error transition-colors group text-left"
+          >
+            <FaTrashAlt className="text-error text-xl" />
+            <span className="text-textSecondary text-md font-medium">
+              Trash Files
+            </span>
+            <span className="font-bold text-textPrimary text-xl">
+              {userDetails.trashedFiles ?? 0}
+            </span>
+          </button>
         </div>
 
-        {/* STORAGE */}
-        <div className="flex flex-col gap-2 relative z-10">
-          <div className="w-full h-2 rounded-full bg-borderDefault overflow-hidden border border-borderHover">
+        {/* STORAGE BAR PANEL */}
+        <div className="bg-bgSecondary border border-borderDefault rounded-xl p-5 flex flex-col gap-3">
+          <div className="flex justify-between text-md">
+            <span className="text-textSecondary">Storage Usage</span>
+
+            <span>
+              {Math.round(
+                (userDetails.size / userDetails.maxStorageInBytes) * 100,
+              )}
+              %
+            </span>
+          </div>
+
+          <div className="w-full h-3 bg-borderDefault rounded-full overflow-hidden">
             <div
-              className="h-full bg-linear-to-r from-accentPrimary to-accentFocus transition-all"
+              className="h-full bg-linear-to-r from-accentPrimary to-accentFocus"
               style={{
                 width: `${(userDetails.size / userDetails.maxStorageInBytes) * 100}%`,
               }}
             />
           </div>
-          <p className="text-xs text-center text-textSecondary">
-            Used{" "}
-            <span className="text-textPrimary font-medium bg-bgElevated px-1 rounded">
-              {calSize(userDetails.size)}
-            </span>{" "}
-            of{" "}
-            <span className="text-textPrimary font-medium bg-bgElevated px-1 rounded">
-              {calSize(userDetails.maxStorageInBytes)}
-            </span>
-          </p>
         </div>
-
-        {/* ACTIONS */}
-        <div className="flex flex-col gap-2.5 relative z-10">
+        {/* ACTION PANEL */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <button
-            onClick={() => navigate("/directory")}
-            className="cursor-pointer flex items-center justify-between px-3 py-2.5 rounded-lg bg-linear-to-r from-bgElevated to-borderDefault/30 border border-borderHover hover:border-accentPrimary hover:bg-accentPrimary transition-all duration-150 group"
+            onClick={() => navigate("/notifications")}
+            className="cursor-pointer bg-bgSecondary border border-borderDefault rounded-xl p-5 flex items-center gap-4 hover:border-accentPrimary transition-colors"
           >
-            <div className="flex items-center gap-3">
-              <FaHome className="text-base group-hover:scale-110 transition-transform" />
-              <span className="font-semibold text-sm">HOME</span>
-            </div>
-            <div className="w-1 h-4 bg-accentPrimary rounded opacity-0 group-hover:opacity-100 transition-opacity" />
+            <FaBell className="text-accentFocus text-xl" />
+            <span className="font-semibold">Notifications</span>
+          </button>
+          <button
+            onClick={() => navigate("/projects")}
+            className="cursor-pointer bg-bgSecondary border border-borderDefault rounded-xl p-5 flex items-center gap-4 hover:border-accentPrimary transition-colors"
+          >
+            <FaRocket className="text-accentFocus text-xl" />
+            <span className="font-semibold">Projects</span>
+          </button>
+          <button
+            onClick={() => navigate("/about")}
+            className="cursor-pointer bg-bgSecondary border border-borderDefault rounded-xl p-5 flex items-center gap-4 hover:border-accentPrimary transition-colors"
+          >
+            <FaInfoCircle className="text-accentFocus text-xl" />
+            <span className="font-semibold">About</span>
           </button>
 
-          <button
-            onClick={() => navigate("/purchase-premium")}
-            className="cursor-pointer flex items-center justify-between px-3 py-2.5 rounded-lg bg-linear-to-r from-bgElevated to-borderDefault/30 border border-borderHover hover:border-warning hover:bg-warning transition-all duration-150 group"
-          >
-            <div className="flex items-center gap-3">
-              <FaCrown className="text-base group-hover:scale-110 transition-transform" />
-              <span className="font-semibold text-sm">UPGRADE TO PREMIUM</span>
-            </div>
-            <div className="w-1 h-4 bg-warning rounded opacity-0 group-hover:opacity-100 transition-opacity" />
+          <button className="cursor-pointer bg-bgSecondary border border-borderDefault rounded-xl p-5 flex items-center gap-4 hover:border-error hover:bg-error hover:text-black transition-colors">
+            <FaTrashAlt />
+            <span className="font-semibold">Delete Account</span>
+          </button>
+
+          <button className="cursor-pointer bg-bgSecondary border border-borderDefault rounded-xl p-5 flex items-center gap-4 hover:border-error hover:bg-error hover:text-black transition-colors">
+            <FaKey />
+            <span className="font-semibold">Deactivate Account</span>
           </button>
 
           <button
             onClick={handleLogout}
-            className="cursor-pointer flex items-center justify-between px-3 py-2.5 rounded-lg bg-linear-to-r from-bgElevated to-borderDefault/30 border border-borderHover hover:border-info hover:bg-info transition-all duration-150 group"
+            className="cursor-pointer bg-bgSecondary border border-borderDefault rounded-xl p-5 flex items-center gap-4 hover:border-info hover:bg-info hover:text-black transition-colors"
           >
-            <div className="flex items-center gap-3">
-              <IoLogOut className="text-base group-hover:scale-110 transition-transform" />
-              <span className="font-semibold text-sm">LOGOUT ALL ACCOUNTS</span>
-            </div>
-            <div className="w-1 h-4 bg-info rounded opacity-0 group-hover:opacity-100 transition-opacity" />
-          </button>
-
-          <button className="cursor-pointer flex items-center justify-between px-3 py-2.5 rounded-lg bg-linear-to-r from-bgElevated to-borderDefault/30 border border-borderHover hover:border-error hover:bg-error transition-all duration-150 group">
-            <div className="flex items-center gap-3">
-              <FaKey className="text-base group-hover:scale-110 transition-transform" />
-              <span className="font-semibold text-sm">DEACTIVATE ACCOUNT</span>
-            </div>
-            <div className="w-1 h-4 bg-error rounded opacity-0 group-hover:opacity-100 transition-opacity" />
-          </button>
-
-          <button
-            onClick={() => console.log("User deleted")}
-            className="cursor-pointer flex items-center justify-between px-3 py-2.5 rounded-lg bg-linear-to-r from-bgElevated to-borderDefault/30 border border-borderHover hover:border-error hover:bg-error transition-all duration-150 group"
-          >
-            <div className="flex items-center gap-3">
-              <FaTrashAlt className="text-base group-hover:scale-110 transition-transform" />
-              <span className="font-semibold text-sm">DELETE ACCOUNT</span>
-            </div>
-            <div className="w-1 h-4 bg-error rounded opacity-0 group-hover:opacity-100 transition-opacity" />
+            <IoLogOut />
+            <span className="font-semibold">Logout from all devices</span>
           </button>
         </div>
       </div>

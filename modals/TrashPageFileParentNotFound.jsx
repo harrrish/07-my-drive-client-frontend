@@ -21,7 +21,7 @@ export default function TrashPageFileParentNotFound({ setCantRestoreFile }) {
         </h1>
 
         {/* MESSAGE */}
-        <div className="flex flex-col gap-2 text-sm text-textSecondary leading-relaxed">
+        <div className="flex flex-col gap-2 text-md text-textSecondary leading-relaxed">
           <p>
             Unable to remove this file from Trash because its{" "}
             <span className="text-textPrimary font-medium">

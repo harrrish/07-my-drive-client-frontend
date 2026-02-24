@@ -99,7 +99,7 @@ export default function ShareFile({
               <IoCloudUploadOutline className="text-xl text-accentFocus shrink-0" />
               Share
             </h2>
-            <p className="text-sm text-textSecondary truncate" title={name}>
+            <p className="text-md text-textSecondary truncate" title={name}>
               {name}
             </p>
           </div>
@@ -119,16 +119,16 @@ export default function ShareFile({
 
         {/* ===== SHARE LINK ===== */}
         <section className="flex flex-col gap-3">
-          <h3 className="text-sm font-semibold flex items-center gap-2">
+          <h3 className="text-md font-semibold flex items-center gap-2">
             <FaLink className="text-[var(--color-info)]" />
             Share link
           </h3>
 
-          <p className="text-sm text-textSecondary">
+          <p className="text-md text-textSecondary">
             Anyone with the link can view this file.
           </p>
 
-          <p className="text-xs text-[var(--color-textDisabled)]">
+          <p className="text-md text-[var(--color-textDisabled)]">
             Note: The shared link expires automatically after 60 minutes.
           </p>
 
@@ -161,7 +161,7 @@ export default function ShareFile({
                 border border-[var(--color-borderHover)]
                 hover:bg-[var(--color-borderHover)]
                 transition
-                text-sm font-medium
+                text-md font-medium
               "
             >
               <MdOpenInNew className="text-lg text-[var(--color-info)]" />
@@ -178,7 +178,7 @@ export default function ShareFile({
                 bg-(--color-accentPrimary)
                 hover:bg-[var(--color-accentHover)]
                 transition
-                text-sm font-medium
+                text-md font-medium
                 text-black
               "
             >
@@ -193,17 +193,17 @@ export default function ShareFile({
 
         {/* ===== SHARE ACCESS ===== */}
         <section className="flex flex-col gap-3">
-          <h3 className="text-sm font-semibold flex items-center gap-2">
+          <h3 className="text-md font-semibold flex items-center gap-2">
             <FaUserPlus className="text-accentFocus" />
             Share with people
           </h3>
 
-          <p className="text-sm text-textSecondary">
+          <p className="text-md text-textSecondary">
             Share this file with a specific user using their email address.
             Shared users can only view this file.
           </p>
 
-          <p className="text-xs text-[var(--color-textDisabled)]">
+          <p className="text-md text-[var(--color-textDisabled)]">
             Note: You can revoke access anytime. The receiver can also remove
             themselves.
           </p>
@@ -218,13 +218,13 @@ export default function ShareFile({
                 placeholder="Enter email address"
                 value={user}
                 onChange={(e) => setUser(e.target.value)}
-                className="w-full bg-transparent outline-none text-sm text-textPrimary placeholder:text-[var(--color-textDisabled)]"
+                className="w-full bg-transparent outline-none text-md text-textPrimary placeholder:text-[var(--color-textDisabled)]"
               />
             </div>
 
             {/* ERROR MESSAGE */}
             {userError && (
-              <p className="text-xs text-[var(--color-error)] pl-1 font-bold">
+              <p className="text-md text-[var(--color-error)] pl-1 font-bold">
                 {userError}
               </p>
             )}
@@ -234,7 +234,7 @@ export default function ShareFile({
             <button
               onClick={handleShareAccess}
               disabled={!user}
-              className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition ${
+              className={`flex-1 px-4 py-2 rounded-md text-md font-medium transition ${
                 !user
                   ? `cursor-not-allowed bg-borderDefault text-[var(--color-textDisabled)] opacity-60 `
                   : `cursor-pointer bg-(--color-accentPrimary) text-black hover:bg-[var(--color-accentHover)] active:scale-[0.98]`

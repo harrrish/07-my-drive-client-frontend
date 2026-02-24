@@ -4,11 +4,16 @@ import { UserDetailsContext } from "../utils/Contexts";
 export function UserDetailsProvider({ children }) {
   const [userDetails, setUserDetails] = useState({
     email: "",
-    maxStorageInBytes: 0,
+    // maxStorageInBytes: 0,
     name: "",
     picture: "",
+    roleCode: null,
     role: "",
-    size: 0,
+    // size: 0,
+    starredFiles: 0,
+    sharedFilesWithMe: 0,
+    sharedFilesByMe: 0,
+    trashedFiles: 0,
   });
 
   return (

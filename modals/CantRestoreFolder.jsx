@@ -11,7 +11,7 @@ export default function CantRestoreFolder({ setCantRestoreFolder }) {
         </h1>
 
         {/* MESSAGE */}
-        <div className="flex flex-col gap-2 text-sm text-textSecondary leading-relaxed">
+        <div className="flex flex-col gap-2 text-md text-textSecondary leading-relaxed">
           <p>
             Unable to restore this folder from Trash because its{" "}
             <span className="text-textPrimary font-medium">
@@ -27,7 +27,7 @@ export default function CantRestoreFolder({ setCantRestoreFolder }) {
             account.
           </p>
 
-          <p className="text-sm font-medium text-[var(--color-warning)] mt-1">
+          <p className="text-md font-medium text-[var(--color-warning)] mt-1">
             Note: Moving this file to the root is a permanent action and cannot
             be undone.
           </p>

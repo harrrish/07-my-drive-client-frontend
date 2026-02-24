@@ -133,7 +133,7 @@ export default function About() {
           Built with <span className="text-accentFocus">Cutting-Edge</span>{" "}
           Technology
         </h1>
-        <p className="text-xl text-textSecondary max-w-4xl mx-auto mb-12 font-normal">
+        <p className="text-xl text-textSecondary max-w-4xl mx-auto mb-12 font-medium">
           UVDS My-Drive is engineered with a modern tech stack for security,
           scalability, and exceptional performance.
         </p>
@@ -162,7 +162,7 @@ export default function About() {
               <h3 className="text-xl font-bold mb-2 group-hover:text-accentFocus transition-colors">
                 {tech.name}
               </h3>
-              <p className="text-sm text-textSecondary font-normal">
+              <p className="text-md text-textSecondary font-medium">
                 {tech.desc}
               </p>
             </div>
@@ -176,7 +176,7 @@ export default function About() {
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
             Enterprise <span className="text-accentFocus">Features</span>
           </h2>
-          <p className="text-lg text-textSecondary text-center max-w-3xl mx-auto mb-12 font-normal">
+          <p className="text-lg text-textSecondary text-center max-w-3xl mx-auto mb-12 font-medium">
             Powered by industry-leading libraries and cloud services
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -191,7 +191,7 @@ export default function About() {
                 <h3 className="text-xl font-bold mb-3 group-hover:text-accentPrimary transition-colors">
                   {feat.title}
                 </h3>
-                <p className="text-sm text-textSecondary font-normal leading-relaxed">
+                <p className="text-md text-textSecondary font-medium leading-relaxed">
                   {feat.desc}
                 </p>
               </div>
@@ -209,7 +209,7 @@ export default function About() {
               Automated <span className="text-accentFocus">CI/CD Pipeline</span>
             </h2>
           </div>
-          <p className="text-lg text-textSecondary max-w-3xl mx-auto font-normal">
+          <p className="text-lg text-textSecondary max-w-3xl mx-auto font-medium">
             Zero-downtime deployments with GitHub Actions automating the entire
             development workflow
           </p>
@@ -231,7 +231,7 @@ export default function About() {
                 <h3 className="text-xl font-bold mb-2 group-hover:text-accentFocus transition-colors">
                   {step.title}
                 </h3>
-                <p className="text-sm text-textSecondary font-normal px-2">
+                <p className="text-md text-textSecondary font-medium px-2">
                   {step.desc}
                 </p>
               </div>
@@ -244,7 +244,7 @@ export default function About() {
             <FaRobot className="text-2xl text-accentFocus" />
             <div className="text-left">
               <h4 className="font-bold text-lg">Fully Automated Workflow</h4>
-              <p className="text-sm text-textSecondary font-normal">
+              <p className="text-md text-textSecondary font-medium">
                 From code commit to production deployment
               </p>
             </div>
@@ -259,7 +259,7 @@ export default function About() {
             Experience the <span className="text-accentFocus">Power</span> of
             Modern Development
           </h2>
-          <p className="text-lg text-textSecondary max-w-3xl mx-auto mb-10 font-normal">
+          <p className="text-lg text-textSecondary max-w-3xl mx-auto mb-10 font-medium">
             UVDS My-Drive combines enterprise security with developer-friendly
             tooling and automated DevOps.
           </p>

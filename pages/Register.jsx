@@ -4,19 +4,16 @@ import CompGoogleBtn from "../components/GoogleBtn";
 import { axiosError, axiosWithOutCreds } from "../utils/AxiosInstance";
 import { MdPersonAdd } from "react-icons/md";
 import { IoArrowForwardCircle, IoCloudUploadOutline } from "react-icons/io5";
-import { MdOutlineMarkEmailRead, MdOutlinePassword } from "react-icons/md";
+import { MdOutlineMarkEmailRead } from "react-icons/md";
 import { IoLockClosed, IoMailOutline } from "react-icons/io5";
-import { FaUserCircle, FaShieldAlt, FaCheckCircle } from "react-icons/fa";
-import {} from "react-icons/md";
-import { IoKeyOutline } from "react-icons/io5";
-import { FaGoogle, FaRegIdCard } from "react-icons/fa";
-import { FaClock } from "react-icons/fa6";
+import { FaUserCircle, FaShieldAlt } from "react-icons/fa";
+import { FaRegIdCard } from "react-icons/fa";
 
 export default function PageUserRegister() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: "kaskdb",
-    email: "asdasd@dsf.com",
+    name: "",
+    email: "",
     password: "",
     otp: "",
   });
@@ -109,7 +106,7 @@ export default function PageUserRegister() {
   useEffect(() => {
     if (!openVerify) return;
 
-    setTimer(30);
+    setTimer(180);
     const interval = setInterval(() => {
       setTimer((prev) => {
         if (prev <= 1) {
@@ -161,7 +158,7 @@ export default function PageUserRegister() {
               value={formData.name}
               onChange={handleChange}
               placeholder="Full Name"
-              className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-bgElevated border border-borderHover focus:outline-none focus:border-accentFocus focus:ring-1 focus:ring-accentFocus/30 transition-colors duration-150 text-textPrimary placeholder-textDisabled text-sm"
+              className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-bgElevated border border-borderHover focus:outline-none focus:border-accentFocus focus:ring-1 focus:ring-accentFocus/30 transition-colors duration-150 text-textPrimary placeholder-textDisabled text-md"
             />
           </div>
           {/* Email Input */}
@@ -173,7 +170,7 @@ export default function PageUserRegister() {
               value={formData.email}
               onChange={handleChange}
               placeholder="Email address"
-              className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-bgElevated border border-borderHover focus:outline-none focus:border-accentFocus focus:ring-1 focus:ring-accentFocus/30 transition-colors duration-150 text-textPrimary placeholder-textDisabled text-sm"
+              className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-bgElevated border border-borderHover focus:outline-none focus:border-accentFocus focus:ring-1 focus:ring-accentFocus/30 transition-colors duration-150 text-textPrimary placeholder-textDisabled text-md"
             />
           </div>
 
@@ -181,7 +178,7 @@ export default function PageUserRegister() {
           {showOTPRequestBtn && (
             <button
               onClick={handleRequestOTP}
-              className="cursor-pointer text-xs text-info hover:text-accentFocus hover:underline self-start font-medium flex items-center gap-1.5 transition-colors"
+              className="cursor-pointer text-md text-info hover:text-accentFocus hover:underline self-start font-medium flex items-center gap-1.5 transition-colors"
             >
               {requestLoad ? (
                 <span className="flex items-center gap-1.5">
@@ -190,7 +187,7 @@ export default function PageUserRegister() {
                 </span>
               ) : (
                 <>
-                  <MdOutlineMarkEmailRead className="text-sm" /> Request OTP
+                  <MdOutlineMarkEmailRead className="text-md" /> Request OTP
                 </>
               )}
             </button>
@@ -207,7 +204,7 @@ export default function PageUserRegister() {
                   value={formData.otp}
                   onChange={handleChange}
                   placeholder="Enter OTP"
-                  className="w-full pl-10 pr-3 py-2.5 rounded border border-borderHover bg-bgPrimary text-textPrimary text-center font-medium"
+                  className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-borderHover bg-bgPrimary text-textPrimary text-center font-medium"
                   maxLength="4"
                 />
               </div>
@@ -216,12 +213,12 @@ export default function PageUserRegister() {
                 <button
                   onClick={handleVerifyOTP}
                   disabled={verifyLoad || formData.otp.length !== 4}
-                  className="cursor-pointer px-3 py-1.5 rounded border border-success text-success text-sm hover:bg-success hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="cursor-pointer px-3 py-1.5 border border-success text-success text-md hover:bg-success hover:text-white disabled:opacity-50 disabled:cursor-not-allowed rounded-xl"
                 >
                   {verifyLoad ? "Verifying..." : "Verify OTP"}
                 </button>
 
-                <span className="text-sm text-warning">{timer}s left</span>
+                <span className="text-md text-warning">{timer}s left</span>
               </div>
             </div>
           )}
@@ -236,20 +233,20 @@ export default function PageUserRegister() {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Create a password"
-                className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-bgElevated border border-borderHover focus:outline-none focus:border-accentFocus focus:ring-1 focus:ring-accentFocus/30 transition-colors duration-150 text-textPrimary placeholder-textDisabled text-sm"
+                className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-bgElevated border border-borderHover focus:outline-none focus:border-accentFocus focus:ring-1 focus:ring-accentFocus/30 transition-colors duration-150 text-textPrimary placeholder-textDisabled text-md"
               />
             </div>
           )}
 
           {/* Error Message */}
           {error.length > 0 && (
-            <div className="bg-error/20 border border-error text-error text-xs text-center py-2.5 rounded-lg font-medium flex items-center justify-center gap-1.5">
+            <div className="bg-error/20 border border-error text-error text-md text-center py-2.5 rounded-lg font-medium flex items-center justify-center gap-1.5">
               <span className="text-base">⚠</span> {error}
             </div>
           )}
           {/* Success Message */}
           {update.length > 0 && (
-            <div className="bg-success/20 border border-success text-success text-xs text-center py-2.5 rounded-lg font-medium flex items-center justify-center gap-1.5">
+            <div className="bg-success/20 border border-success text-success text-md text-center py-2.5 rounded-lg font-medium flex items-center justify-center gap-1.5">
               <span className="text-base">✓</span> {update}
             </div>
           )}
@@ -279,12 +276,12 @@ export default function PageUserRegister() {
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-borderDefault"></div>
             </div>
-            <span className="relative bg-bgSecondary px-3 text-xs text-textSecondary font-medium">
+            <span className="relative bg-bgSecondary px-3 text-md text-textSecondary font-medium">
               Already have an account?
             </span>
           </div>
 
-          <p className="font-google text-sm text-center">
+          <p className="font-google text-md text-center">
             <span className="text-textSecondary">
               Sign-in into your account{" "}
             </span>
@@ -297,7 +294,7 @@ export default function PageUserRegister() {
             </NavLink>
           </p>
 
-          <span className="text-xs text-textSecondary font-medium">
+          <span className="text-md text-textSecondary font-medium">
             Or continue with
           </span>
           <div className="w-fit mx-auto">

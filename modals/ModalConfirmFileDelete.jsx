@@ -44,7 +44,7 @@ export default function ModalConfirmFileDelete({
             <h1 className="text-base sm:text-lg font-semibold text-textPrimary">
               Permanently delete file?
             </h1>
-            <p className="text-xs sm:text-sm text-textSecondary">
+            <p className="text-md sm:text-md text-textSecondary">
               This file will be permanently deleted and cannot be restored.
             </p>
           </div>
@@ -52,13 +52,13 @@ export default function ModalConfirmFileDelete({
         <div className="flex justify-end gap-3 pt-1">
           <button
             onClick={() => setDeleteFileID(null)}
-            className="cursor-pointer px-4 py-2.5 rounded-lg border border-borderHover text-sm text-textPrimary hover:bg-bgElevated transition-colors"
+            className="cursor-pointer px-4 py-2.5 rounded-lg border border-borderHover text-md text-textPrimary hover:bg-bgElevated transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={() => handleFileDelete(deleteFileID)}
-            className="cursor-pointer px-4 py-2.5 rounded-lg bg-error text-white text-sm hover:bg-error/90 transition-colors flex items-center gap-2"
+            className="cursor-pointer px-4 py-2.5 rounded-lg bg-error text-white text-md hover:bg-error/90 transition-colors flex items-center gap-2"
           >
             <MdDeleteForever className="size-4" />
             <span>Delete</span>

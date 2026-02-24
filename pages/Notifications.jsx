@@ -19,7 +19,7 @@ export default function Notifications() {
         </div>
 
         {/* DESCRIPTION */}
-        <p className="text-sm text-textSecondary max-w-xl">
+        <p className="text-md text-textSecondary max-w-xl">
           Important updates and helpful information about your account and
           activity on{" "}
           <span className="text-textPrimary font-medium">My-Drive</span>.
@@ -31,8 +31,8 @@ export default function Notifications() {
           <div className="flex gap-3 p-3 rounded-lg bg-bgElevated border border-borderDefault">
             <MdStar className="text-warning text-lg mt-0.5 shrink-0" />
             <div>
-              <h3 className="text-sm font-semibold">Welcome to My-Drive 🎉</h3>
-              <p className="text-xs text-textSecondary">
+              <h3 className="text-md font-semibold">Welcome to My-Drive 🎉</h3>
+              <p className="text-md text-textSecondary">
                 Thank you for signing up. We're glad to have you on board!
               </p>
             </div>
@@ -41,7 +41,7 @@ export default function Notifications() {
           <div className="flex gap-3 p-3 rounded-lg bg-bgElevated border border-borderDefault">
             <FaCheckCircle className="text-success text-lg mt-0.5 shrink-0" />
             <div>
-              <h3 className="text-sm font-semibold">
+              <h3 className="text-md font-semibold">
                 <NavLink
                   to="/about"
                   className="inline-block text-info hover:text-accentFocus hover:underline cursor-pointer transition-colors"
@@ -50,7 +50,7 @@ export default function Notifications() {
                 </NavLink>{" "}
                 the Platform
               </h3>
-              <p className="text-xs text-textSecondary">
+              <p className="text-md text-textSecondary">
                 My-Drive is maintained by{" "}
                 <span className="text-textPrimary font-medium">UVDS</span> — a
                 modern, simpler, and faster alternative to Google Drive.
@@ -61,8 +61,8 @@ export default function Notifications() {
           <div className="flex gap-3 p-3 rounded-lg bg-bgElevated border border-borderDefault">
             <IoRocketOutline className="text-info text-lg mt-0.5 shrink-0" />
             <div>
-              <h3 className="text-sm font-semibold">Storage & Plans</h3>
-              <p className="text-xs text-textSecondary">
+              <h3 className="text-md font-semibold">Storage & Plans</h3>
+              <p className="text-md text-textSecondary">
                 You are currently on the{" "}
                 <span className="font-medium text-textPrimary">Basic</span> plan
                 with{" "}
@@ -71,10 +71,10 @@ export default function Notifications() {
               </p>
               <NavLink
                 to="/purchase-premium"
-                className="inline-block mt-1 text-xs text-info hover:text-accentFocus hover:underline cursor-pointer transition-colors"
+                className="inline-block mt-1 text-md text-info hover:text-accentFocus hover:underline cursor-pointer transition-colors"
               >
                 View available plans{" "}
-                <FaExternalLinkAlt className="inline ml-1 text-xs" />
+                <FaExternalLinkAlt className="inline ml-1 text-md" />
               </NavLink>
             </div>
           </div>
@@ -82,8 +82,8 @@ export default function Notifications() {
           <div className="flex gap-3 p-3 rounded-lg bg-bgElevated border border-borderDefault">
             <FaShareAlt className="text-accentPrimary text-lg mt-0.5 shrink-0" />
             <div>
-              <h3 className="text-sm font-semibold">Referral Bonus</h3>
-              <p className="text-xs text-textSecondary">
+              <h3 className="text-md font-semibold">Referral Bonus</h3>
+              <p className="text-md text-textSecondary">
                 Share My-Drive with your friends and earn referral bonuses when
                 they join.
               </p>

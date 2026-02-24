@@ -1,5 +1,9 @@
 import { useContext, useState } from "react";
-import { ErrorContext, UserSettingViewContext } from "../utils/Contexts";
+import {
+  ErrorContext,
+  UserDetailsContext,
+  UserSettingViewContext,
+} from "../utils/Contexts";
 import { FaStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
@@ -14,12 +18,14 @@ import { IoIosNotifications } from "react-icons/io";
 import { AiOutlineUserSwitch } from "react-icons/ai";
 import { IoIosClose } from "react-icons/io";
 
-export default function UserSettings() {
-  const { setUserView } = useContext(UserSettingViewContext);
+export default function Menu() {
+  const { setOpenSettings } = useContext(UserSettingViewContext);
   const navigate = useNavigate();
   const { setError } = useContext(ErrorContext);
   const { userStorage } = useContext(UserStorageContext);
   const [logout, setLogout] = useState(false);
+
+  const { userDetails, setUserDetails } = useContext(UserDetailsContext);
 
   async function handleLogout() {
     setLogout(true);
@@ -47,7 +53,7 @@ export default function UserSettings() {
           My-Drive
         </h1>
         <button
-          onClick={() => setUserView(false)}
+          onClick={() => setOpenSettings(false)}
           className="cursor-pointer p-1.5 rounded-md hover:bg-bgElevated transition-colors"
         >
           <IoIosClose className="text-2xl text-textSecondary hover:text-textPrimary" />
@@ -55,7 +61,7 @@ export default function UserSettings() {
       </div>
 
       {/* MENU */}
-      <div className="flex flex-col gap-2 py-4 text-sm">
+      <div className="flex flex-col gap-2 py-4 text-md">
         <button
           onClick={() => navigate("/notifications")}
           className="cursor-pointer flex items-center justify-between px-3 py-2.5 rounded-md bg-bgElevated hover:bg-borderHover transition-colors font-medium"
@@ -77,8 +83,13 @@ export default function UserSettings() {
         </button>
 
         <button
+          disabled={userDetails.role === "Basic" && userDetails.roleCode === 1}
           onClick={() => navigate("/starred")}
-          className="cursor-pointer flex items-center justify-between px-3 py-2.5 rounded-md bg-bgElevated hover:bg-borderHover transition-colors font-medium"
+          className={`flex items-center justify-between px-3 py-2.5 rounded-md font-medium ${
+            userDetails.role === "Basic" && userDetails.roleCode === 1
+              ? "bg-bgElevated opacity-50 cursor-not-allowed pointer-events-none"
+              : "bg-bgElevated hover:bg-borderHover cursor-pointer transition-colors"
+          }`}
         >
           <div className="flex items-center gap-3">
             <FaStar className="text-base text-warning" />
@@ -87,12 +98,36 @@ export default function UserSettings() {
         </button>
 
         <button
+          disabled={userDetails.role === "Basic" && userDetails.roleCode === 1}
           onClick={() => navigate("/shared")}
-          className="cursor-pointer flex items-center justify-between px-3 py-2.5 rounded-md bg-bgElevated hover:bg-borderHover transition-colors font-medium"
+          className={`flex items-center justify-between px-3 py-2.5 rounded-md font-medium ${
+            userDetails.role === "Basic" && userDetails.roleCode === 1
+              ? "bg-bgElevated opacity-50 cursor-not-allowed pointer-events-none"
+              : "bg-bgElevated hover:bg-borderHover cursor-pointer transition-colors"
+          }`}
         >
           <div className="flex items-center gap-3">
             <AiOutlineUserSwitch className="text-base text-accentFocus" />
             <span>Contents Shared</span>
+          </div>
+        </button>
+
+        <button
+          disabled={
+            (userDetails.role === "Basic" || userDetails.role === "Pro") &&
+            (userDetails.roleCode === 1 || userDetails.roleCode === 2)
+          }
+          onClick={() => navigate("/projects")}
+          className={`flex items-center justify-between px-3 py-2.5 rounded-md font-medium ${
+            (userDetails.role === "Basic" && userDetails.roleCode === 1) ||
+            (userDetails.role === "Pro" && userDetails.roleCode === 2)
+              ? "bg-bgElevated opacity-50 cursor-not-allowed pointer-events-none"
+              : "bg-bgElevated hover:bg-borderHover cursor-pointer transition-colors"
+          }`}
+        >
+          <div className="flex items-center gap-3">
+            <AiOutlineUserSwitch className="text-base text-accentFocus" />
+            <span>User Projects</span>
           </div>
         </button>
 
@@ -128,7 +163,7 @@ export default function UserSettings() {
           />
         </div>
 
-        <p className="text-xs text-center text-textSecondary">
+        <p className="text-md text-center text-textSecondary">
           Used {calSize(userStorage.size)} of{" "}
           {calSize(userStorage.maxStorageInBytes)}
         </p>

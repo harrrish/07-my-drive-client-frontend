@@ -6,7 +6,7 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 
 export default function CompNavbar() {
   const navigate = useNavigate();
-  const { setUserView } = useContext(UserSettingViewContext);
+  const { setOpenSettings } = useContext(UserSettingViewContext);
 
   return (
     <nav className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto p-3 rounded-md bg-bgSecondary border border-borderDefault flex justify-between items-center">
@@ -14,13 +14,13 @@ export default function CompNavbar() {
         onClick={() => navigate("/directory")}
         className="flex items-center gap-2 cursor-pointer"
       >
-        <IoCloudUploadOutline className="text-2xl text-[var(--color-accentPrimary)]" />
+        <IoCloudUploadOutline className="text-2xl text-(--color-accentPrimary)" />
         <span className="text-lg font-medium">My-Drive</span>
       </button>
 
       <button
-        onClick={() => setUserView((p) => !p)}
-        className="cursor-pointer text-xl hover:text-[var(--color-accentPrimary)]"
+        onClick={() => setOpenSettings((p) => !p)}
+        className="cursor-pointer text-xl hover:text-(--color-accentPrimary)"
       >
         <RiUserSettingsFill />
       </button>

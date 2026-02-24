@@ -78,7 +78,7 @@ export default function Starred() {
             Starred
           </h1>
 
-          <div className="flex gap-6 text-sm text-textSecondary">
+          <div className="flex gap-6 text-md text-textSecondary">
             <span>
               Folders{" "}
               <strong className="text-textPrimary">{foldersCount}</strong>
@@ -90,7 +90,7 @@ export default function Starred() {
         </div>
 
         {/* DESCRIPTION */}
-        <p className="text-sm sm:text-base text-textSecondary max-w-2xl">
+        <p className="text-md sm:text-base text-textSecondary max-w-2xl">
           Your starred files and folders for quick access in{" "}
           <span className="text-textPrimary font-medium">My-Drive</span>.
         </p>
@@ -103,7 +103,7 @@ export default function Starred() {
             {/* FOLDERS */}
             {foldersList.length > 0 && (
               <div className="flex flex-col gap-2">
-                <h2 className="text-sm uppercase tracking-wide text-textSecondary">
+                <h2 className="text-md uppercase tracking-wide text-textSecondary">
                   Folders
                 </h2>
 
@@ -136,7 +136,7 @@ export default function Starred() {
             {/* FILES */}
             {filesList.length > 0 && (
               <div className="flex flex-col gap-2">
-                <h2 className="text-sm uppercase tracking-wide text-textSecondary">
+                <h2 className="text-md uppercase tracking-wide text-textSecondary">
                   Files
                 </h2>
 
@@ -161,7 +161,7 @@ export default function Starred() {
 
             {/* EMPTY STATE */}
             {foldersList.length === 0 && filesList.length === 0 && (
-              <div className="text-center py-12 text-sm text-[var(--color-textDisabled)]">
+              <div className="text-center py-12 text-md text-[var(--color-textDisabled)]">
                 No starred files or folders found.
               </div>
             )}

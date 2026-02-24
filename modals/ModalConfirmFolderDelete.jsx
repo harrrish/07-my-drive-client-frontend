@@ -44,14 +44,14 @@ export default function ModalConfirmFolderDelete({
             <h1 className="text-base sm:text-lg font-semibold text-textPrimary">
               Permanently delete folder?
             </h1>
-            <p className="text-xs sm:text-sm text-textSecondary leading-relaxed">
+            <p className="text-md sm:text-md text-textSecondary leading-relaxed">
               This action cannot be undone. The folder will be permanently
               removed from{" "}
               <span className="text-textPrimary font-medium">My-Drive</span>.
             </p>
           </div>
         </div>
-        <div className="rounded-lg border border-warning/40 bg-bgElevated px-3 py-2 text-xs text-warning leading-relaxed">
+        <div className="rounded-lg border border-warning/40 bg-bgElevated px-3 py-2 text-md text-warning leading-relaxed">
           <span className="font-semibold">Note:</span> Deleting this folder will
           also permanently delete{" "}
           <span className="font-medium">all its subfolders and files</span>. If
@@ -61,13 +61,13 @@ export default function ModalConfirmFolderDelete({
         <div className="flex justify-end gap-3 pt-1">
           <button
             onClick={() => setDeleteFolderID(null)}
-            className="cursor-pointer px-4 py-2.5 rounded-lg border border-borderHover text-sm text-textPrimary hover:bg-bgElevated transition-colors"
+            className="cursor-pointer px-4 py-2.5 rounded-lg border border-borderHover text-md text-textPrimary hover:bg-bgElevated transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={() => handleFileDelete(deleteFolderID)}
-            className="cursor-pointer px-4 py-2.5 rounded-lg bg-error text-white text-sm hover:bg-error/90 transition-colors flex items-center gap-2"
+            className="cursor-pointer px-4 py-2.5 rounded-lg bg-error text-white text-md hover:bg-error/90 transition-colors flex items-center gap-2"
           >
             <MdDeleteForever className="size-4" />
             <span>Delete</span>

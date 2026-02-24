@@ -9297,7 +9297,7 @@ function y6({
           ],
         }),
         f.jsxs("div", {
-          className: "p-4 flex flex-col gap-3 text-sm sm:text-base",
+          className: "p-4 flex flex-col gap-3 text-md sm:text-base",
           children: [
             f.jsxs("div", {
               className: "flex gap-2",
@@ -9520,7 +9520,7 @@ function g6({
                   ],
                 }),
                 f.jsx("p", {
-                  className: "text-sm text-textSecondary truncate",
+                  className: "text-md text-textSecondary truncate",
                   title: i,
                   children: i,
                 }),
@@ -9542,18 +9542,18 @@ function g6({
           className: "flex flex-col gap-3",
           children: [
             f.jsxs("h3", {
-              className: "text-sm font-semibold flex items-center gap-2",
+              className: "text-md font-semibold flex items-center gap-2",
               children: [
                 f.jsx(Af, { className: "text-[var(--color-info)]" }),
                 "Share link",
               ],
             }),
             f.jsx("p", {
-              className: "text-sm text-textSecondary",
+              className: "text-md text-textSecondary",
               children: "Anyone with the link can view this file.",
             }),
             f.jsx("p", {
-              className: "text-xs text-[var(--color-textDisabled)]",
+              className: "text-md text-[var(--color-textDisabled)]",
               children:
                 "Note: The shared link expires automatically after 60 minutes.",
             }),
@@ -9588,7 +9588,7 @@ function g6({
                 border border-[var(--color-borderHover)]\r
                 hover:bg-[var(--color-borderHover)]\r
                 transition\r
-                text-sm font-medium\r
+                text-md font-medium\r
               `,
                   children: [
                     f.jsx(A3, {
@@ -9607,7 +9607,7 @@ function g6({
                 bg-(--color-accentPrimary)\r
                 hover:bg-[var(--color-accentHover)]\r
                 transition\r
-                text-sm font-medium\r
+                text-md font-medium\r
                 text-black\r
               `,
                   children: [f.jsx(Af, {}), "Copy link"],
@@ -9621,19 +9621,19 @@ function g6({
           className: "flex flex-col gap-3",
           children: [
             f.jsxs("h3", {
-              className: "text-sm font-semibold flex items-center gap-2",
+              className: "text-md font-semibold flex items-center gap-2",
               children: [
                 f.jsx(o2, { className: "text-accentFocus" }),
                 "Share with people",
               ],
             }),
             f.jsx("p", {
-              className: "text-sm text-textSecondary",
+              className: "text-md text-textSecondary",
               children:
                 "Share this file with a specific user using their email address. Shared users can only view this file.",
             }),
             f.jsx("p", {
-              className: "text-xs text-[var(--color-textDisabled)]",
+              className: "text-md text-[var(--color-textDisabled)]",
               children:
                 "Note: You can revoke access anytime. The receiver can also remove themselves.",
             }),
@@ -9653,14 +9653,14 @@ function g6({
                       value: p,
                       onChange: (R) => y(R.target.value),
                       className:
-                        "w-full bg-transparent outline-none text-sm text-textPrimary placeholder:text-[var(--color-textDisabled)]",
+                        "w-full bg-transparent outline-none text-md text-textPrimary placeholder:text-[var(--color-textDisabled)]",
                     }),
                   ],
                 }),
                 x &&
                   f.jsx("p", {
                     className:
-                      "text-xs text-[var(--color-error)] pl-1 font-bold",
+                      "text-md text-[var(--color-error)] pl-1 font-bold",
                     children: x,
                   }),
               ],
@@ -9670,7 +9670,7 @@ function g6({
               children: f.jsx("button", {
                 onClick: w,
                 disabled: !p,
-                className: `flex-1 px-4 py-2 rounded-md text-sm font-medium transition ${p ? "cursor-pointer bg-(--color-accentPrimary) text-black hover:bg-[var(--color-accentHover)] active:scale-[0.98]" : "cursor-not-allowed bg-borderDefault text-[var(--color-textDisabled)] opacity-60 "}`,
+                className: `flex-1 px-4 py-2 rounded-md text-md font-medium transition ${p ? "cursor-pointer bg-(--color-accentPrimary) text-black hover:bg-[var(--color-accentHover)] active:scale-[0.98]" : "cursor-not-allowed bg-borderDefault text-[var(--color-textDisabled)] opacity-60 "}`,
                 children: "Share access",
               }),
             }),
@@ -9823,7 +9823,7 @@ Created: ${new Date(u).toLocaleString()}`,
                         onChange: (fe) => G(fe.target.value),
                         autoFocus: !0,
                         className: `\r
-                  w-full px-2 py-1 text-sm\r
+                  w-full px-2 py-1 text-md\r
                   rounded-md\r
                   bg-bgPrimary\r
                   border border-[var(--color-borderHover)]\r
@@ -9856,7 +9856,7 @@ Created: ${new Date(u).toLocaleString()}`,
                     className: `\r
                 flex items-center gap-2 min-w-0\r
                 truncate cursor-pointer\r
-                text-sm\r
+                text-md\r
                 text-textPrimary\r
                 hover:underline\r
               `,
@@ -9972,7 +9972,7 @@ function b6({
           ],
         }),
         f.jsxs("div", {
-          className: "px-4 py-4 flex flex-col gap-3 text-sm",
+          className: "px-4 py-4 flex flex-col gap-3 text-md",
           children: [
             f.jsxs("div", {
               className: "flex items-center gap-1",
@@ -10220,7 +10220,7 @@ function S6({
                         onChange: (Q) => F(Q.target.value),
                         autoFocus: !0,
                         className: `\r
-                  w-full px-2 py-1 text-sm\r
+                  w-full px-2 py-1 text-md\r
                   rounded-md\r
                   bg-bgPrimary\r
                   border border-[var(--color-borderHover)]\r
@@ -10244,7 +10244,7 @@ function S6({
                     className: `\r
                 flex items-center gap-2 min-w-0\r
                 truncate capitalize cursor-pointer\r
-                text-sm\r
+                text-md\r
                 text-textPrimary\r
                 hover:underline\r
               `,
@@ -10379,7 +10379,7 @@ function pd({
             {
               style: { bottom: `${p * 3 + 2}rem` },
               className: `fixed right-2 max-w-lg px-4 py-2 rounded-md shadow-lg border border-[var(--color-borderActive)] bg-[var(--color-bgElevated)]\r
-              text-[var(--color-success)] text-sm animate-slide truncate font-medium`,
+              text-[var(--color-success)] text-md animate-slide truncate font-medium`,
               children: v,
             },
             p,
@@ -10392,7 +10392,7 @@ function pd({
             {
               style: { top: `${p * 3 + 4}rem` },
               className:
-                "fixed right-2 max-w-lg px-4 py-2 rounded-md shadow-lg border border-[var(--color-error)] bg-[var(--color-bgElevated)] text-[var(--color-error)] text-sm animate-slide truncate font-medium",
+                "fixed right-2 max-w-lg px-4 py-2 rounded-md shadow-lg border border-[var(--color-error)] bg-[var(--color-bgElevated)] text-[var(--color-error)] text-md animate-slide truncate font-medium",
               children: v,
             },
             p,
@@ -10525,13 +10525,13 @@ function z6({ id: l, name: r, size: i, progress: o }) {
                   className: "text-xl text-accentFocus shrink-0",
                 }),
                 f.jsx("h1", {
-                  className: "truncate text-sm font-medium text-textPrimary",
+                  className: "truncate text-md font-medium text-textPrimary",
                   children: r,
                 }),
               ],
             }),
             f.jsxs("div", {
-              className: "flex items-center gap-4 text-sm text-textSecondary",
+              className: "flex items-center gap-4 text-md text-textSecondary",
               children: [
                 f.jsx("span", { children: wl(i) }),
                 f.jsxs("span", { children: [o, "%"] }),
@@ -10606,7 +10606,7 @@ function R6() {
         ],
       }),
       f.jsxs("div", {
-        className: "flex flex-col gap-2 py-4 text-sm",
+        className: "flex flex-col gap-2 py-4 text-md",
         children: [
           f.jsxs("button", {
             onClick: () => r("/notifications"),
@@ -10671,7 +10671,7 @@ function R6() {
             }),
           }),
           f.jsxs("p", {
-            className: "text-xs text-center text-textSecondary",
+            className: "text-md text-center text-textSecondary",
             children: [
               "Used ",
               wl(o.size),
@@ -10815,7 +10815,7 @@ function u2() {
                     }),
                     f.jsx("p", {
                       className:
-                        "text-sm sm:text-base text-textSecondary max-w-lg",
+                        "text-md sm:text-base text-textSecondary max-w-lg",
                       children:
                         "The folder you’re trying to access does not exist or you don’t have permission to view it.",
                     }),
@@ -10825,7 +10825,7 @@ function u2() {
                   className: "border-t border-borderDefault",
                 }),
                 f.jsxs("div", {
-                  className: "flex flex-col gap-4 text-sm sm:text-base",
+                  className: "flex flex-col gap-4 text-md sm:text-base",
                   children: [
                     f.jsxs("div", {
                       className: `\r
@@ -10845,7 +10845,7 @@ function u2() {
                               children: "Folder may be in Trash",
                             }),
                             f.jsx("p", {
-                              className: "text-textSecondary text-sm",
+                              className: "text-textSecondary text-md",
                               children:
                                 "The folder might have been moved to Trash and can still be restored.",
                             }),
@@ -10881,7 +10881,7 @@ function u2() {
                                 "Folder permanently deleted or access revoked",
                             }),
                             f.jsx("p", {
-                              className: "text-textSecondary text-sm",
+                              className: "text-textSecondary text-md",
                               children:
                                 "If the folder was deleted permanently or access was removed, you can safely return to Home.",
                             }),
@@ -10993,7 +10993,7 @@ function u2() {
                             type: "text",
                             placeholder: "Search files or folders",
                             className:
-                              "w-full bg-transparent outline-none text-sm",
+                              "w-full bg-transparent outline-none text-md",
                           }),
                           f.jsx(l6, {
                             className:
@@ -11010,7 +11010,7 @@ function u2() {
                           }),
                           f.jsxs("select", {
                             className:
-                              "bg-bgSecondary text-textPrimary border border-[var(--color-borderHover)] rounded-md px-2 py-1 outline-none cursor-pointer text-sm focus:border-[var(--color-borderActive)] focus:ring-2 focus:ring-[var(--color-accentFocus)] text-center font-medium",
+                              "bg-bgSecondary text-textPrimary border border-[var(--color-borderHover)] rounded-md px-2 py-1 outline-none cursor-pointer text-md focus:border-[var(--color-borderActive)] focus:ring-2 focus:ring-[var(--color-accentFocus)] text-center font-medium",
                             children: [
                               f.jsx("option", {
                                 className:
@@ -11437,7 +11437,7 @@ function B6() {
                 f.jsx("button", {
                   onClick: re,
                   className:
-                    "cursor-pointer text-sm text-[var(--color-info)] hover:underline self-start font-medium",
+                    "cursor-pointer text-md text-[var(--color-info)] hover:underline self-start font-medium",
                   children: y ? "Requesting OTP..." : "Request OTP",
                 }),
               d &&
@@ -11455,7 +11455,7 @@ function B6() {
                     }),
                     f.jsxs("div", {
                       className:
-                        "flex justify-between text-xs text-textSecondary",
+                        "flex justify-between text-md text-textSecondary",
                       children: [
                         f.jsx("button", {
                           onClick: z,
@@ -11480,13 +11480,13 @@ function B6() {
               R.length > 0 &&
                 f.jsx("div", {
                   className:
-                    "bg-[var(--color-error)] text-white text-sm text-center py-2 rounded-md font-medium",
+                    "bg-[var(--color-error)] text-white text-md text-center py-2 rounded-md font-medium",
                   children: R,
                 }),
               G.length > 0 &&
                 f.jsx("div", {
                   className:
-                    "bg-[var(--color-success)] text-black text-sm text-center py-2 rounded-md font-medium",
+                    "bg-[var(--color-success)] text-black text-md text-center py-2 rounded-md font-medium",
                   children: G,
                 }),
               f.jsx("button", {
@@ -11515,7 +11515,7 @@ function B6() {
                 ],
               }),
               f.jsx("span", {
-                className: "text-sm text-textSecondary",
+                className: "text-md text-textSecondary",
                 children: "Or",
               }),
               f.jsx($v, {}),
@@ -11607,7 +11607,7 @@ function F6() {
               children: [
                 f.jsx("label", {
                   htmlFor: "email",
-                  className: "text-sm text-textSecondary",
+                  className: "text-md text-textSecondary",
                   children: "Email",
                 }),
                 f.jsx("input", {
@@ -11634,7 +11634,7 @@ function F6() {
               children: [
                 f.jsx("label", {
                   htmlFor: "password",
-                  className: "text-sm text-textSecondary",
+                  className: "text-md text-textSecondary",
                   children: "Password",
                 }),
                 f.jsx("input", {
@@ -11652,7 +11652,7 @@ function F6() {
                   children: f.jsx("button", {
                     type: "button",
                     className:
-                      "mt-1 text-xs text-[var(--color-info)] hover:underline cursor-pointer transition-colors",
+                      "mt-1 text-md text-[var(--color-info)] hover:underline cursor-pointer transition-colors",
                     children: "Forgot password?",
                   }),
                 }),
@@ -11661,7 +11661,7 @@ function F6() {
             o.length > 0 &&
               f.jsx("div", {
                 className:
-                  "text-center text-sm py-2 rounded-md bg-[var(--color-error)] text-white font-medium",
+                  "text-center text-md py-2 rounded-md bg-[var(--color-error)] text-white font-medium",
                 children: o,
               }),
             f.jsx("button", {
@@ -11694,7 +11694,7 @@ function F6() {
               ],
             }),
             f.jsx("span", {
-              className: "text-sm text-textSecondary",
+              className: "text-md text-textSecondary",
               children: "Or",
             }),
             f.jsx($v, {}),
@@ -11734,7 +11734,7 @@ function V6({ deleteFolderID: l, setDeleteFolderID: r, fetchTrashedItems: i }) {
           children: "Permanently delete folder?",
         }),
         f.jsxs("p", {
-          className: "text-sm text-textSecondary leading-relaxed",
+          className: "text-md text-textSecondary leading-relaxed",
           children: [
             "This action cannot be undone. The folder will be permanently removed from",
             " ",
@@ -11747,7 +11747,7 @@ function V6({ deleteFolderID: l, setDeleteFolderID: r, fetchTrashedItems: i }) {
         }),
         f.jsxs("div", {
           className:
-            "rounded-md border border-[var(--color-warning)]/40 bg-[var(--color-bgElevated)] px-3 py-2 text-xs text-[var(--color-warning)] leading-relaxed",
+            "rounded-md border border-[var(--color-warning)]/40 bg-[var(--color-bgElevated)] px-3 py-2 text-md text-[var(--color-warning)] leading-relaxed",
           children: [
             f.jsx("span", { className: "font-semibold", children: "Note:" }),
             " Deleting this folder will also permanently delete",
@@ -11767,7 +11767,7 @@ function V6({ deleteFolderID: l, setDeleteFolderID: r, fetchTrashedItems: i }) {
               className: `\r
           px-4 py-2 rounded-md\r
           border border-[var(--color-borderHover)]\r
-          text-sm text-textPrimary\r
+          text-md text-textPrimary\r
           cursor-pointer\r
           hover:bg-[var(--color-bgElevated)]\r
           transition-colors\r
@@ -11779,7 +11779,7 @@ function V6({ deleteFolderID: l, setDeleteFolderID: r, fetchTrashedItems: i }) {
               className: `\r
           px-4 py-2 rounded-md\r
           bg-[var(--color-error)]\r
-          text-white text-sm\r
+          text-white text-md\r
           cursor-pointer\r
           hover:opacity-90\r
           transition-opacity\r
@@ -11822,7 +11822,7 @@ function Y6({ deleteFileID: l, setDeleteFileID: r, fetchTrashedItems: i }) {
           children: "Permanently delete file?",
         }),
         f.jsx("p", {
-          className: "text-sm text-textSecondary",
+          className: "text-md text-textSecondary",
           children:
             "This file will be permanently deleted and cannot be restored.",
         }),
@@ -11832,13 +11832,13 @@ function Y6({ deleteFileID: l, setDeleteFileID: r, fetchTrashedItems: i }) {
             f.jsx("button", {
               onClick: () => r(null),
               className:
-                "px-4 py-2 rounded-md border border-[var(--color-borderHover)] text-sm cursor-pointer hover:bg-[var(--color-bgElevated)]",
+                "px-4 py-2 rounded-md border border-[var(--color-borderHover)] text-md cursor-pointer hover:bg-[var(--color-bgElevated)]",
               children: "Cancel",
             }),
             f.jsx("button", {
               onClick: () => h(l),
               className:
-                "px-4 py-2 rounded-md bg-[var(--color-error)] text-white text-sm cursor-pointer hover:opacity-90",
+                "px-4 py-2 rounded-md bg-[var(--color-error)] text-white text-md cursor-pointer hover:opacity-90",
               children: "Delete",
             }),
           ],
@@ -11909,7 +11909,7 @@ function G6({ setCantRestoreFile: l }) {
         }),
         f.jsxs("div", {
           className:
-            "flex flex-col gap-2 text-sm text-textSecondary leading-relaxed",
+            "flex flex-col gap-2 text-md text-textSecondary leading-relaxed",
           children: [
             f.jsxs("p", {
               children: [
@@ -11936,7 +11936,7 @@ function G6({ setCantRestoreFile: l }) {
               ],
             }),
             f.jsx("p", {
-              className: "text-sm font-medium text-[var(--color-warning)] mt-1",
+              className: "text-md font-medium text-[var(--color-warning)] mt-1",
               children:
                 "Note: Moving this file to the root is a permanent action and cannot be undone.",
             }),
@@ -11989,7 +11989,7 @@ function Q6({ setCantRestoreFolder: l }) {
         }),
         f.jsxs("div", {
           className:
-            "flex flex-col gap-2 text-sm text-textSecondary leading-relaxed",
+            "flex flex-col gap-2 text-md text-textSecondary leading-relaxed",
           children: [
             f.jsxs("p", {
               children: [
@@ -12016,7 +12016,7 @@ function Q6({ setCantRestoreFolder: l }) {
               ],
             }),
             f.jsx("p", {
-              className: "text-sm font-medium text-[var(--color-warning)] mt-1",
+              className: "text-md font-medium text-[var(--color-warning)] mt-1",
               children:
                 "Note: Moving this file to the root is a permanent action and cannot be undone.",
             }),
@@ -12162,7 +12162,7 @@ function X6() {
                       ],
                     }),
                     f.jsxs("div", {
-                      className: "flex gap-4 text-sm text-textSecondary",
+                      className: "flex gap-4 text-md text-textSecondary",
                       children: [
                         f.jsxs("span", {
                           children: [
@@ -12194,7 +12194,7 @@ function X6() {
                   children: [
                     f.jsxs("p", {
                       className:
-                        "text-sm leading-relaxed text-textSecondary text-center",
+                        "text-md leading-relaxed text-textSecondary text-center",
                       children: [
                         "Items moved to Trash are stored temporarily. You can restore them back to",
                         " ",
@@ -12208,7 +12208,7 @@ function X6() {
                     }),
                     f.jsxs("div", {
                       className:
-                        "rounded-md border border-[var(--color-warning)] bg-bgSecondary px-3 py-2 text-sm text-[var(--color-warning)] font-medium text-center",
+                        "rounded-md border border-[var(--color-warning)] bg-bgSecondary px-3 py-2 text-md text-[var(--color-warning)] font-medium text-center",
                       children: [
                         f.jsx("span", {
                           className: "font-semibold",
@@ -12241,7 +12241,7 @@ function X6() {
                             children: [
                               f.jsx("h2", {
                                 className:
-                                  "text-xs uppercase tracking-wide text-textSecondary",
+                                  "text-md uppercase tracking-wide text-textSecondary",
                                 children: "Folders",
                               }),
                               o.map((Z) =>
@@ -12299,7 +12299,7 @@ function X6() {
                             children: [
                               f.jsx("h2", {
                                 className:
-                                  "text-xs uppercase tracking-wide text-textSecondary",
+                                  "text-md uppercase tracking-wide text-textSecondary",
                                 children: "Files",
                               }),
                               v.map((Z) =>
@@ -12343,7 +12343,7 @@ function X6() {
                           v.length === 0 &&
                           f.jsx("div", {
                             className:
-                              "text-center text-sm text-[var(--color-textDisabled)] py-12",
+                              "text-center text-md text-[var(--color-textDisabled)] py-12",
                             children: "No trashed files or folders found.",
                           }),
                       ],
@@ -12505,7 +12505,7 @@ function K6() {
                   ],
                 }),
                 f.jsx("span", {
-                  className: "text-sm text-textSecondary truncate max-w-[50%]",
+                  className: "text-md text-textSecondary truncate max-w-[50%]",
                   title: l.email,
                   children: l.email,
                 }),
@@ -12552,7 +12552,7 @@ function K6() {
                 }),
                 f.jsx("span", {
                   className:
-                    "text-xs px-2 py-0.5 rounded-full bg-borderDefault text-textSecondary",
+                    "text-md px-2 py-0.5 rounded-full bg-borderDefault text-textSecondary",
                   children: "BASIC",
                 }),
               ],
@@ -12572,7 +12572,7 @@ function K6() {
                   }),
                 }),
                 f.jsxs("p", {
-                  className: "text-xs text-center text-textSecondary",
+                  className: "text-md text-center text-textSecondary",
                   children: [
                     "Used",
                     " ",
@@ -12677,7 +12677,7 @@ function k6() {
             }),
             f.jsxs("p", {
               className:
-                "text-sm sm:text-base text-textSecondary max-w-2xl mx-auto",
+                "text-md sm:text-base text-textSecondary max-w-2xl mx-auto",
               children: [
                 "Choose the plan that fits your storage and collaboration needs on",
                 " ",
@@ -12702,7 +12702,7 @@ function k6() {
                   children: "Free",
                 }),
                 f.jsx("p", {
-                  className: "text-sm text-textSecondary",
+                  className: "text-md text-textSecondary",
                   children: "Personal users who want to try the platform",
                 }),
                 f.jsx("div", {
@@ -12710,7 +12710,7 @@ function k6() {
                   children: "₹0",
                 }),
                 f.jsx("ul", {
-                  className: "flex flex-col gap-2 text-sm",
+                  className: "flex flex-col gap-2 text-md",
                   children: [
                     "500 MB secure storage",
                     "100 MB per file",
@@ -12735,7 +12735,7 @@ function k6() {
                 }),
                 f.jsx("div", {
                   className:
-                    "mt-auto text-center text-sm font-medium text-[var(--color-accentPrimary)]",
+                    "mt-auto text-center text-md font-medium text-[var(--color-accentPrimary)]",
                   children: "Current Plan",
                 }),
               ],
@@ -12750,7 +12750,7 @@ function k6() {
                   children: "Pro",
                 }),
                 f.jsx("p", {
-                  className: "text-sm text-textSecondary",
+                  className: "text-md text-textSecondary",
                   children: "Students, freelancers, or small teams",
                 }),
                 f.jsx("div", {
@@ -12758,7 +12758,7 @@ function k6() {
                   children: "₹299 / month",
                 }),
                 f.jsx("ul", {
-                  className: "flex flex-col gap-2 text-sm",
+                  className: "flex flex-col gap-2 text-md",
                   children: [
                     "200 GB secure storage",
                     "2 GB per file",
@@ -12781,7 +12781,7 @@ function k6() {
                 }),
                 f.jsx("button", {
                   className:
-                    "mt-auto w-full py-2 rounded-md bg-bgSecondary border border-[var(--color-borderHover)] text-sm cursor-pointer group-hover:bg-(--color-accentPrimary) group-hover:border-[var(--color-borderActive)] transition",
+                    "mt-auto w-full py-2 rounded-md bg-bgSecondary border border-[var(--color-borderHover)] text-md cursor-pointer group-hover:bg-(--color-accentPrimary) group-hover:border-[var(--color-borderActive)] transition",
                   children: "Subscribe Now",
                 }),
               ],
@@ -12796,7 +12796,7 @@ function k6() {
                   children: "Premium",
                 }),
                 f.jsx("p", {
-                  className: "text-sm text-textSecondary",
+                  className: "text-md text-textSecondary",
                   children: "Professionals & creators handling large files",
                 }),
                 f.jsx("div", {
@@ -12804,7 +12804,7 @@ function k6() {
                   children: "₹699 / month",
                 }),
                 f.jsx("ul", {
-                  className: "flex flex-col gap-2 text-sm",
+                  className: "flex flex-col gap-2 text-md",
                   children: [
                     "2 TB secure storage",
                     "10 GB per file",
@@ -12829,7 +12829,7 @@ function k6() {
                 }),
                 f.jsx("button", {
                   className:
-                    "mt-auto w-full py-2 rounded-md bg-bgSecondary border border-[var(--color-borderHover)] text-sm cursor-pointer group-hover:bg-(--color-accentPrimary) group-hover:border-[var(--color-borderActive)] transition",
+                    "mt-auto w-full py-2 rounded-md bg-bgSecondary border border-[var(--color-borderHover)] text-md cursor-pointer group-hover:bg-(--color-accentPrimary) group-hover:border-[var(--color-borderActive)] transition",
                   children: "Subscribe Now",
                 }),
               ],
@@ -12876,7 +12876,7 @@ function P6() {
               ],
             }),
             f.jsxs("div", {
-              className: "hidden md:flex gap-6 text-sm",
+              className: "hidden md:flex gap-6 text-md",
               children: [
                 f.jsx("a", {
                   href: "#features",
@@ -12903,7 +12903,7 @@ function P6() {
             f.jsx(Xt, {
               to: "/register",
               className:
-                "px-4 py-2 rounded-md bg-(--color-accentPrimary) text-black text-sm font-medium hover:bg-[var(--color-accentHover)] cursor-pointer",
+                "px-4 py-2 rounded-md bg-(--color-accentPrimary) text-black text-md font-medium hover:bg-[var(--color-accentHover)] cursor-pointer",
               children: "Get Started",
             }),
           ],
@@ -13004,7 +13004,7 @@ function P6() {
                       children: l.title,
                     }),
                     f.jsx("p", {
-                      className: "mt-2 text-sm text-textSecondary",
+                      className: "mt-2 text-md text-textSecondary",
                       children: l.desc,
                     }),
                   ],
@@ -13059,7 +13059,7 @@ function P6() {
                         children: l.title,
                       }),
                       f.jsx("p", {
-                        className: "mt-2 text-sm text-textSecondary",
+                        className: "mt-2 text-md text-textSecondary",
                         children: l.desc,
                       }),
                     ],
@@ -13130,13 +13130,13 @@ function P6() {
                     l.selected &&
                       f.jsx("span", {
                         className:
-                          "absolute -top-3 right-4 text-xs px-2 py-0.5 rounded-full bg-(--color-accentPrimary) text-black font-medium",
+                          "absolute -top-3 right-4 text-md px-2 py-0.5 rounded-full bg-(--color-accentPrimary) text-black font-medium",
                         children: "Default",
                       }),
                     l.popular &&
                       f.jsx("span", {
                         className:
-                          "absolute -top-3 left-4 text-xs px-2 py-0.5 rounded-full bg-[var(--color-warning)] text-black font-medium",
+                          "absolute -top-3 left-4 text-md px-2 py-0.5 rounded-full bg-[var(--color-warning)] text-black font-medium",
                         children: "Most Popular",
                       }),
                     f.jsx("h3", {
@@ -13148,7 +13148,7 @@ function P6() {
                       children: l.price,
                     }),
                     f.jsx("ul", {
-                      className: "mt-4 space-y-2 text-sm",
+                      className: "mt-4 space-y-2 text-md",
                       children: l.features.map((r) =>
                         f.jsxs(
                           "li",
@@ -13168,7 +13168,7 @@ function P6() {
                     l.selected
                       ? f.jsx("div", {
                           className:
-                            "mt-6 text-center text-sm font-medium text-[var(--color-accentPrimary)]",
+                            "mt-6 text-center text-md font-medium text-[var(--color-accentPrimary)]",
                           children: "Current Plan",
                         })
                       : f.jsx(Xt, {
@@ -13207,7 +13207,7 @@ function P6() {
               children: "Create Free Account",
             }),
             f.jsx("p", {
-              className: "mt-2 text-sm",
+              className: "mt-2 text-md",
               children: "No credit card required • Cancel anytime",
             }),
           ],
@@ -13219,7 +13219,7 @@ function P6() {
         children: [
           f.jsxs("div", {
             className:
-              "max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 text-sm",
+              "max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 text-md",
             children: [
               f.jsxs("div", {
                 children: [
@@ -13293,7 +13293,7 @@ function P6() {
           }),
           f.jsx("div", {
             className:
-              "border-t border-borderDefault py-4 text-center text-xs text-textSecondary",
+              "border-t border-borderDefault py-4 text-center text-md text-textSecondary",
             children: "© 2025 UVDS · My-Drive. All rights reserved.",
           }),
         ],
@@ -13351,7 +13351,7 @@ function $6() {
           ],
         }),
         f.jsxs("p", {
-          className: "text-sm sm:text-base text-textSecondary max-w-xl",
+          className: "text-md sm:text-base text-textSecondary max-w-xl",
           children: [
             "Important updates and helpful information about your account and activity on",
             " ",
@@ -13375,11 +13375,11 @@ function $6() {
                 f.jsxs("div", {
                   children: [
                     f.jsx("h3", {
-                      className: "text-sm font-semibold",
+                      className: "text-md font-semibold",
                       children: "Welcome to My-Drive 🎉",
                     }),
                     f.jsx("p", {
-                      className: "text-sm text-textSecondary",
+                      className: "text-md text-textSecondary",
                       children:
                         "Thank you for signing up. We’re glad to have you on board!",
                     }),
@@ -13397,11 +13397,11 @@ function $6() {
                 f.jsxs("div", {
                   children: [
                     f.jsx("h3", {
-                      className: "text-sm font-semibold",
+                      className: "text-md font-semibold",
                       children: "About the Platform",
                     }),
                     f.jsxs("p", {
-                      className: "text-sm text-textSecondary",
+                      className: "text-md text-textSecondary",
                       children: [
                         "My-Drive is maintained by",
                         " ",
@@ -13427,11 +13427,11 @@ function $6() {
                 f.jsxs("div", {
                   children: [
                     f.jsx("h3", {
-                      className: "text-sm font-semibold",
+                      className: "text-md font-semibold",
                       children: "Storage & Plans",
                     }),
                     f.jsxs("p", {
-                      className: "text-sm text-textSecondary",
+                      className: "text-md text-textSecondary",
                       children: [
                         "You are currently on the",
                         " ",
@@ -13453,7 +13453,7 @@ function $6() {
                     f.jsx(Xt, {
                       to: "/purchase-premium",
                       className:
-                        "inline-block mt-1 text-sm text-[var(--color-info)] hover:underline cursor-pointer",
+                        "inline-block mt-1 text-md text-[var(--color-info)] hover:underline cursor-pointer",
                       children: "View available plans →",
                     }),
                   ],
@@ -13470,11 +13470,11 @@ function $6() {
                 f.jsxs("div", {
                   children: [
                     f.jsx("h3", {
-                      className: "text-sm font-semibold",
+                      className: "text-md font-semibold",
                       children: "Referral Bonus",
                     }),
                     f.jsx("p", {
-                      className: "text-sm text-textSecondary",
+                      className: "text-md text-textSecondary",
                       children:
                         "Share My-Drive with your friends and earn referral bonuses when they join.",
                     }),
@@ -13579,7 +13579,7 @@ function W6() {
                 ],
               }),
               f.jsxs("div", {
-                className: "flex gap-6 text-sm text-textSecondary",
+                className: "flex gap-6 text-md text-textSecondary",
                 children: [
                   f.jsxs("span", {
                     children: [
@@ -13606,7 +13606,7 @@ function W6() {
             ],
           }),
           f.jsxs("p", {
-            className: "text-sm sm:text-base text-textSecondary max-w-2xl",
+            className: "text-md sm:text-base text-textSecondary max-w-2xl",
             children: [
               "Your starred files and folders for quick access in",
               " ",
@@ -13628,7 +13628,7 @@ function W6() {
                       children: [
                         f.jsx("h2", {
                           className:
-                            "text-sm uppercase tracking-wide text-textSecondary",
+                            "text-md uppercase tracking-wide text-textSecondary",
                           children: "Folders",
                         }),
                         o.map((E) =>
@@ -13669,7 +13669,7 @@ function W6() {
                       children: [
                         f.jsx("h2", {
                           className:
-                            "text-sm uppercase tracking-wide text-textSecondary",
+                            "text-md uppercase tracking-wide text-textSecondary",
                           children: "Files",
                         }),
                         v.map((E) =>
@@ -13702,7 +13702,7 @@ function W6() {
                     v.length === 0 &&
                     f.jsx("div", {
                       className:
-                        "text-center py-12 text-sm text-[var(--color-textDisabled)]",
+                        "text-center py-12 text-md text-[var(--color-textDisabled)]",
                       children: "No starred files or folders found.",
                     }),
                 ],
@@ -13823,7 +13823,7 @@ function I6() {
                   }),
                   f.jsx("p", {
                     className:
-                      "text-sm sm:text-base text-textSecondary max-w-2xl",
+                      "text-md sm:text-base text-textSecondary max-w-2xl",
                     children:
                       "Files you’ve shared with others and files others have shared with you, organized for easy access.",
                   }),
@@ -13835,7 +13835,7 @@ function I6() {
                   r
                     ? f.jsx("div", {
                         className:
-                          "py-8 text-center text-sm text-textSecondary",
+                          "py-8 text-center text-md text-textSecondary",
                         children: "Loading shared files…",
                       })
                     : f.jsxs("section", {
@@ -13860,13 +13860,13 @@ function I6() {
                                 ],
                               }),
                               f.jsx("span", {
-                                className: "text-xs text-textSecondary",
+                                className: "text-md text-textSecondary",
                                 children: d,
                               }),
                             ],
                           }),
                           f.jsx("p", {
-                            className: "px-4 py-2 text-xs text-textSecondary",
+                            className: "px-4 py-2 text-md text-textSecondary",
                             children: "Files you’ve shared with other people",
                           }),
                           f.jsx("div", {
@@ -13891,13 +13891,13 @@ function I6() {
                                                 children: [
                                                   f.jsx("p", {
                                                     className:
-                                                      "text-sm font-medium truncate text-textPrimary leading-snug group-hover:underline",
+                                                      "text-md font-medium truncate text-textPrimary leading-snug group-hover:underline",
                                                     title: F,
                                                     children: F,
                                                   }),
                                                   f.jsxs("p", {
                                                     className:
-                                                      "mt-0.5 text-xs text-textSecondary",
+                                                      "mt-0.5 text-md text-textSecondary",
                                                     children: [
                                                       "Users count shared to:",
                                                       " ",
@@ -13934,7 +13934,7 @@ function I6() {
                                   })
                                 : f.jsx("div", {
                                     className:
-                                      "text-sm text-[var(--color-textDisabled)] italic text-center py-10",
+                                      "text-md text-[var(--color-textDisabled)] italic text-center py-10",
                                     children: "No files shared by you yet",
                                   }),
                           }),
@@ -13943,7 +13943,7 @@ function I6() {
                   v
                     ? f.jsx("div", {
                         className:
-                          "py-8 text-center text-sm text-textSecondary",
+                          "py-8 text-center text-md text-textSecondary",
                         children: "Loading shared files…",
                       })
                     : f.jsxs("section", {
@@ -13968,13 +13968,13 @@ function I6() {
                                 ],
                               }),
                               f.jsx("span", {
-                                className: "text-xs text-textSecondary",
+                                className: "text-md text-textSecondary",
                                 children: b,
                               }),
                             ],
                           }),
                           f.jsx("p", {
-                            className: "px-4 py-2 text-xs text-textSecondary",
+                            className: "px-4 py-2 text-md text-textSecondary",
                             children: "Files you’ve shared with other people",
                           }),
                           f.jsx("div", {
@@ -14004,13 +14004,13 @@ function I6() {
                                                 children: [
                                                   f.jsx("p", {
                                                     className:
-                                                      "text-sm font-medium truncate text-textPrimary leading-snug group-hover:underline",
+                                                      "text-md font-medium truncate text-textPrimary leading-snug group-hover:underline",
                                                     title: F,
                                                     children: F,
                                                   }),
                                                   f.jsxs("p", {
                                                     className:
-                                                      "mt-0.5 text-xs text-textSecondary",
+                                                      "mt-0.5 text-md text-textSecondary",
                                                     children: [
                                                       "Owner of the Content:",
                                                       " ",
@@ -14044,7 +14044,7 @@ function I6() {
                                   })
                                 : f.jsx("div", {
                                     className:
-                                      "text-sm text-[var(--color-textDisabled)] italic text-center py-10",
+                                      "text-md text-[var(--color-textDisabled)] italic text-center py-10",
                                     children: "No files shared by you yet",
                                   }),
                           }),
@@ -14095,11 +14095,11 @@ function e5() {
           children: "Oops! Something went wrong",
         }),
         f.jsx("p", {
-          className: "text-sm text-textSecondary",
+          className: "text-md text-textSecondary",
           children: "Looks like you landed here by mistake 😅",
         }),
         f.jsx("p", {
-          className: "text-xs text-[var(--color-textDisabled)]",
+          className: "text-md text-[var(--color-textDisabled)]",
           children: "The page you’re looking for doesn’t exist or was moved.",
         }),
         f.jsxs(Xt, {

@@ -80,7 +80,7 @@ export default function Home() {
             <span className="text-textSecondary font-semibold">· My-Drive</span>
           </div>
 
-          <div className="hidden md:flex gap-8 text-sm">
+          <div className="hidden md:flex gap-8 text-md">
             <a
               href="#features"
               className="text-textSecondary hover:text-accentFocus transition-colors duration-200 font-medium cursor-pointer"
@@ -109,9 +109,9 @@ export default function Home() {
 
           <NavLink
             to="/register"
-            className="px-6 py-2.5 rounded-xl bg-accentPrimary text-black text-sm font-bold hover:bg-accentHover cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+            className="px-6 py-2.5 rounded-xl bg-accentPrimary text-black text-md font-bold hover:bg-accentHover cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
           >
-            Get Started <FaBolt className="inline ml-1.5 text-xs" />
+            Get Started <FaBolt className="inline ml-1.5 text-md" />
           </NavLink>
         </nav>
       </header>
@@ -124,7 +124,7 @@ export default function Home() {
             for the <span className="text-accentFocus">Modern Web</span>
           </span>
         </h1>
-        <p className="mt-6 max-w-3xl mx-auto text-lg sm:text-xl text-textSecondary leading-relaxed font-normal">
+        <p className="mt-6 max-w-3xl mx-auto text-lg sm:text-xl text-textSecondary leading-relaxed font-medium">
           Store, share, and manage your files with enterprise-grade security and
           lightning-fast access — your personal vault in the cloud.
         </p>
@@ -133,7 +133,7 @@ export default function Home() {
             to="/register"
             className="w-full sm:w-auto px-10 py-4 rounded-xl bg-accentPrimary text-black font-bold hover:bg-accentHover cursor-pointer transition-all duration-300 shadow-2xl hover:shadow-3xl hover:scale-105 active:scale-95 text-center group"
           >
-            Get Started Free{" "}
+            Get Started{" "}
             <FaBolt className="inline ml-2 group-hover:animate-pulse" />
           </NavLink>
           <NavLink
@@ -152,7 +152,7 @@ export default function Home() {
           <h2 className="text-3xl sm:text-4xl font-black">
             Why Choose <span className="text-accentFocus">UVDS</span>?
           </h2>
-          <p className="text-base sm:text-lg text-textSecondary max-w-3xl mx-auto font-normal">
+          <p className="text-base sm:text-lg text-textSecondary max-w-3xl mx-auto font-medium">
             Every letter in our name represents a core feature that powers your
             file management
           </p>
@@ -204,7 +204,7 @@ export default function Home() {
                   >
                     {item.title}
                   </h3>
-                  <p className="text-sm text-textSecondary mt-1 font-normal">
+                  <p className="text-md text-textSecondary mt-1 font-medium">
                     {item.desc}
                   </p>
                 </div>
@@ -221,7 +221,7 @@ export default function Home() {
       >
         <div className="text-center space-y-4">
           <h2 className="text-3xl sm:text-4xl font-black">Powerful Features</h2>
-          <p className="text-lg text-textSecondary max-w-3xl mx-auto font-normal">
+          <p className="text-lg text-textSecondary max-w-3xl mx-auto font-medium">
             Designed for security, performance, and complete control
           </p>
         </div>
@@ -277,7 +277,7 @@ export default function Home() {
                 <h3 className="text-xl font-bold group-hover:text-accentFocus transition-colors">
                   {f.title}
                 </h3>
-                <p className="text-textSecondary text-sm leading-relaxed font-normal">
+                <p className="text-textSecondary text-md leading-relaxed font-medium">
                   {f.desc}
                 </p>
               </div>
@@ -294,7 +294,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <div className="text-center space-y-4">
             <h2 className="text-3xl sm:text-4xl font-black">How It Works</h2>
-            <p className="text-lg text-textSecondary max-w-3xl mx-auto font-normal">
+            <p className="text-lg text-textSecondary max-w-3xl mx-auto font-medium">
               Get started in three simple steps
             </p>
           </div>
@@ -332,7 +332,7 @@ export default function Home() {
                 </div>
                 {s.icon}
                 <h3 className="text-2xl font-bold">{s.title}</h3>
-                <p className="text-textSecondary px-2 leading-relaxed text-sm font-normal">
+                <p className="text-textSecondary px-2 leading-relaxed text-md font-medium">
                   {s.desc}
                 </p>
               </div>
@@ -358,7 +358,7 @@ export default function Home() {
               <h3 className="text-xl font-bold mb-2 group-hover:text-accentFocus transition-colors">
                 {tech.name}
               </h3>
-              <p className="text-sm text-textSecondary font-normal">
+              <p className="text-md text-textSecondary font-medium">
                 {tech.desc}
               </p>
             </div>
@@ -371,11 +371,11 @@ export default function Home() {
         id="pricing"
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-16"
       >
-        <div className="text-center space-y-4">
+        <div className="text-center space-y-4 font-medium">
           <h2 className="text-3xl sm:text-4xl font-black">
             Simple, Transparent Pricing
           </h2>
-          <p className="text-lg text-textSecondary max-w-3xl mx-auto font-normal">
+          <p className="text-lg text-textSecondary max-w-3xl mx-auto font-medium">
             Flexible plans designed to grow with your needs
           </p>
         </div>
@@ -435,7 +435,7 @@ export default function Home() {
               className={`relative rounded-3xl border-2 ${p.color} ${p.bg} p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl group`}
             >
               <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="px-4 py-1.5 rounded-full bg-accentPrimary text-black text-xs font-bold uppercase tracking-wide shadow-md">
+                <span className="px-4 py-1.5 rounded-full bg-accentPrimary text-black text-md font-bold uppercase tracking-wide shadow-md">
                   {p.badge}
                 </span>
               </div>
@@ -458,9 +458,9 @@ export default function Home() {
                 </div>
                 <ul className="space-y-4">
                   {p.features.map((f) => (
-                    <li key={f} className="flex items-start gap-3 text-sm">
+                    <li key={f} className="flex items-start gap-3 text-md">
                       <FaCheckCircle className="text-success mt-0.5 shrink-0" />
-                      <span className="text-textSecondary font-normal">
+                      <span className="text-textSecondary font-medium">
                         {f}
                       </span>
                     </li>
@@ -489,7 +489,7 @@ export default function Home() {
               Create Free Account{" "}
               <FaBolt className="inline ml-2 group-hover:animate-pulse" />
             </NavLink>
-            <p className="text-sm opacity-80 font-medium">
+            <p className="text-md opacity-80 font-medium">
               No credit card required • Cancel anytime • Start in 30 seconds
             </p>
           </div>
@@ -511,29 +511,29 @@ export default function Home() {
                   · My-Drive
                 </span>
               </div>
-              <p className="text-textSecondary max-w-md text-sm font-normal">
+              <p className="text-textSecondary max-w-md text-md font-medium">
                 Secure cloud storage with enterprise-grade security,
                 lightning-fast access, and complete control over your files.
               </p>
             </div>
             <div className="space-y-5">
               <h4 className="text-lg font-bold">Product</h4>
-              <div className="space-y-3.5 text-sm">
+              <div className="space-y-3.5 text-md">
                 <a
                   href="#features"
-                  className="block text-textSecondary hover:text-accentFocus transition-colors duration-200 cursor-pointer font-normal"
+                  className="block text-textSecondary hover:text-accentFocus transition-colors duration-200 cursor-pointer font-medium"
                 >
                   Features
                 </a>
                 <a
                   href="#pricing"
-                  className="block text-textSecondary hover:text-accentFocus transition-colors duration-200 cursor-pointer font-normal"
+                  className="block text-textSecondary hover:text-accentFocus transition-colors duration-200 cursor-pointer font-medium"
                 >
                   Pricing
                 </a>
                 <NavLink
                   to="/login"
-                  className="block text-textSecondary hover:text-accentFocus transition-colors duration-200 cursor-pointer font-normal"
+                  className="block text-textSecondary hover:text-accentFocus transition-colors duration-200 cursor-pointer font-medium"
                 >
                   Login
                 </NavLink>
@@ -541,7 +541,7 @@ export default function Home() {
             </div>
             <div className="space-y-5">
               <h4 className="text-lg font-bold">Company</h4>
-              <div className="space-y-3.5 text-sm text-textSecondary font-normal">
+              <div className="space-y-3.5 text-md text-textSecondary font-medium">
                 <p className="cursor-default">About</p>
                 <p className="cursor-default">Blog</p>
                 <p className="cursor-default">Careers</p>
@@ -549,25 +549,25 @@ export default function Home() {
             </div>
             <div className="space-y-5">
               <h4 className="text-lg font-bold">Resources</h4>
-              <div className="space-y-3.5 text-sm">
-                <p className="text-textSecondary cursor-pointer hover:text-accentFocus transition-colors duration-200 font-normal">
+              <div className="space-y-3.5 text-md">
+                <p className="text-textSecondary cursor-pointer hover:text-accentFocus transition-colors duration-200 font-medium">
                   Help Center
                 </p>
-                <p className="text-textSecondary cursor-pointer hover:text-accentFocus transition-colors duration-200 font-normal">
+                <p className="text-textSecondary cursor-pointer hover:text-accentFocus transition-colors duration-200 font-medium">
                   Status{" "}
-                  <IoTrashOutline className="inline ml-1.5 text-xs text-warning" />
+                  <IoTrashOutline className="inline ml-1.5 text-md text-warning" />
                 </p>
-                <p className="text-textSecondary cursor-pointer hover:text-accentFocus transition-colors duration-200 font-normal">
+                <p className="text-textSecondary cursor-pointer hover:text-accentFocus transition-colors duration-200 font-medium">
                   Terms
                 </p>
-                <p className="text-textSecondary cursor-pointer hover:text-accentFocus transition-colors duration-200 font-normal">
+                <p className="text-textSecondary cursor-pointer hover:text-accentFocus transition-colors duration-200 font-medium">
                   Privacy
                 </p>
               </div>
             </div>
           </div>
           <div className="mt-20 pt-8 border-t border-borderDefault text-center">
-            <div className="text-sm text-textDisabled space-y-1.5">
+            <div className="text-md text-textDisabled space-y-1.5">
               <p>© 2025 UVDS · My-Drive. All rights reserved.</p>
               <p>Built with security and performance in mind.</p>
             </div>

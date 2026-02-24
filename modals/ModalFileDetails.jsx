@@ -31,7 +31,7 @@ export default function ModalFileDetails({
             <IoCloseCircle />
           </button>
         </div>
-        <div className="p-4 sm:p-6 flex flex-col gap-2 text-sm">
+        <div className="p-4 sm:p-6 flex flex-col gap-2 text-md">
           <div className="flex items-center">
             <span className="text-textSecondary w-15">Name:</span>
             <span

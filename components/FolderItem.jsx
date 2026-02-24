@@ -34,7 +34,7 @@ export default function CompFolderItem({
   const { setFolderID } = useContext(FolderIDContext);
   const { setError } = useContext(ErrorContext);
   const { setUpdate } = useContext(UpdateContext);
-  const { setUserView } = useContext(UserSettingViewContext);
+  const { setOpenSettings } = useContext(UserSettingViewContext);
 
   const [rename, setRename] = useState(false);
   const [directoryName, setDirectoryName] = useState(name);
@@ -124,8 +124,8 @@ export default function CompFolderItem({
           rounded-lg
           border border-borderDefault
           bg-bgSecondary
-          hover:bg-[var(--color-bgElevated)]
-          hover:border-[var(--color-borderHover)]
+          hover:bg-bgElevated
+          hover:border-borderHover
           transition-all duration-150
         "
       >
@@ -135,7 +135,7 @@ export default function CompFolderItem({
             type="checkbox"
             className="
               scale-110 cursor-pointer
-              accent-[var(--color-accentPrimary)]
+              accent-(--color-accentPrimary)
             "
             onChange={(e) => {
               if (e.target.checked) {
@@ -152,22 +152,22 @@ export default function CompFolderItem({
             title={isStarred ? "Unstar folder" : "Star folder"}
           >
             {isStarred ? (
-              <FaStar className="text-[var(--color-success)]" />
+              <FaStar className="text-success" />
             ) : (
-              <FaRegStar className="text-[var(--color-textDisabled)] group-hover:text-textSecondary" />
+              <FaRegStar className="text-textDisabled group-hover:text-textSecondary" />
             )}
           </button>
 
           {rename ? (
             <div className="flex items-center gap-2 min-w-0 flex-1">
-              <FaFolder className="text-[var(--color-warning)]" />
+              <FaFolder className="text-warning" />
 
               <input
                 value={directoryName}
                 onChange={(e) => setDirectoryName(e.target.value)}
                 autoFocus
                 className="
-                  w-full px-2 py-1 text-sm
+                  w-full px-2 py-1 text-md
                   rounded-md
                   bg-bgPrimary
                   border border-[var(--color-borderHover)]
@@ -192,7 +192,7 @@ export default function CompFolderItem({
               className="
                 flex items-center gap-2 min-w-0
                 truncate capitalize cursor-pointer
-                text-sm
+                text-md
                 text-textPrimary
                 hover:underline
               "
@@ -223,7 +223,7 @@ export default function CompFolderItem({
           <button
             onClick={() => {
               setRename((prev) => !prev);
-              setUserView(false);
+              setOpenSettings(false);
             }}
             className="cursor-pointer hover:text-[var(--color-warning)]"
             title={rename ? "Cancel rename" : "Rename folder"}

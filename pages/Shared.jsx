@@ -43,7 +43,7 @@ export default function Shared() {
       const { data } = await axiosWithCreds.get(`/share/file/with-user`);
       setFilesSharedWithUser(data.files || []);
       setFilesCountWithUser(data.filesCount || 0);
-      console.log(data.files);
+      // console.log(data.files);
     } catch (error) {
       axiosError(error, navigate, setError, "Something went wrong!");
     } finally {
@@ -93,7 +93,7 @@ export default function Shared() {
               </span>
             </h1>
 
-            <p className="text-sm sm:text-base text-textSecondary max-w-2xl">
+            <p className="text-md sm:text-base text-textSecondary max-w-2xl">
               Files you’ve shared with others and files others have shared with
               you, organized for easy access.
             </p>
@@ -103,7 +103,7 @@ export default function Shared() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* SHARED BY USER */}
             {loadingByUser ? (
-              <div className="py-8 text-center text-sm text-textSecondary">
+              <div className="py-8 text-center text-md text-textSecondary">
                 Loading shared files…
               </div>
             ) : (
@@ -114,13 +114,13 @@ export default function Shared() {
                     <MdUpload className="text-[var(--color-accentPrimary)] text-lg" />
                     <h2 className="text-base font-semibold">Shared by me</h2>
                   </div>
-                  <span className="text-xs text-textSecondary">
+                  <span className="text-md text-textSecondary">
                     {filesCountByUser}
                   </span>
                 </div>
 
                 {/* SUBTEXT */}
-                <p className="px-4 py-2 text-xs text-textSecondary">
+                <p className="px-4 py-2 text-md text-textSecondary">
                   Files you’ve shared with other people
                 </p>
 
@@ -136,12 +136,12 @@ export default function Shared() {
                           {/* FILE INFO (PRIMARY ACTION) */}
                           <div className="min-w-0 flex-1 text-left rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accentFocus)] focus:ring-offset-2 focus:ring-offset-[var(--color-bgElevated)]">
                             <p
-                              className="text-sm font-medium truncate text-textPrimary leading-snug group-hover:underline"
+                              className="text-md font-medium truncate text-textPrimary leading-snug group-hover:underline"
                               title={name}
                             >
                               {name}
                             </p>
-                            <p className="mt-0.5 text-xs text-textSecondary">
+                            <p className="mt-0.5 text-md text-textSecondary">
                               Users count shared to:{" "}
                               <span className="font-medium text-textPrimary">
                                 {sharedTo.length}
@@ -167,7 +167,7 @@ export default function Shared() {
                       ))}
                     </ul>
                   ) : (
-                    <div className="text-sm text-[var(--color-textDisabled)] italic text-center py-10">
+                    <div className="text-md text-[var(--color-textDisabled)] italic text-center py-10">
                       No files shared by you yet
                     </div>
                   )}
@@ -177,7 +177,7 @@ export default function Shared() {
 
             {/* SHARED WITH USER */}
             {loadingWithUser ? (
-              <div className="py-8 text-center text-sm text-textSecondary">
+              <div className="py-8 text-center text-md text-textSecondary">
                 Loading shared files…
               </div>
             ) : (
@@ -188,13 +188,13 @@ export default function Shared() {
                     <MdUpload className="text-[var(--color-accentPrimary)] text-lg" />
                     <h2 className="text-base font-semibold">Shared with me</h2>
                   </div>
-                  <span className="text-xs text-textSecondary">
+                  <span className="text-md text-textSecondary">
                     {filesCountWithUser}
                   </span>
                 </div>
 
                 {/* SUBTEXT */}
-                <p className="px-4 py-2 text-xs text-textSecondary">
+                <p className="px-4 py-2 text-md text-textSecondary">
                   Files you’ve shared with other people
                 </p>
 
@@ -211,12 +211,12 @@ export default function Shared() {
                             {/* FILE INFO (PRIMARY ACTION) */}
                             <div className="min-w-0 flex-1 text-left rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accentFocus)] focus:ring-offset-2 focus:ring-offset-[var(--color-bgElevated)]">
                               <p
-                                className="text-sm font-medium truncate text-textPrimary leading-snug group-hover:underline"
+                                className="text-md font-medium truncate text-textPrimary leading-snug group-hover:underline"
                                 title={filename}
                               >
                                 {filename}
                               </p>
-                              <p className="mt-0.5 text-xs text-textSecondary">
+                              <p className="mt-0.5 text-md text-textSecondary">
                                 Owner of the Content:{" "}
                                 <span className="font-medium text-textPrimary">
                                   {userEmail}
@@ -246,7 +246,7 @@ export default function Shared() {
                       )}
                     </ul>
                   ) : (
-                    <div className="text-sm text-[var(--color-textDisabled)] italic text-center py-10">
+                    <div className="text-md text-[var(--color-textDisabled)] italic text-center py-10">
                       No files shared by you yet
                     </div>
                   )}

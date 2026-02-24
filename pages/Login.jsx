@@ -11,23 +11,20 @@ import {
   IoMailOutline,
   IoLockClosed,
   IoArrowForwardCircle,
-  IoKeyOutline,
 } from "react-icons/io5";
-import { FaShieldAlt, FaUserPlus, FaRegQuestionCircle } from "react-icons/fa";
+import { FaShieldAlt, FaRegQuestionCircle } from "react-icons/fa";
 import { BiLogInCircle } from "react-icons/bi";
-import { IoHomeOutline, IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
-import { FaKey } from "react-icons/fa";
 
 export default function PageUserLogin() {
   const navigate = useNavigate();
   const [login, setLogin] = useState(false);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
-    email: "",
-    password: "ABCdef@123456",
+    email: "basic@uvds.store",
+    password: "Qwerty@1234",
   });
 
-  const { setUserView } = useContext(UserSettingViewContext);
+  const { setOpenSettings } = useContext(UserSettingViewContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,7 +43,7 @@ export default function PageUserLogin() {
       try {
         const { data } = await axiosWithCreds.post("/user/login", formData);
         console.log(data.message);
-        setUserView(false);
+        setOpenSettings(false);
         navigate("/directory", { replace: true });
         setLogin(false);
       } catch (error) {
@@ -88,20 +85,20 @@ export default function PageUserLogin() {
           <div className="flex flex-col gap-1.5 group">
             <label
               htmlFor="email"
-              className="text-xs font-medium text-textSecondary flex items-center gap-1.5"
+              className="text-md font-medium text-textSecondary flex items-center gap-1.5"
             >
-              <IoMailOutline className="text-sm" /> Email
+              <IoMailOutline className="text-md" /> Email
             </label>
             <div className="relative">
-              <IoMailOutline className="absolute left-3 top-1/2 -translate-y-1/2 text-textSecondary text-sm group-focus-within:text-accentFocus transition-colors z-10" />
+              <IoMailOutline className="absolute left-3 top-1/2 -translate-y-1/2 text-textSecondary text-md group-focus-within:text-accentFocus transition-colors z-10" />
               <input
                 type="email"
                 id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="harishs1906@outlook.com"
-                className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-bgElevated border border-borderHover text-textPrimary focus:outline-none focus:border-accentFocus focus:ring-1 focus:ring-accentFocus/30 transition-colors duration-150 placeholder-textDisabled text-sm"
+                placeholder="haridir150@gmail.com"
+                className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-bgElevated border border-borderHover text-textPrimary focus:outline-none focus:border-accentFocus focus:ring-1 focus:ring-accentFocus/30 transition-colors duration-150 placeholder-textDisabled text-md"
               />
             </div>
           </div>
@@ -110,12 +107,12 @@ export default function PageUserLogin() {
           <div className="flex flex-col gap-1.5 group">
             <label
               htmlFor="password"
-              className="text-xs font-medium text-textSecondary flex items-center gap-1.5"
+              className="text-md font-medium text-textSecondary flex items-center gap-1.5"
             >
-              <IoLockClosed className="text-sm" /> Password
+              <IoLockClosed className="text-md" /> Password
             </label>
             <div className="relative">
-              <IoLockClosed className="absolute left-3 top-1/2 -translate-y-1/2 text-textSecondary text-sm group-focus-within:text-accentFocus transition-colors z-10" />
+              <IoLockClosed className="absolute left-3 top-1/2 -translate-y-1/2 text-textSecondary text-md group-focus-within:text-accentFocus transition-colors z-10" />
               <input
                 type="password"
                 id="password"
@@ -123,7 +120,7 @@ export default function PageUserLogin() {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="w-full pl-9 pr-9 py-2.5 rounded-lg bg-bgElevated border border-borderHover text-textPrimary focus:outline-none focus:border-accentFocus focus:ring-1 focus:ring-accentFocus/30 transition-colors duration-150 placeholder-textDisabled tracking-widest text-sm"
+                className="w-full pl-9 pr-9 py-2.5 rounded-lg bg-bgElevated border border-borderHover text-textPrimary focus:outline-none focus:border-accentFocus focus:ring-1 focus:ring-accentFocus/30 transition-colors duration-150 placeholder-textDisabled tracking-widest text-md"
               />
             </div>
 
@@ -131,16 +128,16 @@ export default function PageUserLogin() {
             <div className="flex justify-end pt-1">
               <button
                 type="button"
-                className="text-xs text-info hover:text-accentFocus hover:underline cursor-pointer transition-colors font-medium flex items-center gap-1"
+                className="text-md text-info hover:text-accentFocus hover:underline cursor-pointer transition-colors font-medium flex items-center gap-1"
               >
-                <FaRegQuestionCircle className="text-xs" /> Forgot password?
+                <FaRegQuestionCircle className="text-md" /> Forgot password?
               </button>
             </div>
           </div>
 
           {/* ERROR */}
           {error.length > 0 && (
-            <div className="text-center text-xs py-2.5 px-3 rounded-lg bg-error/20 border border-error text-error font-medium flex items-center justify-center gap-1.5">
+            <div className="text-center text-md py-2.5 px-3 rounded-lg bg-error/20 border border-error text-error font-medium flex items-center justify-center gap-1.5">
               <span className="text-base">⚠</span> {error}
             </div>
           )}
@@ -170,12 +167,12 @@ export default function PageUserLogin() {
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-borderDefault"></div>
             </div>
-            <span className="relative bg-bgSecondary px-3 text-xs text-textSecondary font-medium">
+            <span className="relative bg-bgSecondary px-3 text-md text-textSecondary font-medium">
               New to UVDS?
             </span>
           </div>
 
-          <p className="font-google text-sm text-center">
+          <p className="font-google text-md text-center">
             <span className="text-textSecondary">Create your account </span>
             <NavLink
               to={"/register"}
@@ -186,7 +183,7 @@ export default function PageUserLogin() {
             </NavLink>
           </p>
 
-          <span className="text-xs text-textSecondary font-medium">
+          <span className="text-md text-textSecondary font-medium">
             Or continue with
           </span>
           <div className="w-fit mx-auto">

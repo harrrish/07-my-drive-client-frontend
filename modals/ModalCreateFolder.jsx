@@ -54,7 +54,7 @@ export default function ModalCreateFolder({
             <h2 className="text-lg sm:text-xl font-semibold">
               Create New Folder
             </h2>
-            <p className="text-xs sm:text-sm text-textSecondary mt-1">
+            <p className="text-md sm:text-md text-textSecondary mt-1">
               Enter a name for your new folder
             </p>
           </div>

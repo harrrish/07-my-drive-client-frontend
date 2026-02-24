@@ -10,8 +10,7 @@ import { UpdateProvider } from "../Contexts/UpdateProvider.jsx";
 import { UserDetailsProvider } from "../Contexts/UserDetailsProvider.jsx";
 import { UserStorageProvider } from "../Contexts/UserStorageProvider.jsx";
 import { DirectoryProvider } from "../Contexts/DirectoryProvider.jsx";
-import { UserSettingViewProvider } from "../Contexts/UserSettingViewProvider.jsx";
-import { ListViewProvider } from "../Contexts/ListViewProvider.jsx";
+import { OpenSettingsProvider } from "../Contexts/OpenSettingsProvider.jsx";
 
 export const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 export const baseURL = import.meta.env.VITE_BASE_URL;
@@ -33,23 +32,21 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <GoogleOAuthProvider clientId={clientId}>
-        <ListViewProvider>
-          <UserSettingViewProvider>
-            <DirectoryProvider>
-              <UserStorageProvider>
-                <UserDetailsProvider>
-                  <UpdateProvider>
-                    <ErrorProvider>
-                      <FolderIDProvider>
-                        <App />
-                      </FolderIDProvider>
-                    </ErrorProvider>
-                  </UpdateProvider>
-                </UserDetailsProvider>
-              </UserStorageProvider>
-            </DirectoryProvider>
-          </UserSettingViewProvider>
-        </ListViewProvider>
+        <OpenSettingsProvider>
+          <DirectoryProvider>
+            <UserStorageProvider>
+              <UserDetailsProvider>
+                <UpdateProvider>
+                  <ErrorProvider>
+                    <FolderIDProvider>
+                      <App />
+                    </FolderIDProvider>
+                  </ErrorProvider>
+                </UpdateProvider>
+              </UserDetailsProvider>
+            </UserStorageProvider>
+          </DirectoryProvider>
+        </OpenSettingsProvider>
       </GoogleOAuthProvider>
     </QueryClientProvider>
   </StrictMode>,

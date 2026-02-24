@@ -11,10 +11,10 @@ export default function Error() {
           <div className="absolute -top-1 -right-1 w-3 h-3 bg-warning rounded-full animate-ping"></div>
         </div>
         <h1 className="text-xl sm:text-2xl font-bold">Oops! Page Not Found</h1>
-        <p className="text-sm text-textSecondary max-w-xs">
+        <p className="text-md text-textSecondary max-w-xs">
           Looks like you landed here by mistake 😅
         </p>
-        <p className="text-xs text-textDisabled max-w-xs">
+        <p className="text-md text-textDisabled max-w-xs">
           The page you're looking for doesn't exist or was moved.
         </p>
         <NavLink
@@ -23,7 +23,7 @@ export default function Error() {
         >
           <MdHome className="text-base" />
           <span>Back to Home</span>
-          <FaArrowLeft className="text-sm ml-1" />
+          <FaArrowLeft className="text-md ml-1" />
         </NavLink>
       </div>
     </div>

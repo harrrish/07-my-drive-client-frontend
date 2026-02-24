@@ -131,7 +131,7 @@ export default function Trash() {
               <MdDelete className="text-error size-6 sm:size-7" />
               <span>Trash</span>
             </h1>
-            <div className="flex gap-3 sm:gap-4 text-xs sm:text-sm text-textSecondary">
+            <div className="flex gap-3 sm:gap-4 text-md sm:text-md text-textSecondary">
               <span>
                 Folders:{" "}
                 <span className="text-textPrimary font-medium">
@@ -151,14 +151,14 @@ export default function Trash() {
           <div className="rounded-lg border border-borderDefault bg-bgElevated p-3 sm:p-4 flex flex-col gap-2 sm:gap-3">
             <div className="flex items-center gap-2 justify-center text-textSecondary">
               <MdInfo className="size-4 sm:size-5" />
-              <p className="text-xs sm:text-sm text-center">
+              <p className="text-md sm:text-md text-center">
                 Items moved to Trash are stored temporarily. You can restore
                 them back to{" "}
                 <span className="text-textPrimary font-medium">My-Drive</span>{" "}
                 or permanently delete them.
               </p>
             </div>
-            <div className="rounded-md border border-warning/30 bg-bgSecondary/50 px-3 py-2 text-xs sm:text-sm text-warning font-medium text-center">
+            <div className="rounded-md border border-warning/30 bg-bgSecondary/50 px-3 py-2 text-md sm:text-md text-warning font-medium text-center">
               <span className="font-semibold">Important:</span> Files and
               folders in Trash{" "}
               <span className="font-semibold">
@@ -178,7 +178,7 @@ export default function Trash() {
               {/* FOLDERS */}
               {foldersList.length > 0 && (
                 <div className="flex flex-col gap-2">
-                  <h2 className="text-xs uppercase tracking-wide text-textSecondary font-medium">
+                  <h2 className="text-md uppercase tracking-wide text-textSecondary font-medium">
                     Folders
                   </h2>
                   <div className="flex flex-col gap-2">
@@ -189,7 +189,7 @@ export default function Trash() {
                       >
                         <div className="flex items-center gap-2 min-w-0 flex-1">
                           <FaFolder className="text-warning size-5 shrink-0" />
-                          <span className="truncate text-textPrimary text-sm sm:text-base">
+                          <span className="truncate text-textPrimary text-md sm:text-base">
                             {f.name}
                           </span>
                         </div>
@@ -219,7 +219,7 @@ export default function Trash() {
               {/* FILES */}
               {filesList.length > 0 && (
                 <div className="flex flex-col gap-2">
-                  <h2 className="text-xs uppercase tracking-wide text-textSecondary font-medium">
+                  <h2 className="text-md uppercase tracking-wide text-textSecondary font-medium">
                     Files
                   </h2>
                   <div className="flex flex-col gap-2">
@@ -228,7 +228,7 @@ export default function Trash() {
                         key={f._id}
                         className="flex items-center justify-between px-3 py-2.5 sm:py-3 rounded-lg bg-bgElevated border border-borderDefault hover:border-borderHover transition-colors"
                       >
-                        <span className="truncate text-textPrimary text-sm sm:text-base flex-1">
+                        <span className="truncate text-textPrimary text-md sm:text-base flex-1">
                           {f.name}
                         </span>
                         <div className="flex items-center gap-3 sm:gap-4 ml-2">
@@ -254,7 +254,7 @@ export default function Trash() {
 
               {/* EMPTY */}
               {foldersList.length === 0 && filesList.length === 0 && (
-                <div className="text-center text-sm text-textDisabled py-8 sm:py-12">
+                <div className="text-center text-md text-textDisabled py-8 sm:py-12">
                   No trashed files or folders found.
                 </div>
               )}
@@ -267,7 +267,7 @@ export default function Trash() {
             className="self-center mt-2 sm:mt-4 inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg bg-bgElevated border border-borderHover hover:bg-accentPrimary hover:border-borderActive hover:text-white transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-accentFocus"
           >
             <MdHome className="size-5" />
-            <span className="text-sm sm:text-base">Back to Home</span>
+            <span className="text-md sm:text-base">Back to Home</span>
           </NavLink>
         </div>
       </div>

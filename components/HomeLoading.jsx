@@ -8,7 +8,7 @@ export default function HomeLoading() {
       <h1 className="text-lg sm:text-xl text-center text-textPrimary font-semibold">
         Loading your directory
       </h1>
-      <p className="text-sm sm:text-base text-textSecondary">Please wait…</p>
+      <p className="text-md sm:text-base text-textSecondary">Please wait…</p>
     </div>
   );
 }

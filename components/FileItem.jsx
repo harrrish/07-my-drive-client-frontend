@@ -192,7 +192,7 @@ export default function CompFileItem({
                 value={itemName}
                 onChange={(e) => setItemName(e.target.value)}
                 autoFocus
-                className="w-full px-2 py-1.5 text-sm rounded-md bg-bgPrimary border border-borderHover text-textPrimary focus:outline-none focus:border-accentFocus focus:ring-1 focus:ring-accentFocus/30"
+                className="w-full px-2 py-1.5 text-md rounded-md bg-bgPrimary border border-borderHover text-textPrimary focus:outline-none focus:border-accentFocus focus:ring-1 focus:ring-accentFocus/30"
               />
               <button
                 onClick={handleFileRename}
@@ -215,7 +215,7 @@ export default function CompFileItem({
                 );
               }}
               title={basename}
-              className="flex items-center gap-2 min-w-0 truncate cursor-pointer text-sm text-textPrimary hover:text-accentFocus hover:underline transition-colors"
+              className="flex items-center gap-2 min-w-0 truncate cursor-pointer text-md text-textPrimary hover:text-accentFocus hover:underline transition-colors"
             >
               <CompFileIcon ext={extension} />
               <span className="truncate">{basename}</span>
