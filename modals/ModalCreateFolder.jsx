@@ -74,18 +74,13 @@ export default function ModalCreateFolder({
             onClick={handleCreateFolder}
             className="cursor-pointer w-1/2 py-2.5 rounded-lg font-medium bg-accentPrimary text-white hover:bg-accentHover transition-colors flex items-center justify-center gap-2"
           >
-            {createLoad ? (
-              <FaSpinner className="animate-spin size-4" />
-            ) : (
-              <FaCheck className="size-4" />
-            )}
+            {createLoad ? <FaSpinner className="animate-spin size-4" /> : ""}
             <span>{createLoad ? "Creating..." : "Create Folder"}</span>
           </button>
           <button
             onClick={() => setCreateFolder(false)}
             className="cursor-pointer w-1/2 py-2.5 rounded-lg font-medium bg-bgElevated border border-borderHover text-textPrimary hover:bg-error hover:text-white hover:border-error transition-colors flex items-center justify-center gap-2"
           >
-            <FaTimes className="size-4" />
             <span>Cancel</span>
           </button>
         </div>

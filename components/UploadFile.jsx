@@ -6,7 +6,7 @@ export default function UploadFile({ id, name, size, progress }) {
   return (
     <div
       key={id}
-      className="w-[95%] max-w-4xl mx-auto flex flex-col gap-3 p-4 rounded-lg bg-bgSecondary border border-borderDefaultshadow-md"
+      className="w-[95%] max-w-7xl mx-auto flex flex-col gap-3 p-4 rounded-lg bg-bgSecondary border border-borderDefault shadow-md"
     >
       {/* HEADER */}
       <div className="flex items-center justify-between gap-3">

@@ -1,15 +1,7 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  MdOutlineInfo,
-  MdSave,
-  MdOutlineDriveFileRenameOutline,
-  MdOutlineAutoDelete,
-  MdBlock,
-} from "react-icons/md";
-import { GiCancel } from "react-icons/gi";
-import { FaDownload } from "react-icons/fa6";
-import { IoMdShare } from "react-icons/io";
+import { MdBlock } from "react-icons/md";
+
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import CompFileIcon from "./FileIcon";
@@ -18,7 +10,6 @@ import { calSize } from "../utils/CalculateFileSize";
 import { ErrorContext, UpdateContext } from "../utils/Contexts";
 import { axiosError, axiosWithCreds } from "../utils/AxiosInstance";
 import { fileTypes } from "../utils/FileTypes";
-import { TbEyeCancel } from "react-icons/tb";
 import ShareFile from "../modals/ShareFile";
 import {
   FaEyeSlash,
@@ -49,6 +40,7 @@ export default function CompFileItem({
   sharedTo,
   handleDirectoryDetails,
   handleUserStorageDetails,
+  userDetails,
 }) {
   const navigate = useNavigate();
   const [rename, setRename] = useState(false);
@@ -60,6 +52,8 @@ export default function CompFileItem({
 
   const { setUpdate } = useContext(UpdateContext);
   const { setError } = useContext(ErrorContext);
+
+  console.log(userDetails);
 
   async function handleFileRename() {
     if (!itemName.trim()) {
@@ -244,8 +238,9 @@ export default function CompFileItem({
           </button>
 
           <button
+            disabled={Number(userDetails.roleCode) < 2}
             onClick={handleShareFile}
-            className="cursor-pointer hover:text-info transition-colors"
+            className="cursor-pointer hover:text-info transition-colors disabled:text-textDisabled disabled:cursor-not-allowed"
             title="Share"
           >
             <IoShareSocial />

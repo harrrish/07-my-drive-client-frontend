@@ -25,7 +25,7 @@ export default function Menu() {
   const { userStorage } = useContext(UserStorageContext);
   const [logout, setLogout] = useState(false);
 
-  const { userDetails, setUserDetails } = useContext(UserDetailsContext);
+  const { userDetails } = useContext(UserDetailsContext);
 
   async function handleLogout() {
     setLogout(true);
@@ -83,10 +83,10 @@ export default function Menu() {
         </button>
 
         <button
-          disabled={userDetails.role === "Basic" && userDetails.roleCode === 1}
+          disabled={userDetails.role === "BASIC" && userDetails.roleCode === 1}
           onClick={() => navigate("/starred")}
           className={`flex items-center justify-between px-3 py-2.5 rounded-md font-medium ${
-            userDetails.role === "Basic" && userDetails.roleCode === 1
+            userDetails.role === "BASIC" && userDetails.roleCode === 1
               ? "bg-bgElevated opacity-50 cursor-not-allowed pointer-events-none"
               : "bg-bgElevated hover:bg-borderHover cursor-pointer transition-colors"
           }`}
@@ -98,10 +98,10 @@ export default function Menu() {
         </button>
 
         <button
-          disabled={userDetails.role === "Basic" && userDetails.roleCode === 1}
+          disabled={userDetails.role === "BASIC" && userDetails.roleCode === 1}
           onClick={() => navigate("/shared")}
           className={`flex items-center justify-between px-3 py-2.5 rounded-md font-medium ${
-            userDetails.role === "Basic" && userDetails.roleCode === 1
+            userDetails.role === "BASIC" && userDetails.roleCode === 1
               ? "bg-bgElevated opacity-50 cursor-not-allowed pointer-events-none"
               : "bg-bgElevated hover:bg-borderHover cursor-pointer transition-colors"
           }`}
@@ -114,13 +114,13 @@ export default function Menu() {
 
         <button
           disabled={
-            (userDetails.role === "Basic" || userDetails.role === "Pro") &&
+            (userDetails.role === "BASIC" || userDetails.role === "PRO") &&
             (userDetails.roleCode === 1 || userDetails.roleCode === 2)
           }
           onClick={() => navigate("/projects")}
           className={`flex items-center justify-between px-3 py-2.5 rounded-md font-medium ${
-            (userDetails.role === "Basic" && userDetails.roleCode === 1) ||
-            (userDetails.role === "Pro" && userDetails.roleCode === 2)
+            (userDetails.role === "BASIC" && userDetails.roleCode === 1) ||
+            (userDetails.role === "PRO" && userDetails.roleCode === 2)
               ? "bg-bgElevated opacity-50 cursor-not-allowed pointer-events-none"
               : "bg-bgElevated hover:bg-borderHover cursor-pointer transition-colors"
           }`}
@@ -142,7 +142,7 @@ export default function Menu() {
         </button>
 
         <button
-          onClick={() => navigate("/purchase-premium")}
+          onClick={() => navigate("/purchase")}
           className="cursor-pointer flex items-center justify-between px-3 py-2.5 rounded-md bg-bgElevated hover:bg-borderHover transition-colors font-medium"
         >
           <div className="flex items-center gap-3">

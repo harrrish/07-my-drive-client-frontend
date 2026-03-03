@@ -8,7 +8,7 @@ import { IoRocketOutline } from "react-icons/io5";
 export default function Notifications() {
   return (
     <div className="font-google font-medium min-h-screen bg-bgPrimary flex items-center px-4 py-8">
-      <div className="w-full max-w-3xl mx-auto bg-bgSecondary text-textPrimary flex flex-col gap-5 p-5 sm:p-6 rounded-xl border border-borderDefault shadow-xl">
+      <div className="w-full sm:max-w-7xl mx-auto bg-bgSecondary text-textPrimary flex flex-col gap-5 p-5 sm:p-6 rounded-xl border border-borderDefault shadow-xl">
         {/* HEADER */}
         <div className="flex items-center gap-3 pb-3 border-b border-borderHover">
           <FaBell className="text-info text-2xl sm:text-3xl" />
@@ -70,7 +70,7 @@ export default function Notifications() {
                 free storage.
               </p>
               <NavLink
-                to="/purchase-premium"
+                to="/purchase"
                 className="inline-block mt-1 text-md text-info hover:text-accentFocus hover:underline cursor-pointer transition-colors"
               >
                 View available plans{" "}

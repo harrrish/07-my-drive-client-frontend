@@ -128,7 +128,7 @@ export default function PageUserRegister() {
 
   return (
     <div className="min-h-screen flex items-center justify-center font-google bg-bgPrimary px-4 font-medium py-8 sm:py-12">
-      <div className="w-full max-w-lg bg-bgSecondary border border-borderDefault rounded-2xl p-6 sm:p-8 flex flex-col gap-7 shadow-xl text-textPrimary">
+      <div className="w-full sm:max-w-2xl bg-bgSecondary border border-borderDefault rounded-2xl p-6 sm:p-8 flex flex-col gap-7 shadow-xl text-textPrimary">
         {/* App Title */}
         <div className="flex flex-col items-center justify-center gap-3">
           <div className="flex items-center justify-center gap-2 text-2xl font-bold">

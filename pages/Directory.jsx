@@ -53,6 +53,7 @@ export default function PageDirectoryView() {
   const { directoryDetails, setDirectoryDetails } =
     useContext(DirectoryContext);
   const { userDetails, setUserDetails } = useContext(UserDetailsContext);
+
   const { openSettings } = useContext(UserSettingViewContext);
 
   const [folderNotFound, setFolderNotFound] = useState(false);
@@ -160,18 +161,7 @@ export default function PageDirectoryView() {
   if (folderNotFound) {
     return (
       <div className="min-h-screen w-full flex items-center justify-center bg-bgPrimary px-4 font-google">
-        <div
-          className="
-          w-full max-w-2xl
-          bg-bgSecondary
-          border border-borderDefault
-          rounded-xl
-          shadow-2xl
-          p-6 sm:p-8
-          flex flex-col gap-6
-          text-textPrimary
-        "
-        >
+        <div className="w-full max-w-2xl bg-bgSecondary border border-borderDefault rounded-xl shadow-2xl p-6 sm:p-8 flex flex-col gap-6 text-textPrimary">
           {/* HEADER */}
           <div className="flex flex-col items-center gap-3 text-center">
             <MdFolderOff className="text-5xl text-[var(--color-error)]" />
@@ -244,7 +234,7 @@ export default function PageDirectoryView() {
 
               <button
                 onClick={() => navigate("/directory", { replace: true })}
-                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto sm:min-w-[160px] px-5 py-2 rounded-md bg-(--color-accentPrimary) text-white hover:bg-[var(--color-accentHover)] transition-all duration-200 cursor-pointer shrink-0 focus:outline-none focus:ring-2 focus:ring-[var(--color-accentFocus)]"
+                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto sm:min-w-[160px] px-5 py-2 rounded-md bg-(--color-accentPrimary) text-white hover:bg-accentHover transition-all duration-200 cursor-pointer shrink-0 focus:outline-none focus:ring-2 focus:ring-[var(--color-accentFocus)]"
               >
                 <MdHome className="text-lg" />
                 Go to Home
@@ -276,7 +266,7 @@ export default function PageDirectoryView() {
         <CompNavbar />
 
         {/* PATH */}
-        <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto px-3 h-10 flex items-center rounded-md bg-bgSecondary border border-borderDefault overflow-x-auto custom-scrollbar">
+        <div className="w-[95%] sm:max-w-7xl mx-auto px-3 h-10 flex items-center rounded-md bg-bgSecondary border border-borderDefault overflow-x-auto custom-scrollbar">
           {directoryDetails.path.map((p) => (
             <div key={p.id} className="flex items-center">
               <button
@@ -292,16 +282,16 @@ export default function PageDirectoryView() {
         </div>
 
         {/* ACTION BAR */}
-        <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto flex flex-col sm:flex-row gap-2">
+        <div className="w-[95%] sm:max-w-7xl mx-auto flex flex-col sm:flex-row gap-3">
           <button
             onClick={() => setCreateFolder(true)}
-            className="flex-1 h-10 rounded-md border border-borderHover bg-bgSecondary hover:bg-bgElevated cursor-pointer flex items-center justify-center gap-2 transition-colors"
+            className="flex-1 py-2 px-4 sm:h-10 sm:py-0 rounded-md border border-borderHover bg-bgSecondary hover:bg-bgElevated cursor-pointer flex items-center justify-center gap-2 transition-colors"
           >
             <FaFolderPlus className="text-lg text-accentPrimary" />
             <span className="text-md font-medium">Create Folder</span>
           </button>
 
-          <label className="flex-1 h-10 rounded-md border border-borderHover bg-bgSecondary hover:bg-bgElevated cursor-pointer flex items-center justify-center gap-2 transition-colors">
+          <label className="flex-1 py-2 px-4 sm:h-10 sm:py-0 rounded-md border border-borderHover bg-bgSecondary hover:bg-bgElevated cursor-pointer flex items-center justify-center gap-2 transition-colors">
             <FaCloudUploadAlt className="text-lg text-info" />
             <span className="text-md font-medium">Upload Files</span>
             <input
@@ -313,27 +303,29 @@ export default function PageDirectoryView() {
           </label>
         </div>
 
-        {/* //* SEARCH + SORT */}
-        <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto flex flex-col sm:flex-row h-auto sm:h-10 rounded-md overflow-hidden border border-borderDefault bg-bgSecondary">
-          <div className="flex items-center flex-1 px-3 py-2 sm:py-0">
-            <FaSearch className="text-textDisabled mr-2 text-md" />
+        {/* SEARCH + SORT */}
+        <div className="w-[95%] sm:max-w-7xl mx-auto flex flex-col sm:flex-row gap-3">
+          {/* SEARCH */}
+          <div className="flex-1 py-2 px-4 sm:h-10 sm:py-0 rounded-md border border-borderHover bg-bgSecondary flex items-center gap-2">
+            <FaSearch className="text-textDisabled text-md shrink-0" />
             <input
               type="text"
               placeholder="Search files or folders"
               disabled={
-                userDetails.role === "Basic" && userDetails.roleCode === 1
+                userDetails.role === "BASIC" && userDetails.roleCode === 1
               }
               className="w-full bg-transparent outline-none text-md placeholder-textDisabled disabled:cursor-not-allowed"
             />
           </div>
 
-          <div className="flex items-center gap-2 px-3 py-2 sm:py-0 border-t sm:border-t-0 sm:border-l border-borderDefault">
-            <FaFilter className="text-textSecondary text-md" />
+          {/* SORT */}
+          <div className="flex-1 py-2 px-4 sm:h-10 sm:py-0 rounded-md border border-borderHover bg-bgSecondary flex items-center gap-2">
+            <FaFilter className="text-textSecondary text-md shrink-0" />
             <select
               disabled={
-                userDetails.role === "Basic" && userDetails.roleCode === 1
+                userDetails.role === "BASIC" && userDetails.roleCode === 1
               }
-              className="bg-bgSecondary text-textPrimary border border-borderHover rounded px-2 py-1.5 outline-none cursor-pointer text-md focus:border-borderActive focus:ring-1 focus:ring-accentFocus text-center font-medium w-full sm:w-auto disabled:cursor-not-allowed disabled:text-textDisabled"
+              className="w-full bg-bgSecondary text-textPrimary rounded px-3 sm:px-2 sm:py-1.5 outline-none cursor-pointer text-md focus:border-borderActive focus:ring-1 focus:ring-accentFocus text-center font-medium disabled:cursor-not-allowed disabled:text-textDisabled"
             >
               <option className="bg-bgSecondary text-textPrimary font-medium">
                 Name (A–Z)
@@ -352,37 +344,37 @@ export default function PageDirectoryView() {
         </div>
 
         {/* //* GROUP MOVE && GROUP DELETE */}
-        <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 py-3 px-4 rounded-md bg-bgSecondary border border-borderDefault">
-          <div className="flex gap-3 items-center">
+        <div className="w-[95%] sm:max-w-7xl mx-auto flex flex-row justify-between items-center py-2 px-4 sm:py-3 rounded-md bg-bgSecondary border border-borderDefault">
+          <div className="flex gap-5 sm:gap-3 items-center">
             <button
               disabled={
-                userDetails.role === "Basic" && userDetails.roleCode === 1
+                userDetails.role === "BASIC" && userDetails.roleCode === 1
               }
-              className="text-xl text-textSecondary hover:text-accentFocus cursor-pointer transition-colors disabled:cursor-not-allowed disabled:text-textDisabled"
+              className="text-2xl sm:text-xl text-textSecondary hover:text-accentFocus cursor-pointer transition-colors disabled:cursor-not-allowed disabled:text-textDisabled"
               title="Move the file to different folders !"
             >
               <MdOutlineDriveFileMove />
             </button>
             <button
               disabled={
-                userDetails.role === "Basic" && userDetails.roleCode === 1
+                userDetails.role === "BASIC" && userDetails.roleCode === 1
               }
-              className="text-lg text-textSecondary hover:text-error cursor-pointer transition-colors disabled:cursor-not-allowed disabled:text-textDisabled"
+              className="text-xl sm:text-lg text-textSecondary hover:text-error cursor-pointer transition-colors disabled:cursor-not-allowed disabled:text-textDisabled"
               title="Delete"
             >
               <IoTrashBin />
             </button>
           </div>
 
-          <div className="flex gap-4 items-center text-base text-textSecondary">
-            <span className="flex items-center gap-1.5">
-              <FaFolder className="text-accentPrimary text-md" />
+          <div className="flex gap-6 sm:gap-4 items-center text-base text-textSecondary">
+            <span className="flex items-center gap-2">
+              <FaFolder className="text-accentPrimary text-lg sm:text-md" />
               <span className="font-medium">
                 {directoryDetails.foldersCount}
               </span>
             </span>
-            <span className="flex items-center gap-1.5">
-              <FaFile className="text-info text-md" />
+            <span className="flex items-center gap-2">
+              <FaFile className="text-info text-lg sm:text-md" />
               <span className="font-medium">{directoryDetails.filesCount}</span>
             </span>
           </div>
@@ -396,7 +388,7 @@ export default function PageDirectoryView() {
               directoryDetails.filesCount === 0 &&
               !isUploading && <EmptyDirectory />}
 
-            <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto flex flex-col gap-2">
+            <div className="w-[95%] sm:max-w-7xl mx-auto flex flex-col gap-2">
               {directoryDetails.folders.map((f) => (
                 <CompFolderItem
                   key={f._id}
@@ -410,6 +402,7 @@ export default function PageDirectoryView() {
                   key={f._id}
                   {...f}
                   parentFID={dirID}
+                  userDetails={userDetails}
                   handleDirectoryDetails={handleDirectoryDetails}
                   handleUserStorageDetails={handleUserStorageDetails}
                 />

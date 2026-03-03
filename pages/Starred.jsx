@@ -70,11 +70,11 @@ export default function Starred() {
 
   return (
     <div className="min-h-screen font-medium bg-bgPrimary px-4 py-6 font-google text-textPrimary">
-      <div className="w-full max-w-4xl mx-auto bg-bgSecondary border border-borderDefault rounded-xl shadow-xl p-5 sm:p-8 flex flex-col gap-6">
+      <div className="w-full max-w-7xl mx-auto bg-bgSecondary border border-borderDefault rounded-xl shadow-xl p-5 sm:p-8 flex flex-col gap-6">
         {/* HEADER */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <h1 className="flex items-center gap-3 text-2xl sm:text-3xl font-semibold">
-            <MdStar className="text-[var(--color-warning)] text-3xl" />
+            <MdStar className="text-warning text-3xl" />
             Starred
           </h1>
 

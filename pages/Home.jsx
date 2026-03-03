@@ -77,7 +77,7 @@ export default function Home() {
           <div className="flex items-center gap-2.5 text-2xl font-bold">
             <IoCloudUploadOutline className="text-accentFocus text-2xl" />
             <span className="text-textPrimary">UVDS</span>
-            <span className="text-textSecondary font-semibold">· My-Drive</span>
+            <span className="text-textSecondary font-semibold">My-Drive</span>
           </div>
 
           <div className="hidden md:flex gap-8 text-md">
@@ -111,7 +111,7 @@ export default function Home() {
             to="/register"
             className="px-6 py-2.5 rounded-xl bg-accentPrimary text-black text-md font-bold hover:bg-accentHover cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
           >
-            Get Started <FaBolt className="inline ml-1.5 text-md" />
+            Get Started
           </NavLink>
         </nav>
       </header>
@@ -134,7 +134,7 @@ export default function Home() {
             className="w-full sm:w-auto px-10 py-4 rounded-xl bg-accentPrimary text-black font-bold hover:bg-accentHover cursor-pointer transition-all duration-300 shadow-2xl hover:shadow-3xl hover:scale-105 active:scale-95 text-center group"
           >
             Get Started{" "}
-            <FaBolt className="inline ml-2 group-hover:animate-pulse" />
+            <BiLogIn className="inline ml-2 text-accentFocus/70 text-2xl" />
           </NavLink>
           <NavLink
             to="/login"
@@ -291,7 +291,7 @@ export default function Home() {
         id="how"
         className="bg-bgSecondary border-y border-borderDefault py-24"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center space-y-4">
             <h2 className="text-3xl sm:text-4xl font-black">How It Works</h2>
             <p className="text-lg text-textSecondary max-w-3xl mx-auto font-medium">
@@ -382,7 +382,7 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {[
             {
-              name: "Free",
+              name: "BASIC",
               price: "₹0",
               period: "forever",
               badge: "Start Here",
@@ -398,7 +398,7 @@ export default function Home() {
               bg: "bg-bgSecondary",
             },
             {
-              name: "Pro",
+              name: "PRO",
               price: "₹50",
               period: "per month",
               badge: "Popular",
@@ -414,7 +414,7 @@ export default function Home() {
               bg: "bg-bgElevated",
             },
             {
-              name: "Premium",
+              name: "PREMIUM",
               price: "₹500",
               period: "per month",
               badge: "Ultimate",
@@ -473,8 +473,8 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="bg-linear-to-br from-accentPrimary to-accentFocus text-black py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-10">
+      <section className="bg-linear-to-br from-accentPrimary to-accentFocus text-black py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
           <h2 className="text-4xl sm:text-5xl font-black">
             Ready to store your files securely?
           </h2>
@@ -487,11 +487,7 @@ export default function Home() {
               className="inline-block px-12 py-5 rounded-2xl bg-black text-white text-lg font-black hover:bg-neutral-900 cursor-pointer transition-all duration-300 shadow-2xl hover:shadow-3xl hover:scale-105 active:scale-95 group"
             >
               Create Free Account{" "}
-              <FaBolt className="inline ml-2 group-hover:animate-pulse" />
             </NavLink>
-            <p className="text-md opacity-80 font-medium">
-              No credit card required • Cancel anytime • Start in 30 seconds
-            </p>
           </div>
         </div>
       </section>
@@ -554,8 +550,7 @@ export default function Home() {
                   Help Center
                 </p>
                 <p className="text-textSecondary cursor-pointer hover:text-accentFocus transition-colors duration-200 font-medium">
-                  Status{" "}
-                  <IoTrashOutline className="inline ml-1.5 text-md text-warning" />
+                  Status
                 </p>
                 <p className="text-textSecondary cursor-pointer hover:text-accentFocus transition-colors duration-200 font-medium">
                   Terms

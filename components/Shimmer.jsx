@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Shimmer() {
   return (
-    <div className="w-full sm:max-w-3xl md:max-w-4xl mx-auto min-h-[50vh] flex flex-col gap-3 animate-pulse">
+    <div className="w-full sm:max-w-7xl mx-auto min-h-[50vh] flex flex-col gap-3 animate-pulse">
       {/* Header shimmer */}
       <div className="h-6 w-1/3 rounded-md bg-bgElevated" />
 

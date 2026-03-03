@@ -83,7 +83,7 @@ export default function Shared() {
         />
       </div>
       <div className="font-google min-h-screen bg-bgPrimary px-4 py-6 font-medium">
-        <div className="w-full max-w-6xl mx-auto bg-bgSecondary text-textPrimary flex flex-col gap-8 p-6 sm:p-8 rounded-xl border border-borderDefault shadow-2xl">
+        <div className="w-full max-w-7xl mx-auto bg-bgSecondary text-textPrimary flex flex-col gap-8 p-6 sm:p-8 rounded-xl border border-borderDefault shadow-2xl">
           {/* HEADER */}
           <div className="flex flex-col items-center gap-3 text-center">
             <h1 className="flex items-center gap-3 text-3xl sm:text-4xl font-semibold tracking-wide">

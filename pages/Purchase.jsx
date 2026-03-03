@@ -1,3 +1,4 @@
+import Razorpay from "razorpay";
 import { NavLink, useNavigate } from "react-router-dom";
 import { MdWorkspacePremium, MdHome } from "react-icons/md";
 import {
@@ -12,54 +13,192 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { ErrorContext } from "../utils/Contexts";
 import { axiosError, axiosWithCreds } from "../utils/AxiosInstance";
 
-export default function PurchasePremium() {
+export default function Purchase() {
   const { setError } = useContext(ErrorContext);
 
   const [loading, setLoading] = useState(false);
   const [currentPlan, setCurrentPlan] = useState(null);
   const [nextPlans, setNextPlans] = useState([]);
-
+  const [purchasePageErr, setPurchasePageError] = useState(false);
   const navigate = useNavigate();
 
   const handleGetUserPlan = useCallback(async () => {
     try {
       setLoading(true);
-
-      const { data } = await axiosWithCreds.get(`/purchase-premium`, {
+      const { data } = await axiosWithCreds.get(`/upgradePlan`, {
         withCredentials: true,
       });
-      console.log(data);
+      // console.log(data);
       setCurrentPlan(data.currentPlan);
       setNextPlans(data.nextPlans);
     } catch (error) {
+      setPurchasePageError(true);
       axiosError(error, navigate, setError, "Something went wrong !");
     } finally {
       setLoading(false);
     }
   }, [navigate, setError]);
 
+  //* RAZORPAY POP UP
+  function openRazorpayPopup(subscriptionID, userID, planName) {
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      subscription_id: subscriptionID,
+      notes: { userID },
+      handler: async function () {
+        // Payment success callback
+        await verifyUpgrade(userID, planName); // Call backend to confirm
+      },
+    };
+    const rzp = new window.Razorpay(options);
+    setLoading(true);
+    rzp.open();
+  }
+
+  async function upgradePlan(planID, planName, userID) {
+    const {
+      data: { subscriptionID },
+    } = await axiosWithCreds.post(
+      `/upgradePlan`,
+      { planID, planName, userID },
+      {
+        withCredentials: true,
+      },
+    );
+    // console.log(subscriptionID);
+    if (subscriptionID) {
+      openRazorpayPopup(subscriptionID, userID, planName);
+    }
+  }
+
+  async function verifyUpgrade(userID, planName) {
+    let attempts = 0;
+
+    const interval = setInterval(async () => {
+      attempts++;
+
+      try {
+        const { data } = await axiosWithCreds.post(
+          `/webhook/verify`,
+          { userID, planName },
+          { withCredentials: true },
+        );
+        if (data.message === "PURCHASE_VERIFIED") {
+          clearInterval(interval);
+          navigate("/directory");
+        }
+      } catch (error) {
+        axiosError(error, navigate, setError, "Something went wrong !");
+      } finally {
+        setLoading(false);
+      }
+
+      if (attempts > 15) {
+        clearInterval(interval);
+        console.log("Verification timeout");
+      }
+    }, 2000);
+  }
+
+  //* LOADING RAZORPAY SCRIPT
   useEffect(() => {
+    const razorpayScript = document.querySelector("#rzp-script");
+    if (razorpayScript) return;
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    script.id = "rzp-script";
+    document.body.appendChild(script);
+  }, []);
+
+  useEffect(() => {
+    setPurchasePageError(false);
     handleGetUserPlan();
   }, [handleGetUserPlan]);
 
   const getIcon = (name) => {
-    if (name === "Basic") return <FaStar />;
-    if (name === "pro") return <FaBolt />;
-    if (name === "premium") return <FaCrown />;
+    if (name === "BASIC") return <FaStar />;
+    if (name === "PRO") return <FaBolt />;
+    if (name === "PREMIUM") return <FaCrown />;
     return <MdWorkspacePremium />;
   };
 
   if (loading) {
     return (
-      <div className="font-google min-h-screen bg-bgPrimary text-textPrimary flex items-center justify-center">
-        Loading...
+      <div className="font-google min-h-screen bg-bgPrimary px-4 py-8 animate-pulse">
+        <div className="w-full max-w-350 mx-auto flex flex-col gap-8">
+          {/* Header Skeleton */}
+          <div className="bg-bgSecondary border border-borderDefault rounded-xl p-6">
+            <div className="h-8 w-48 bg-bgElevated rounded mx-auto mb-4" />
+            <div className="h-4 w-72 bg-bgElevated rounded mx-auto" />
+          </div>
+
+          {/* Current Plan Skeleton */}
+          <div className="bg-bgSecondary border border-borderDefault rounded-xl p-8">
+            <div className="h-6 w-40 bg-bgElevated rounded mx-auto mb-6" />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="h-4 bg-bgElevated rounded" />
+              ))}
+            </div>
+          </div>
+
+          {/* Next Plans Skeleton */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {Array.from({ length: 2 }).map((_, i) => (
+              <div
+                key={i}
+                className="bg-bgSecondary border border-borderDefault rounded-xl p-8 flex flex-col gap-4"
+              >
+                <div className="h-5 w-32 bg-bgElevated rounded mx-auto" />
+                <div className="h-4 w-20 bg-bgElevated rounded mx-auto" />
+
+                <div className="flex flex-col gap-2 mt-4">
+                  {Array.from({ length: 5 }).map((_, j) => (
+                    <div key={j} className="h-4 bg-bgElevated rounded" />
+                  ))}
+                </div>
+
+                <div className="h-10 bg-bgElevated rounded mt-4" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (purchasePageErr) {
+    return (
+      <div className="font-google min-h-screen bg-bgPrimary flex items-center justify-center px-4">
+        <div className="w-full max-w-md bg-bgSecondary border border-error/40 rounded-xl p-8 text-center shadow-elevated">
+          <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-error/15 flex items-center justify-center">
+            <FaTimesCircle className="text-error text-2xl" />
+          </div>
+
+          <h2 className="text-xl font-bold text-textPrimary mb-2">
+            Failed to load Plans !
+          </h2>
+
+          <p className="text-textSecondary text-md mb-6">
+            We couldn’t retrieve your subscription details. Please try again.
+          </p>
+
+          <button
+            onClick={() => handleGetUserPlan()}
+            className="cursor-pointer w-full py-2.5 rounded-lg bg-bgElevated border border-borderHover text-textPrimary hover:bg-error hover:border-error hover:text-white transition-colors duration-150 font-semibold"
+          >
+            Retry
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="font-google font-medium min-h-screen bg-bgPrimary text-textPrimary px-4 py-8">
-      <div className="w-full max-w-[1400px] mx-auto flex flex-col gap-8">
+      <div className="w-full max-w-350 mx-auto flex flex-col gap-8">
         {/* HEADER */}
         <div className="bg-bgSecondary border border-borderDefault rounded-xl p-6 text-center">
           <h1 className="flex items-center justify-center gap-3 text-2xl sm:text-3xl font-bold text-textPrimary">
@@ -171,7 +310,12 @@ export default function PurchasePremium() {
                   ))}
                 </div>
 
-                <button className="cursor-pointer w-full py-2.5 rounded-lg bg-bgElevated border border-borderHover text-textPrimary hover:bg-accentPrimary hover:border-accentPrimary hover:text-black transition-colors duration-150 text-md font-semibold">
+                <button
+                  onClick={() =>
+                    upgradePlan(plan.razorpayID, plan.name, plan.userID)
+                  }
+                  className="cursor-pointer w-full py-2.5 rounded-lg bg-bgElevated border border-borderHover text-textPrimary hover:bg-accentPrimary hover:border-accentPrimary hover:text-black transition-colors duration-150 text-md font-semibold"
+                >
                   Upgrade to {plan.name}
                 </button>
               </div>

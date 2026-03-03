@@ -2,7 +2,7 @@ import React from "react";
 
 export default function DirectoryShimmer() {
   return (
-    <div className="w-[95%] sm:max-w-3xl md:max-w-4xl mx-auto flex flex-col gap-2">
+    <div className="w-[95%] sm:max-w-7xl mx-auto flex flex-col gap-2">
       {[1, 2, 3, 4, 5].map((e, index) => (
         <div
           key={index}

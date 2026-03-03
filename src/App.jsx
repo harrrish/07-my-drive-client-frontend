@@ -11,6 +11,7 @@ import Starred from "../pages/Starred";
 import Shared from "../pages/Shared";
 import Error from "../pages/Error";
 import About from "../pages/About";
+import Upgraded from "../pages/Upgraded";
 
 const router = createBrowserRouter([
   {
@@ -54,12 +55,16 @@ const router = createBrowserRouter([
     element: <Trashed />,
   },
   {
-    path: "/purchase-premium",
+    path: "/purchase",
     element: <PurchasePremium />,
   },
   {
     path: "/about",
     element: <About />,
+  },
+  {
+    path: "/upgraded",
+    element: <Upgraded />,
   },
   {
     path: "/*",

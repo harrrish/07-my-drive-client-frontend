@@ -129,20 +129,14 @@ export default function About() {
     <div className="font-google bg-bgPrimary text-textPrimary min-h-screen">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 text-center">
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-2 leading-tight">
           Built with <span className="text-accentFocus">Cutting-Edge</span>{" "}
           Technology
         </h1>
-        <p className="text-xl text-textSecondary max-w-4xl mx-auto mb-12 font-medium">
+        <p className="text-xl text-textSecondary max-w-4xl mx-auto font-medium">
           UVDS My-Drive is engineered with a modern tech stack for security,
           scalability, and exceptional performance.
         </p>
-        <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-bgElevated border border-borderDefault">
-          <VscServerProcess className="text-accentFocus text-2xl" />
-          <span className="font-semibold">
-            Full-Stack MERN + AWS Architecture
-          </span>
-        </div>
       </section>
 
       {/* Tech Stack Grid */}
@@ -216,9 +210,6 @@ export default function About() {
         </div>
 
         <div className="relative">
-          {/* Connecting Line */}
-          <div className="hidden lg:block absolute left-0 right-0 top-1/2 h-0.5 bg-linear-to-r from-accentPrimary via-accentFocus to-accentPrimary -translate-y-1/2 z-0"></div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 relative z-10">
             {pipelineSteps.map((step) => (
               <div key={step.step} className="text-center group">
@@ -236,18 +227,6 @@ export default function About() {
                 </p>
               </div>
             ))}
-          </div>
-        </div>
-
-        <div className="mt-16 text-center">
-          <div className="inline-flex items-center gap-4 px-6 py-4 rounded-2xl bg-bgElevated border border-borderDefault">
-            <FaRobot className="text-2xl text-accentFocus" />
-            <div className="text-left">
-              <h4 className="font-bold text-lg">Fully Automated Workflow</h4>
-              <p className="text-md text-textSecondary font-medium">
-                From code commit to production deployment
-              </p>
-            </div>
           </div>
         </div>
       </section>

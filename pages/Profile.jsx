@@ -4,6 +4,7 @@ import {
   FaShareSquare,
   FaRocket,
   FaStar,
+  FaArrowUp,
 } from "react-icons/fa";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { ErrorContext, UserDetailsContext } from "../utils/Contexts";
@@ -32,8 +33,10 @@ export default function PageUserProfile() {
   const { setError } = useContext(ErrorContext);
   const [imgError, setImgError] = useState(false);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleUserProfileData = useCallback(async () => {
+    setLoading(true);
     try {
       const { data } = await axiosWithCreds.get(`/user/profile`, {
         withCredentials: true,
@@ -41,6 +44,8 @@ export default function PageUserProfile() {
       setUserDetails({ ...data });
     } catch (error) {
       axiosError(error, navigate, setError, "Something went wrong !");
+    } finally {
+      setLoading(false);
     }
   }, [setUserDetails, navigate, setError]);
 
@@ -124,6 +129,10 @@ export default function PageUserProfile() {
     setImgError(false);
   }, [userDetails?.picture]);
 
+  if (loading) {
+    return <ProfilePageShimmer />;
+  }
+
   return (
     <div className="min-h-screen font-google font-medium bg-bgPrimary text-textPrimary flex flex-col">
       {/* TOP NAVBAR */}
@@ -136,18 +145,18 @@ export default function PageUserProfile() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => navigate("/directory")}
-            className="cursor-pointer flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-bgElevated transition-colors"
+            className="cursor-pointer flex items-center gap-1 px-3 py-1.5 rounded-lg hover:bg-bgElevated transition-colors"
           >
             <FaHome />
-            <span className="hidden sm:inline text-xl">Home</span>
+            <span className="hidden sm:inline text-lg">Home</span>
           </button>
 
           <button
             onClick={handleLogout}
-            className="cursor-pointer flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-info hover:text-black transition-colors"
+            className="cursor-pointer flex items-center gap-1 px-3 py-1.5 rounded-lg hover:bg-info hover:text-black transition-colors"
           >
             <IoLogOut />
-            <span className="hidden sm:inline text-xl">Logout</span>
+            <span className="hidden sm:inline text-lg">Logout</span>
           </button>
         </div>
       </div>
@@ -175,8 +184,8 @@ export default function PageUserProfile() {
               </div>
             )}
 
-            {/* premium indicator */}
-            {userDetails?.role?.toLowerCase() === "premium" && (
+            {/* Role Indicator */}
+            {userDetails?.role?.toLowerCase() === "PREMIUM" && (
               <div className="absolute -bottom-1 -right-1 bg-warning text-black rounded-full p-1.5 border border-bgSecondary">
                 <FaCrown className="text-md" />
               </div>
@@ -205,13 +214,15 @@ export default function PageUserProfile() {
                 {userDetails.role}
               </span>
 
-              <button
-                onClick={() => navigate("/purchase-premium")}
-                className="cursor-pointer px-3 py-1 rounded-sm bg-warning text-black text-md font-semibold flex items-center gap-1 hover:bg-highlightPrimary transition-colors shadow-sm"
-              >
-                <FaCrown className="text-md" />
-                Upgrade
-              </button>
+              {userDetails.role !== "PREMIUM" && (
+                <button
+                  onClick={() => navigate("/purchase")}
+                  className="cursor-pointer px-3 py-1 rounded-sm bg-warning text-black text-md font-semibold flex items-center gap-1 hover:bg-highlightPrimary transition-colors shadow-sm"
+                >
+                  Upgrade
+                  <FaArrowUp className="text-md" />
+                </button>
+              )}
             </div>
           </div>
 
@@ -292,7 +303,7 @@ export default function PageUserProfile() {
 
           {/* TRASH */}
           <button
-            onClick={() => navigate("/trash")}
+            onClick={() => navigate("/trashed")}
             className="cursor-pointer bg-bgSecondary border border-borderDefault rounded-xl p-5 flex flex-col gap-2 justify-center hover:border-error transition-colors group text-left"
           >
             <FaTrashAlt className="text-error text-xl" />
@@ -368,6 +379,80 @@ export default function PageUserProfile() {
             <IoLogOut />
             <span className="font-semibold">Logout from all devices</span>
           </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProfilePageShimmer() {
+  return (
+    <div className="min-h-screen font-google font-medium bg-bgPrimary text-textPrimary flex flex-col animate-pulse">
+      {/* TOP NAVBAR */}
+      <div className="w-full bg-bgSecondary border-b border-borderDefault px-4 sm:px-6 py-3 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-bgElevated rounded-full" />
+          <div className="h-6 w-48 bg-bgElevated rounded" />
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="h-8 w-20 bg-bgElevated rounded" />
+          <div className="h-8 w-24 bg-bgElevated rounded" />
+        </div>
+      </div>
+
+      {/* MAIN CONTENT */}
+      <div className="flex flex-col gap-4 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
+        {/* PROFILE HERO */}
+        <div className="bg-bgSecondary border border-borderDefault rounded-2xl px-5 py-5 sm:px-6 sm:py-6 flex flex-col sm:flex-row items-center sm:items-start gap-5 shadow-elevated">
+          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-bgElevated" />
+          <div className="flex flex-col gap-3 flex-1 w-full">
+            <div className="h-6 w-40 bg-bgElevated rounded" />
+            <div className="h-5 w-64 bg-bgElevated rounded" />
+            <div className="flex gap-3 mt-2">
+              <div className="h-7 w-24 bg-bgElevated rounded" />
+              <div className="h-7 w-24 bg-bgElevated rounded" />
+            </div>
+          </div>
+          <div className="hidden sm:flex flex-col gap-2 items-end">
+            <div className="h-4 w-24 bg-bgElevated rounded" />
+            <div className="h-4 w-16 bg-bgElevated rounded" />
+          </div>
+        </div>
+
+        {/* STATS GRID */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-2">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div
+              key={i}
+              className="bg-bgSecondary border border-borderDefault rounded-xl p-5 flex flex-col gap-3"
+            >
+              <div className="w-6 h-6 bg-bgElevated rounded" />
+              <div className="h-4 w-32 bg-bgElevated rounded" />
+              <div className="h-6 w-20 bg-bgElevated rounded" />
+            </div>
+          ))}
+        </div>
+
+        {/* STORAGE BAR PANEL */}
+        <div className="bg-bgSecondary border border-borderDefault rounded-xl p-5 flex flex-col gap-3">
+          <div className="flex justify-between">
+            <div className="h-4 w-32 bg-bgElevated rounded" />
+            <div className="h-4 w-12 bg-bgElevated rounded" />
+          </div>
+          <div className="w-full h-3 bg-bgElevated rounded-full" />
+        </div>
+
+        {/* ACTION PANEL */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div
+              key={i}
+              className="bg-bgSecondary border border-borderDefault rounded-xl p-5 flex items-center gap-4"
+            >
+              <div className="w-6 h-6 bg-bgElevated rounded" />
+              <div className="h-5 w-40 bg-bgElevated rounded" />
+            </div>
+          ))}
         </div>
       </div>
     </div>
