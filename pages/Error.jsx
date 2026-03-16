@@ -1,8 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { MdErrorOutline, MdHome } from "react-icons/md";
 import { FaExclamationTriangle, FaArrowLeft } from "react-icons/fa";
+import { useContext } from "react";
+import { UserDetailsContext } from "../utils/Contexts";
 
 export default function Error() {
+  const { userDetails } = useContext(UserDetailsContext);
   return (
     <div className="min-h-screen font-medium flex items-center justify-center bg-bgPrimary text-textPrimary px-4 font-google py-8">
       <div className="w-full max-w-md bg-bgSecondary border border-borderDefault rounded-2xl p-6 sm:p-8 flex flex-col items-center gap-4 text-center">
@@ -17,13 +20,13 @@ export default function Error() {
         <p className="text-md text-textDisabled max-w-xs">
           The page you're looking for doesn't exist or was moved.
         </p>
+
         <NavLink
-          to="/"
+          to={userDetails.name ? "/directory" : "/"}
           className="cursor-pointer mt-2 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-bgElevated border border-borderHover hover:bg-accentPrimary hover:border-accentPrimary hover:text-black transition-colors duration-150 focus:outline-none focus:ring-1 focus:ring-accentFocus"
         >
           <MdHome className="text-base" />
           <span>Back to Home</span>
-          <FaArrowLeft className="text-md ml-1" />
         </NavLink>
       </div>
     </div>

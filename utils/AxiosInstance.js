@@ -11,15 +11,15 @@ export const axiosWithOutCreds = axios.create({
 });
 
 export function axiosError(
-  error,
-  navigate,
-  setError,
-  actionFunction,
+  error = null,
+  navigate = null,
+  setError = null,
+  actionFunction = null,
   customErr = "Something went wrong !",
 ) {
   const errorValue = error.response?.data?.error || customErr;
 
-  //* INVALID SESSION
+  //* INVALID_SESSION
   if (error.status === 401 && errorValue === "INVALID_SESSION") {
     navigate("/login", { replace: true });
   }

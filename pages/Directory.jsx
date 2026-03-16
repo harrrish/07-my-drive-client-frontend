@@ -6,28 +6,21 @@ import {
   UpdateContext,
   UserDetailsContext,
   UserSettingViewContext,
-  UserStorageContext,
 } from "../utils/Contexts.js";
 import { axiosError, axiosWithCreds } from "../utils/AxiosInstance.js";
 import CompNavbar from "../components/NavbarHome.jsx";
 import CompFileItem from "../components/FileItem.jsx";
 import CompFolderItem from "../components/FolderItem.jsx";
 import ModalsDiv from "../modals/ModalsDiv.jsx";
-import { TiFolderAdd } from "react-icons/ti";
-import { FaFileUpload, FaSearch, FaSortAmountDown } from "react-icons/fa";
-import { LuFiles } from "react-icons/lu";
-import { IoMdArrowDropright } from "react-icons/io";
-import { RiFoldersFill } from "react-icons/ri";
+import { FaSearch } from "react-icons/fa";
 import {
   startSingleUpload,
   uploadSingleFile,
 } from "../utils/UploadSingleFile.js";
-import { BiFolderOpen } from "react-icons/bi";
 import UploadFile from "../components/UploadFile.jsx";
 import Menu from "../components/UserSettings.jsx";
-import { MdDelete, MdOutlineDriveFileMove } from "react-icons/md";
-import { MdFolderOff, MdHome } from "react-icons/md";
-import { IoArrowForward, IoHome, IoTrashBin } from "react-icons/io5";
+import { MdOutlineDriveFileMove } from "react-icons/md";
+import { IoArrowForward, IoTrashBin } from "react-icons/io5";
 import {
   FaFolderPlus,
   FaCloudUploadAlt,
@@ -37,6 +30,7 @@ import {
 } from "react-icons/fa";
 import DirectoryShimmer from "../components/DirectoryShimmer.jsx";
 import EmptyDirectory from "../components/EmptyDirectory.jsx";
+import FolderNotFound from "../components/FolderNotFound.jsx";
 
 export default function PageDirectoryView() {
   const { dirID } = useParams();
@@ -49,28 +43,12 @@ export default function PageDirectoryView() {
 
   const { setError } = useContext(ErrorContext);
   const { setUpdate } = useContext(UpdateContext);
-  const { setUserStorage } = useContext(UserStorageContext);
   const { directoryDetails, setDirectoryDetails } =
     useContext(DirectoryContext);
   const { userDetails, setUserDetails } = useContext(UserDetailsContext);
-
   const { openSettings } = useContext(UserSettingViewContext);
 
   const [folderNotFound, setFolderNotFound] = useState(false);
-
-  //* STORAGE
-  const handleUserStorageDetails = useCallback(async () => {
-    try {
-      const { data } = await axiosWithCreds.get("/user/storage-details");
-      setUserStorage((prev) => ({
-        ...prev,
-        size: data?.size || 0,
-        maxStorageInBytes: data?.maxStorageInBytes || 0,
-      }));
-    } catch (error) {
-      axiosError(error, navigate, setError, "Something went wrong !");
-    }
-  }, [navigate, setError, setUserStorage]);
 
   //* DIRECTORY
   const handleDirectoryDetails = useCallback(
@@ -94,20 +72,13 @@ export default function PageDirectoryView() {
           role: data?.role,
           roleCode: data?.roleCode,
         }));
-        handleUserStorageDetails();
       } catch (error) {
-        axiosError(error, navigate, setError, null, setFolderNotFound);
+        axiosError(error, navigate, setError, setFolderNotFound);
       } finally {
         setLoading(false);
       }
     },
-    [
-      handleUserStorageDetails,
-      navigate,
-      setDirectoryDetails,
-      setError,
-      setUserDetails,
-    ],
+    [navigate, setDirectoryDetails, setError, setUserDetails],
   );
 
   //* FILE UPLOAD
@@ -158,93 +129,7 @@ export default function PageDirectoryView() {
     handleDirectoryDetails(dirID);
   }, [dirID, handleDirectoryDetails]);
 
-  if (folderNotFound) {
-    return (
-      <div className="min-h-screen w-full flex items-center justify-center bg-bgPrimary px-4 font-google">
-        <div className="w-full max-w-2xl bg-bgSecondary border border-borderDefault rounded-xl shadow-2xl p-6 sm:p-8 flex flex-col gap-6 text-textPrimary">
-          {/* HEADER */}
-          <div className="flex flex-col items-center gap-3 text-center">
-            <MdFolderOff className="text-5xl text-[var(--color-error)]" />
-
-            <h1 className="text-2xl sm:text-3xl font-semibold">
-              Folder Not Found
-            </h1>
-
-            <p className="text-md sm:text-base text-textSecondary max-w-lg">
-              The folder you’re trying to access does not exist or you don’t
-              have permission to view it.
-            </p>
-          </div>
-
-          {/* DIVIDER */}
-          <div className="border-t border-borderDefault" />
-
-          {/* POSSIBLE REASONS */}
-          <div className="flex flex-col gap-4 text-md sm:text-base">
-            {/* TRASH OPTION */}
-            <div
-              className="
-              flex flex-col sm:flex-row sm:items-center sm:justify-between
-              gap-3
-              bg-[var(--color-bgElevated)]
-              border border-borderDefault
-              rounded-lg
-              p-4
-            "
-            >
-              <div className="flex flex-col gap-1">
-                <h2 className="font-medium text-textPrimary">
-                  Folder may be in Trash
-                </h2>
-                <p className="text-textSecondary text-md">
-                  The folder might have been moved to Trash and can still be
-                  restored.
-                </p>
-              </div>
-
-              <button
-                onClick={() => navigate("/trashed", { replace: true })}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-bgSecondary border border-[var--color-borderHover)] text-[var(--color-warning)] hover:bg-bgPrimary hover:border-[var(--color-warning)] transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--color-accentFocus)]"
-              >
-                <MdDelete className="text-lg" />
-                Visit Trash
-              </button>
-            </div>
-
-            {/* HOME OPTION */}
-            <div
-              className="
-              flex flex-col sm:flex-row sm:items-center sm:justify-between
-              gap-3
-              bg-[var(--color-bgElevated)]
-              border border-borderDefault
-              rounded-lg
-              p-4
-            "
-            >
-              <div className="flex flex-col gap-1">
-                <h2 className="font-medium text-textPrimary">
-                  Folder permanently deleted or access revoked
-                </h2>
-                <p className="text-textSecondary text-md">
-                  If the folder was deleted permanently or access was removed,
-                  you can safely return to Home.
-                </p>
-              </div>
-
-              <button
-                onClick={() => navigate("/directory", { replace: true })}
-                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto sm:min-w-[160px] px-5 py-2 rounded-md bg-(--color-accentPrimary) text-white hover:bg-accentHover transition-all duration-200 cursor-pointer shrink-0 focus:outline-none focus:ring-2 focus:ring-[var(--color-accentFocus)]"
-              >
-                <MdHome className="text-lg" />
-                Go to Home
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  if (folderNotFound) return <FolderNotFound />;
 
   return (
     <div className="min-h-screen bg-bgPrimary text-textPrimary font-google font-medium">

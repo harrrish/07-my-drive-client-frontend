@@ -12,6 +12,10 @@ import Shared from "../pages/Shared";
 import Error from "../pages/Error";
 import About from "../pages/About";
 import Upgraded from "../pages/Upgraded";
+import Projects from "../pages/Projects";
+import LoginActivity from "../pages/LoginActivity";
+import ForgetPassword from "../pages/ForgetPassword";
+import GooglePassword from "../pages/GooglePassword";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +37,18 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <UserLogin />,
+  },
+  {
+    path: "/login-activity",
+    element: <LoginActivity />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgetPassword />,
+  },
+  {
+    path: "/add-password",
+    element: <GooglePassword />,
   },
   {
     path: "/profile",
@@ -65,6 +81,10 @@ const router = createBrowserRouter([
   {
     path: "/upgraded",
     element: <Upgraded />,
+  },
+  {
+    path: "/projects",
+    element: <Projects />,
   },
   {
     path: "/*",

@@ -73,7 +73,7 @@ export default function CompFolderItem({
         `/star/${val}/folder/${_id}`,
       );
       if (status === 201) {
-        console.log(data.message);
+        // console.log(data.message);
         handleDirectoryDetails(parentFID);
         setUpdate((prev) => [...prev, data.message]);
         setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);
@@ -91,7 +91,7 @@ export default function CompFolderItem({
       );
       // console.log(data, status);
       if (status === 201) {
-        console.log(data.message);
+        // console.log(data.message);
         handleDirectoryDetails(parentFID);
         setUpdate((prev) => [...prev, data.message]);
         setTimeout(() => setUpdate((prev) => prev.slice(1)), 3000);

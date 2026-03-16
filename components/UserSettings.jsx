@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import {
   ErrorContext,
   UserDetailsContext,
@@ -8,7 +8,7 @@ import { FaStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
-import { axiosError } from "../utils/AxiosInstance";
+import { axiosError, axiosWithCreds } from "../utils/AxiosInstance";
 import { baseURL } from "../src/main";
 import { IoCloudUploadOutline, IoLogOut } from "react-icons/io5";
 import { BiSolidPurchaseTag } from "react-icons/bi";
@@ -22,10 +22,24 @@ export default function Menu() {
   const { setOpenSettings } = useContext(UserSettingViewContext);
   const navigate = useNavigate();
   const { setError } = useContext(ErrorContext);
-  const { userStorage } = useContext(UserStorageContext);
+  const { userStorage, setUserStorage } = useContext(UserStorageContext);
   const [logout, setLogout] = useState(false);
 
   const { userDetails } = useContext(UserDetailsContext);
+
+  //* STORAGE
+  const handleUserStorageDetails = useCallback(async () => {
+    try {
+      const { data } = await axiosWithCreds.get("/user/storage-details");
+      setUserStorage((prev) => ({
+        ...prev,
+        size: data?.size || 0,
+        maxStorageInBytes: data?.maxStorageInBytes || 0,
+      }));
+    } catch (error) {
+      axiosError(error, navigate, setError, "Something went wrong !");
+    }
+  }, [navigate, setError, setUserStorage]);
 
   async function handleLogout() {
     setLogout(true);
@@ -43,6 +57,10 @@ export default function Menu() {
       setLogout(false);
     }
   }
+
+  useEffect(() => {
+    handleUserStorageDetails();
+  }, [handleUserStorageDetails]);
 
   return (
     <div className="min-h-screen w-full sm:max-w-md bg-bgSecondary text-textPrimary flex flex-col justify-between p-4 shadow-2xl border-l border-borderDefault">

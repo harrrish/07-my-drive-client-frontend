@@ -1,16 +1,14 @@
 import {
   FaDatabase,
   FaFolder,
-  FaShareSquare,
   FaRocket,
-  FaStar,
   FaArrowUp,
+  FaUserEdit,
 } from "react-icons/fa";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { ErrorContext, UserDetailsContext } from "../utils/Contexts";
 import { calSize } from "../utils/CalculateFileSize";
 import { useNavigate } from "react-router-dom";
-import { baseURL } from "../src/main";
 import {
   IoCloudUploadOutline,
   IoLogOut,
@@ -23,10 +21,10 @@ import {
   FaTrashAlt,
   FaHome,
 } from "react-icons/fa";
-import { MdVerified } from "react-icons/md";
 import { axiosError, axiosWithCreds } from "../utils/AxiosInstance";
 import { FaBell, FaInfoCircle } from "react-icons/fa";
 import { FaInbox, FaPaperPlane } from "react-icons/fa";
+import AllLogoutConfirm from "../modals/AllLogoutConfirm";
 
 export default function PageUserProfile() {
   const { userDetails, setUserDetails } = useContext(UserDetailsContext);
@@ -34,6 +32,8 @@ export default function PageUserProfile() {
   const [imgError, setImgError] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+  const [allLogoutConfirm, setAllLogoutConfirm] = useState(false);
 
   const handleUserProfileData = useCallback(async () => {
     setLoading(true);
@@ -50,11 +50,15 @@ export default function PageUserProfile() {
   }, [setUserDetails, navigate, setError]);
 
   async function handleLogout() {
-    const res = await fetch(`${baseURL}/user/logout`, {
-      method: "POST",
-      credentials: "include",
-    });
-    if (res.ok) navigate("/login");
+    try {
+      const { data } = await axiosWithCreds.post(`/user/logout`, {
+        withCredentials: true,
+      });
+      console.log(data.message);
+      navigate("/login", { replace: true });
+    } catch (error) {
+      axiosError(error, navigate, setError);
+    }
   }
 
   const fetchStarredItems = useCallback(async () => {
@@ -135,6 +139,13 @@ export default function PageUserProfile() {
 
   return (
     <div className="min-h-screen font-google font-medium bg-bgPrimary text-textPrimary flex flex-col">
+      {/* LOGOUT EVERYWHERE MODAL */}
+      <div>
+        {allLogoutConfirm && (
+          <AllLogoutConfirm setAllLogoutConfirm={setAllLogoutConfirm} />
+        )}
+      </div>
+
       {/* TOP NAVBAR */}
       <div className="w-full bg-bgSecondary border-b border-borderDefault px-4 sm:px-6 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -195,12 +206,18 @@ export default function PageUserProfile() {
           {/* info block */}
           <div className="flex flex-col items-center sm:items-start gap-1 text-center sm:text-left flex-1 min-w-0">
             {/* name */}
-            <div className="flex items-center gap-2 flex-wrap justify-center sm:justify-start">
+            <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
               <span className="text-lg sm:text-2xl font-semibold capitalize text-textPrimary truncate max-w-50 sm:max-w-none">
                 {userDetails.name}
               </span>
 
-              <MdVerified className="text-info text-base shrink-0" />
+              <button
+                className="cursor-pointer outline-0"
+                title="Edit Profile"
+                onClick={() => console.log("Edit Profile !")}
+              >
+                <FaUserEdit className="text-info shrink-0 text-xl" />
+              </button>
             </div>
 
             {/* email */}
@@ -373,7 +390,7 @@ export default function PageUserProfile() {
           </button>
 
           <button
-            onClick={handleLogout}
+            onClick={() => setAllLogoutConfirm(true)}
             className="cursor-pointer bg-bgSecondary border border-borderDefault rounded-xl p-5 flex items-center gap-4 hover:border-info hover:bg-info hover:text-black transition-colors"
           >
             <IoLogOut />
@@ -387,7 +404,7 @@ export default function PageUserProfile() {
 
 function ProfilePageShimmer() {
   return (
-    <div className="min-h-screen font-google font-medium bg-bgPrimary text-textPrimary flex flex-col animate-pulse">
+    <div className="min-h-screen font-google font-medium bg-bgPrimary text-textPrimary flex flex-col">
       {/* TOP NAVBAR */}
       <div className="w-full bg-bgSecondary border-b border-borderDefault px-4 sm:px-6 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">

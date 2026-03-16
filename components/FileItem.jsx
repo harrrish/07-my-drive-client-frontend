@@ -53,7 +53,7 @@ export default function CompFileItem({
   const { setUpdate } = useContext(UpdateContext);
   const { setError } = useContext(ErrorContext);
 
-  console.log(userDetails);
+  // console.log(userDetails);
 
   async function handleFileRename() {
     if (!itemName.trim()) {

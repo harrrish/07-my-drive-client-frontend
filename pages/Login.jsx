@@ -2,11 +2,10 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CompGoogleBtn from "../components/GoogleBtn";
 import { axiosWithCreds } from "../utils/AxiosInstance";
-import { UserSettingViewContext } from "../utils/Contexts";
+import { ErrorContext, UserSettingViewContext } from "../utils/Contexts";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { VscSignIn } from "react-icons/vsc";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
 import {
   IoMailOutline,
   IoLockClosed,
@@ -20,8 +19,8 @@ export default function PageUserLogin() {
   const [login, setLogin] = useState(false);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
-    email: "Basic@uvds.store",
-    password: "Qwerty@1234",
+    email: "test@user.com",
+    password: "Qwerty@12345",
   });
 
   const { setOpenSettings } = useContext(UserSettingViewContext);
@@ -45,16 +44,23 @@ export default function PageUserLogin() {
         console.log(data.message);
         setOpenSettings(false);
         navigate("/directory", { replace: true });
-        setLogin(false);
       } catch (error) {
-        const errorMsg = axios.isAxiosError(error)
-          ? error.response?.data?.error
-          : "Something went wrong !";
-        setError(errorMsg);
-        setTimeout(() => setError(""), 3000);
+        const err = error.response?.data?.error;
+        if (err === "LOGIN_LIMIT_EXCEEDED") {
+          sessionStorage.setItem("loginLimitAccess", "true");
+          navigate("/login-activity", { state: { email: formData.email } });
+        } else {
+          setError(err);
+          setTimeout(() => setError(""), 3000);
+        }
+      } finally {
         setLogin(false);
       }
     }
+  }
+
+  async function handleForgetPassword() {
+    navigate("/forgot-password", { state: { from: "login" } });
   }
 
   return (
@@ -127,6 +133,7 @@ export default function PageUserLogin() {
             {/* FORGOT PASSWORD */}
             <div className="flex justify-end pt-1">
               <button
+                onClick={() => handleForgetPassword()}
                 type="button"
                 className="text-md text-info hover:text-accentFocus hover:underline cursor-pointer transition-colors font-medium flex items-center gap-1"
               >
