@@ -59,6 +59,7 @@ export async function startSingleUpload(
       handleDirectoryDetails(dirID);
     }
   } catch (error) {
+    console.log(error);
     const message = "Failed to upload file";
     axiosError(error, navigate, setError, message);
     handleDirectoryDetails(dirID);
