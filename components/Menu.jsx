@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import {
   ErrorContext,
   UserDetailsContext,
@@ -8,38 +8,22 @@ import { FaStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
-import { axiosError, axiosWithCreds } from "../utils/AxiosInstance";
+import { axiosError } from "../utils/AxiosInstance";
 import { baseURL } from "../src/main";
 import { IoCloudUploadOutline, IoLogOut } from "react-icons/io5";
 import { BiSolidPurchaseTag } from "react-icons/bi";
-import { UserStorageContext } from "../utils/Contexts";
 import { calSize } from "../utils/CalculateFileSize";
 import { IoIosNotifications } from "react-icons/io";
 import { AiOutlineUserSwitch } from "react-icons/ai";
 import { IoIosClose } from "react-icons/io";
 
-export default function Menu() {
-  const { setOpenSettings } = useContext(UserSettingViewContext);
+export default function Menu({ directoryDetails }) {
+  // console.log(directoryDetails);
+
   const navigate = useNavigate();
-  const { setError } = useContext(ErrorContext);
-  const { userStorage, setUserStorage } = useContext(UserStorageContext);
   const [logout, setLogout] = useState(false);
-
-  const { userDetails } = useContext(UserDetailsContext);
-
-  //* STORAGE
-  const handleUserStorageDetails = useCallback(async () => {
-    try {
-      const { data } = await axiosWithCreds.get("/user/storage-details");
-      setUserStorage((prev) => ({
-        ...prev,
-        size: data?.size || 0,
-        maxStorageInBytes: data?.maxStorageInBytes || 0,
-      }));
-    } catch (error) {
-      axiosError(error, navigate, setError, "Something went wrong !");
-    }
-  }, [navigate, setError, setUserStorage]);
+  const { setOpenSettings } = useContext(UserSettingViewContext);
+  const { setError } = useContext(ErrorContext);
 
   async function handleLogout() {
     setLogout(true);
@@ -57,10 +41,6 @@ export default function Menu() {
       setLogout(false);
     }
   }
-
-  useEffect(() => {
-    handleUserStorageDetails();
-  }, [handleUserStorageDetails]);
 
   return (
     <div className="min-h-screen w-full sm:max-w-md bg-bgSecondary text-textPrimary flex flex-col justify-between p-4 shadow-2xl border-l border-borderDefault">
@@ -101,10 +81,12 @@ export default function Menu() {
         </button>
 
         <button
-          disabled={userDetails.role === "BASIC" && userDetails.roleCode === 1}
+          disabled={
+            directoryDetails.role === "BASIC" && directoryDetails.roleCode === 1
+          }
           onClick={() => navigate("/starred")}
           className={`flex items-center justify-between px-3 py-2.5 rounded-md font-medium ${
-            userDetails.role === "BASIC" && userDetails.roleCode === 1
+            directoryDetails.role === "BASIC" && directoryDetails.roleCode === 1
               ? "bg-bgElevated opacity-50 cursor-not-allowed pointer-events-none"
               : "bg-bgElevated hover:bg-borderHover cursor-pointer transition-colors"
           }`}
@@ -116,10 +98,12 @@ export default function Menu() {
         </button>
 
         <button
-          disabled={userDetails.role === "BASIC" && userDetails.roleCode === 1}
+          disabled={
+            directoryDetails.role === "BASIC" && directoryDetails.roleCode === 1
+          }
           onClick={() => navigate("/shared")}
           className={`flex items-center justify-between px-3 py-2.5 rounded-md font-medium ${
-            userDetails.role === "BASIC" && userDetails.roleCode === 1
+            directoryDetails.role === "BASIC" && directoryDetails.roleCode === 1
               ? "bg-bgElevated opacity-50 cursor-not-allowed pointer-events-none"
               : "bg-bgElevated hover:bg-borderHover cursor-pointer transition-colors"
           }`}
@@ -132,13 +116,15 @@ export default function Menu() {
 
         <button
           disabled={
-            (userDetails.role === "BASIC" || userDetails.role === "PRO") &&
-            (userDetails.roleCode === 1 || userDetails.roleCode === 2)
+            (directoryDetails.role === "BASIC" ||
+              directoryDetails.role === "PRO") &&
+            (directoryDetails.roleCode === 1 || directoryDetails.roleCode === 2)
           }
           onClick={() => navigate("/projects")}
           className={`flex items-center justify-between px-3 py-2.5 rounded-md font-medium ${
-            (userDetails.role === "BASIC" && userDetails.roleCode === 1) ||
-            (userDetails.role === "PRO" && userDetails.roleCode === 2)
+            (directoryDetails.role === "BASIC" &&
+              directoryDetails.roleCode === 1) ||
+            (directoryDetails.role === "PRO" && directoryDetails.roleCode === 2)
               ? "bg-bgElevated opacity-50 cursor-not-allowed pointer-events-none"
               : "bg-bgElevated hover:bg-borderHover cursor-pointer transition-colors"
           }`}
@@ -176,14 +162,14 @@ export default function Menu() {
           <div
             className="h-full bg-accentPrimary"
             style={{
-              width: `${(userStorage.size / userStorage.maxStorageInBytes) * 100}%`,
+              width: `${(directoryDetails.usedStorage / directoryDetails.totalStorage) * 100}%`,
             }}
           />
         </div>
 
         <p className="text-md text-center text-textSecondary">
-          Used {calSize(userStorage.size)} of{" "}
-          {calSize(userStorage.maxStorageInBytes)}
+          Used {calSize(directoryDetails.usedStorage)} of{" "}
+          {calSize(directoryDetails.totalStorage)}
         </p>
 
         <button

@@ -1,7 +1,6 @@
 import {
   FaAws,
   FaShieldAlt,
-  FaRobot,
   FaLock,
   FaBolt,
   FaCloud,
@@ -16,7 +15,6 @@ import {
   SiTailwindcss,
   SiGithubactions,
 } from "react-icons/si";
-import { VscServerProcess } from "react-icons/vsc";
 import { IoSpeedometerOutline } from "react-icons/io5"; // Fixed import path
 
 export default function About() {

@@ -7,9 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { FolderIDProvider } from "../Contexts/FolderIDProvider.jsx";
 import { ErrorProvider } from "../Contexts/ErrorProvider.jsx";
 import { UpdateProvider } from "../Contexts/UpdateProvider.jsx";
-import { UserDetailsProvider } from "../Contexts/UserDetailsProvider.jsx";
-import { UserStorageProvider } from "../Contexts/UserStorageProvider.jsx";
-import { DirectoryProvider } from "../Contexts/DirectoryProvider.jsx";
+
 import { OpenSettingsProvider } from "../Contexts/OpenSettingsProvider.jsx";
 
 export const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
@@ -33,19 +31,13 @@ createRoot(document.getElementById("root")).render(
     <QueryClientProvider client={queryClient}>
       <GoogleOAuthProvider clientId={clientId}>
         <OpenSettingsProvider>
-          <DirectoryProvider>
-            <UserStorageProvider>
-              <UserDetailsProvider>
-                <UpdateProvider>
-                  <ErrorProvider>
-                    <FolderIDProvider>
-                      <App />
-                    </FolderIDProvider>
-                  </ErrorProvider>
-                </UpdateProvider>
-              </UserDetailsProvider>
-            </UserStorageProvider>
-          </DirectoryProvider>
+          <UpdateProvider>
+            <ErrorProvider>
+              <FolderIDProvider>
+                <App />
+              </FolderIDProvider>
+            </ErrorProvider>
+          </UpdateProvider>
         </OpenSettingsProvider>
       </GoogleOAuthProvider>
     </QueryClientProvider>

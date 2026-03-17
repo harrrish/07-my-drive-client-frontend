@@ -1,10 +1,8 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-  DirectoryContext,
   ErrorContext,
   UpdateContext,
-  UserDetailsContext,
   UserSettingViewContext,
 } from "../utils/Contexts.js";
 import { axiosError, axiosWithCreds } from "../utils/AxiosInstance.js";
@@ -18,7 +16,7 @@ import {
   uploadSingleFile,
 } from "../utils/UploadSingleFile.js";
 import UploadFile from "../components/UploadFile.jsx";
-import Menu from "../components/UserSettings.jsx";
+import Menu from "../components/Menu.jsx";
 import { MdOutlineDriveFileMove } from "react-icons/md";
 import { IoArrowForward, IoTrashBin } from "react-icons/io5";
 import {
@@ -43,9 +41,17 @@ export default function PageDirectoryView() {
 
   const { setError } = useContext(ErrorContext);
   const { setUpdate } = useContext(UpdateContext);
-  const { directoryDetails, setDirectoryDetails } =
-    useContext(DirectoryContext);
-  const { userDetails, setUserDetails } = useContext(UserDetailsContext);
+  const [directoryDetails, setDirectoryDetails] = useState({
+    files: [],
+    folders: [],
+    path: [],
+    filesCount: 0,
+    foldersCount: 0,
+    usedStorage: 0,
+    totalStorage: 0,
+    role: 0,
+    roleCode: "",
+  });
   const { openSettings } = useContext(UserSettingViewContext);
 
   const [folderNotFound, setFolderNotFound] = useState(false);
@@ -66,19 +72,21 @@ export default function PageDirectoryView() {
           files: data?.files || [],
           foldersCount: data?.foldersCount || 0,
           filesCount: data?.filesCount || 0,
+          usedStorage: data.usedStorage || 0,
+          totalStorage: data.totalStorage || 0,
         }));
-        setUserDetails((prev) => ({
+        /* setUserDetails((prev) => ({
           ...prev,
           role: data?.role,
           roleCode: data?.roleCode,
-        }));
+        })); */
       } catch (error) {
         axiosError(error, navigate, setError, setFolderNotFound);
       } finally {
         setLoading(false);
       }
     },
-    [navigate, setDirectoryDetails, setError, setUserDetails],
+    [navigate, setDirectoryDetails, setError],
   );
 
   //* FILE UPLOAD
@@ -131,6 +139,8 @@ export default function PageDirectoryView() {
 
   if (folderNotFound) return <FolderNotFound />;
 
+  if (loading || !directoryDetails) return <DirectoryShimmer />;
+
   return (
     <div className="min-h-screen bg-bgPrimary text-textPrimary font-google font-medium">
       <ModalsDiv
@@ -144,7 +154,7 @@ export default function PageDirectoryView() {
       <div
         className={`fixed inset-0 z-20 bg-black/70 transition-opacity ${openSettings ? "opacity-100" : "opacity-0 pointer-events-none"}`}
       >
-        <Menu />
+        <Menu directoryDetails={directoryDetails} />
       </div>
 
       <div className="flex flex-col gap-3 p-3 sm:p-4">
@@ -197,7 +207,8 @@ export default function PageDirectoryView() {
               type="text"
               placeholder="Search files or folders"
               disabled={
-                userDetails.role === "BASIC" && userDetails.roleCode === 1
+                directoryDetails.role === "BASIC" &&
+                directoryDetails.roleCode === 1
               }
               className="w-full bg-transparent outline-none text-md placeholder-textDisabled disabled:cursor-not-allowed"
             />
@@ -208,7 +219,8 @@ export default function PageDirectoryView() {
             <FaFilter className="text-textSecondary text-md shrink-0" />
             <select
               disabled={
-                userDetails.role === "BASIC" && userDetails.roleCode === 1
+                directoryDetails.role === "BASIC" &&
+                directoryDetails.roleCode === 1
               }
               className="w-full bg-bgSecondary text-textPrimary rounded px-3 sm:px-2 sm:py-1.5 outline-none cursor-pointer text-md focus:border-borderActive focus:ring-1 focus:ring-accentFocus text-center font-medium disabled:cursor-not-allowed disabled:text-textDisabled"
             >
@@ -233,7 +245,8 @@ export default function PageDirectoryView() {
           <div className="flex gap-5 sm:gap-3 items-center">
             <button
               disabled={
-                userDetails.role === "BASIC" && userDetails.roleCode === 1
+                directoryDetails.role === "BASIC" &&
+                directoryDetails.roleCode === 1
               }
               className="text-2xl sm:text-xl text-textSecondary hover:text-accentFocus cursor-pointer transition-colors disabled:cursor-not-allowed disabled:text-textDisabled"
               title="Move the file to different folders !"
@@ -242,7 +255,8 @@ export default function PageDirectoryView() {
             </button>
             <button
               disabled={
-                userDetails.role === "BASIC" && userDetails.roleCode === 1
+                directoryDetails.role === "BASIC" &&
+                directoryDetails.roleCode === 1
               }
               className="text-xl sm:text-lg text-textSecondary hover:text-error cursor-pointer transition-colors disabled:cursor-not-allowed disabled:text-textDisabled"
               title="Delete"
@@ -265,36 +279,32 @@ export default function PageDirectoryView() {
           </div>
         </div>
 
-        {loading ? (
-          <DirectoryShimmer />
-        ) : (
-          <div>
-            {directoryDetails.foldersCount === 0 &&
-              directoryDetails.filesCount === 0 &&
-              !isUploading && <EmptyDirectory />}
+        <div>
+          {directoryDetails.foldersCount === 0 &&
+            directoryDetails.filesCount === 0 &&
+            !isUploading && <EmptyDirectory />}
 
-            <div className="w-[95%] sm:max-w-7xl mx-auto flex flex-col gap-2">
-              {directoryDetails.folders.map((f) => (
-                <CompFolderItem
-                  key={f._id}
-                  {...f}
-                  parentFID={dirID}
-                  handleDirectoryDetails={handleDirectoryDetails}
-                />
-              ))}
-              {directoryDetails.files.map((f) => (
-                <CompFileItem
-                  key={f._id}
-                  {...f}
-                  parentFID={dirID}
-                  userDetails={userDetails}
-                  handleDirectoryDetails={handleDirectoryDetails}
-                  handleUserStorageDetails={handleUserStorageDetails}
-                />
-              ))}
-            </div>
+          <div className="w-[95%] sm:max-w-7xl mx-auto flex flex-col gap-2">
+            {directoryDetails.folders.map((f) => (
+              <CompFolderItem
+                key={f._id}
+                {...f}
+                parentFID={dirID}
+                handleDirectoryDetails={handleDirectoryDetails}
+              />
+            ))}
+            {directoryDetails.files.map((f) => (
+              <CompFileItem
+                key={f._id}
+                {...f}
+                parentFID={dirID}
+                userDetails={directoryDetails}
+                handleDirectoryDetails={handleDirectoryDetails}
+                // handleUserStorageDetails={handleUserStorageDetails}
+              />
+            ))}
           </div>
-        )}
+        </div>
 
         {isUploading &&
           uploadFilesList.map((file) => <UploadFile key={file.id} {...file} />)}
