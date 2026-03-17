@@ -81,10 +81,48 @@ export default function LoginActivity() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-bgPrimary text-textPrimary font-google flex items-center justify-center px-4">
-        <div className="bg-bgSecondary border border-borderDefault rounded-xl shadow-elevated px-6 py-5 flex items-center gap-3 text-md sm:text-lg">
-          <MdDevices className="text-accentPrimary text-2xl" />
-          <h1 className="font-medium text-textPrimary">Loading sessions...</h1>
+      <div className="min-h-screen bg-bgPrimary px-4 py-6 flex justify-center">
+        <div className="w-full max-w-5xl flex flex-col gap-6 animate-pulse">
+          {/* HEADER SHIMMER */}
+          <div className="bg-bgSecondary border border-borderDefault rounded-xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-5">
+            {/* avatar */}
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-bgElevated" />
+
+            {/* user info */}
+            <div className="flex flex-col gap-3 w-full">
+              <div className="h-5 w-2/3 bg-bgElevated rounded" />
+              <div className="h-4 w-1/2 bg-bgElevated rounded" />
+              <div className="h-4 w-1/3 bg-bgElevated rounded" />
+            </div>
+          </div>
+
+          {/* NOTICE SHIMMER */}
+          <div className="bg-bgSecondary border border-borderDefault rounded-xl p-5 flex flex-col gap-3">
+            <div className="h-5 w-1/3 bg-bgElevated rounded" />
+
+            <div className="h-4 w-2/3 bg-bgElevated rounded" />
+            <div className="h-10 w-40 bg-bgElevated rounded mx-auto mt-2" />
+          </div>
+
+          {/* SESSION CARDS SHIMMER */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {[...Array(4)].map((_, i) => (
+              <div
+                key={i}
+                className="bg-bgSecondary border border-borderHover rounded-xl p-5 flex flex-col gap-3"
+              >
+                <div className="h-5 w-1/2 bg-bgElevated rounded" />
+
+                <div className="flex flex-col gap-2">
+                  <div className="h-4 w-3/4 bg-bgElevated rounded" />
+                  <div className="h-4 w-2/3 bg-bgElevated rounded" />
+                  <div className="h-4 w-1/2 bg-bgElevated rounded" />
+                </div>
+
+                <div className="h-10 w-full bg-bgElevated rounded mt-2" />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );
