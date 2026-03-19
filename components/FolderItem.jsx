@@ -13,7 +13,6 @@ import {
   ErrorContext,
   FolderIDContext,
   UpdateContext,
-  UserSettingViewContext,
 } from "../utils/Contexts";
 import { FaStar } from "react-icons/fa6";
 
@@ -34,7 +33,6 @@ export default function CompFolderItem({
   const { setFolderID } = useContext(FolderIDContext);
   const { setError } = useContext(ErrorContext);
   const { setUpdate } = useContext(UpdateContext);
-  const { setOpenSettings } = useContext(UserSettingViewContext);
 
   const [rename, setRename] = useState(false);
   const [directoryName, setDirectoryName] = useState(name);
@@ -223,7 +221,6 @@ export default function CompFolderItem({
           <button
             onClick={() => {
               setRename((prev) => !prev);
-              setOpenSettings(false);
             }}
             className="cursor-pointer hover:text-[var(--color-warning)]"
             title={rename ? "Cancel rename" : "Rename folder"}

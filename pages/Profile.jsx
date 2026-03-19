@@ -5,8 +5,8 @@ import {
   FaArrowUp,
   FaUserEdit,
 } from "react-icons/fa";
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { ErrorContext, UserDetailsContext } from "../utils/Contexts";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { ErrorContext } from "../utils/Contexts";
 import { calSize } from "../utils/CalculateFileSize";
 import { useNavigate } from "react-router-dom";
 import {
@@ -14,20 +14,27 @@ import {
   IoLogOut,
   IoPersonCircle,
 } from "react-icons/io5";
-import {
-  FaUserCircle,
-  FaCrown,
-  FaKey,
-  FaTrashAlt,
-  FaHome,
-} from "react-icons/fa";
+import { FaCrown, FaKey, FaTrashAlt, FaHome } from "react-icons/fa";
 import { axiosError, axiosWithCreds } from "../utils/AxiosInstance";
 import { FaBell, FaInfoCircle } from "react-icons/fa";
 import { FaInbox, FaPaperPlane } from "react-icons/fa";
 import AllLogoutConfirm from "../modals/AllLogoutConfirm";
 
 export default function PageUserProfile() {
-  const { userDetails, setUserDetails } = useContext(UserDetailsContext);
+  const [userProfileInfo, setUserProfileInfo] = useState({
+    name: "",
+    email: "",
+    contactNumber: "",
+    username: "",
+    maxStorageInBytes: 0,
+    picture: "",
+    role: "",
+    size: 0,
+    starredItemsCount: 0,
+    trashedItemsCount: 0,
+    sharedByMeCount: 0,
+    sharedWithMeCount: 0,
+  });
   const { setError } = useContext(ErrorContext);
   const [imgError, setImgError] = useState(false);
   const navigate = useNavigate();
@@ -41,13 +48,27 @@ export default function PageUserProfile() {
       const { data } = await axiosWithCreds.get(`/user/profile`, {
         withCredentials: true,
       });
-      setUserDetails({ ...data });
+      setUserProfileInfo({
+        name: data.name || "",
+        email: data.email || "",
+        maxStorageInBytes: data.maxStorageInBytes || 0,
+        contactNumber: data.contactNumber || "",
+        username: data.username || "",
+        picture: data.picture || "",
+        role: data.role || "",
+        size: data.size || 0,
+        starredItemsCount: data.starredItemsCount || 0,
+        trashedItemsCount: data.trashedItemsCount || 0,
+        sharedByMeCount: data.sharedByMeCount || 0,
+        sharedWithMeCount: data.sharedWithMeCount || 0,
+      });
+      console.log(data);
     } catch (error) {
-      axiosError(error, navigate, setError, "Something went wrong !");
+      axiosError(error, navigate, setError, null, "Something went wrong !");
     } finally {
       setLoading(false);
     }
-  }, [setUserDetails, navigate, setError]);
+  }, [setUserProfileInfo, navigate, setError]);
 
   async function handleLogout() {
     try {
@@ -61,77 +82,13 @@ export default function PageUserProfile() {
     }
   }
 
-  const fetchStarredItems = useCallback(async () => {
-    try {
-      const { data } = await axiosWithCreds.get(`/star/contents`);
-      // console.log("Star:", data.filesCount + data.foldersCount);
-      setUserDetails((prev) => ({
-        ...prev,
-        starredFiles:
-          (prev.starredFiles ?? 0) + data.filesCount + data.foldersCount,
-      }));
-    } catch (error) {
-      axiosError(error, navigate, setError, "Something went wrong!");
-    }
-  }, [navigate, setError, setUserDetails]);
-
-  const fetchTrashedItems = useCallback(async () => {
-    try {
-      const { data } = await axiosWithCreds.get(`/trash/contents`);
-      // console.log("Trash:", data.filesCount + data.foldersCount);
-      setUserDetails((prev) => ({
-        ...prev,
-        trashedFiles:
-          (prev.trashedFiles ?? 0) + data.filesCount + data.foldersCount,
-      }));
-    } catch (error) {
-      axiosError(error, navigate, setError, "Something went wrong !");
-    }
-  }, [navigate, setError, setUserDetails]);
-
-  const fetchSharedWithUserItems = useCallback(async () => {
-    try {
-      const { data } = await axiosWithCreds.get(`/share/file/with-user`);
-      // console.log("WithMe:", data.filesCount);
-      setUserDetails((prev) => ({
-        ...prev,
-        sharedFilesWithMe: (prev.sharedFilesWithMe ?? 0) + data.filesCount,
-      }));
-    } catch (error) {
-      axiosError(error, navigate, setError, "Something went wrong!");
-    }
-  }, [navigate, setError, setUserDetails]);
-
-  const fetchSharedByUserItems = useCallback(async () => {
-    try {
-      const { data } = await axiosWithCreds.get(`/share/file/by-user`);
-      // console.log("ByMe:", data.filesCount);
-      setUserDetails((prev) => ({
-        ...prev,
-        sharedFilesByMe: (prev.sharedFilesByMe ?? 0) + data.filesCount,
-      }));
-    } catch (error) {
-      axiosError(error, navigate, setError, "Something went wrong!");
-    }
-  }, [navigate, setError, setUserDetails]);
-
   useEffect(() => {
     handleUserProfileData();
-    fetchStarredItems();
-    fetchTrashedItems();
-    fetchSharedByUserItems();
-    fetchSharedWithUserItems();
-  }, [
-    handleUserProfileData,
-    fetchStarredItems,
-    fetchTrashedItems,
-    fetchSharedByUserItems,
-    fetchSharedWithUserItems,
-  ]);
+  }, [handleUserProfileData]);
 
   useEffect(() => {
     setImgError(false);
-  }, [userDetails?.picture]);
+  }, [userProfileInfo?.picture]);
 
   if (loading) {
     return <ProfilePageShimmer />;
@@ -175,83 +132,96 @@ export default function PageUserProfile() {
       {/* MAIN CONTENT */}
       <div className="flex flex-col gap-4 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
         {/* PROFILE HERO */}
-        <div className="relative bg-linear-to-br from-bgSecondary via-bgElevated to-bgSecondary border border-borderDefault rounded-2xl px-5 py-5 sm:px-6 sm:py-6 flex flex-col sm:flex-row items-center sm:items-start gap-5 shadow-elevated overflow-hidden">
-          {/* subtle glow accent */}
-          <div className="absolute -top-20 -right-20 w-40 h-40 bg-accentPrimary/10 blur-3xl rounded-full pointer-events-none" />
-
-          {/* avatar */}
-          <div className="relative shrink-0">
-            {userDetails?.picture && !imgError ? (
-              <img
-                src={userDetails.picture}
-                onError={() => setImgError(true)}
-                className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border border-borderHover shadow-md"
-              />
-            ) : (
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-bgElevated border border-borderHover flex items-center justify-center text-accentFocus text-4xl font-bold shadow-md">
-                {userDetails?.name?.charAt(0)?.toUpperCase() || (
-                  <IoPersonCircle />
-                )}
-              </div>
-            )}
-
-            {/* Role Indicator */}
-            {userDetails?.role?.toLowerCase() === "PREMIUM" && (
-              <div className="absolute -bottom-1 -right-1 bg-warning text-black rounded-full p-1.5 border border-bgSecondary">
-                <FaCrown className="text-md" />
-              </div>
-            )}
+        <div className="relative w-full max-w-7xl mx-auto">
+          {/* COVER BANNER */}
+          <div className="h-15 sm:h-17 rounded-xl bg-linear-to-r from-accentPrimary via-info to-warning relative overflow-hidden">
+            <div className="absolute inset-0 bg-black/20" />
           </div>
 
-          {/* info block */}
-          <div className="flex flex-col items-center sm:items-start gap-1 text-center sm:text-left flex-1 min-w-0">
-            {/* name */}
-            <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
-              <span className="text-lg sm:text-2xl font-semibold capitalize text-textPrimary truncate max-w-50 sm:max-w-none">
-                {userDetails.name}
-              </span>
+          {/* FLOATING CARD */}
+          <div className="relative -mt-14 sm:-mt-16 bg-bgSecondary/80 backdrop-blur-xl border border-borderDefault rounded-2xl shadow-elevated px-5 py-6 sm:px-6 sm:py-7 flex flex-col sm:flex-row items-center sm:items-start gap-5">
+            {/* AVATAR (FLOATING OVER BANNER) */}
+            <div className="relative shrink-0">
+              {userProfileInfo?.picture && !imgError ? (
+                <img
+                  src={userProfileInfo.picture}
+                  onError={() => setImgError(true)}
+                  className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-bgSecondary shadow-lg"
+                />
+              ) : (
+                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-bgElevated border-4 border-bgSecondary flex items-center justify-center text-accentFocus text-4xl font-bold shadow-lg">
+                  {userProfileInfo?.name?.charAt(0)?.toUpperCase() || (
+                    <IoPersonCircle />
+                  )}
+                </div>
+              )}
 
-              <button
-                className="cursor-pointer outline-0"
-                title="Edit Profile"
-                onClick={() => console.log("Edit Profile !")}
-              >
-                <FaUserEdit className="text-info shrink-0 text-xl" />
-              </button>
-            </div>
-
-            {/* email */}
-            <span className="text-textSecondary text-xl truncate max-w-62.5 sm:max-w-none">
-              {userDetails.email}
-            </span>
-
-            {/* role + upgrade */}
-            <div className="flex items-center gap-2 mt-2 flex-wrap justify-center sm:justify-start">
-              <span className="px-3 py-1 rounded-sm bg-accentPrimary text-black text-md font-semibold capitalize tracking-wide shadow-sm">
-                {userDetails.role}
-              </span>
-
-              {userDetails.role !== "PREMIUM" && (
-                <button
-                  onClick={() => navigate("/purchase")}
-                  className="cursor-pointer px-3 py-1 rounded-sm bg-warning text-black text-md font-semibold flex items-center gap-1 hover:bg-highlightPrimary transition-colors shadow-sm"
-                >
-                  Upgrade
-                  <FaArrowUp className="text-md" />
-                </button>
+              {/* PREMIUM BADGE */}
+              {userProfileInfo?.role?.toLowerCase() === "premium" && (
+                <div className="absolute -bottom-1 -right-1 bg-warning text-black rounded-full p-1.5 shadow-md">
+                  <FaCrown className="text-sm" />
+                </div>
               )}
             </div>
-          </div>
 
-          {/* right side quick stat */}
-          <div className="hidden sm:flex flex-col items-end gap-1 shrink-0">
-            <span className="text-textMuted text-md uppercase tracking-wide">
-              Account Status
-            </span>
+            {/* INFO */}
+            <div className="flex flex-col gap-2 text-center sm:text-left flex-1">
+              {/* NAME + EDIT */}
+              <div className="flex items-center gap-3 justify-center sm:justify-start">
+                <h2 className="text-xl sm:text-2xl font-semibold text-textPrimary">
+                  {userProfileInfo.name}
+                </h2>
 
-            <span className="text-success text-md font-semibold">Active</span>
+                <button
+                  className="text-textSecondary hover:text-info text-2xl transition cursor-pointer"
+                  title="Edit your information"
+                >
+                  <FaUserEdit />
+                </button>
+              </div>
+
+              {/* EMAIL */}
+              <p className="text-textSecondary text-sm sm:text-md">
+                {userProfileInfo.email}
+              </p>
+
+              {/* TAGS */}
+              {userProfileInfo.username && userProfileInfo.contactNumber && (
+                <div className="flex flex-wrap gap-2 justify-center sm:justify-start mt-1">
+                  {userProfileInfo.username && (
+                    <span className="px-3 py-1 rounded-full bg-bgPrimary border border-borderHover text-xs text-textPrimary">
+                      {userProfileInfo.username}
+                    </span>
+                  )}
+
+                  {userProfileInfo.contactNumber && (
+                    <span className="px-3 py-1 rounded-full bg-bgPrimary border border-borderHover text-xs text-textSecondary">
+                      {userProfileInfo.contactNumber}
+                    </span>
+                  )}
+                </div>
+              )}
+
+              {/* ROLE + CTA */}
+              <div className="flex items-center gap-3 mt-2 justify-center sm:justify-start">
+                <span className="px-3 py-1 rounded-sm bg-accentPrimary text-black text-xs font-semibold uppercase">
+                  {userProfileInfo.role}
+                </span>
+
+                {userProfileInfo.role !== "PREMIUM" && (
+                  <button
+                    onClick={() => navigate("/purchase")}
+                    className="px-3 py-1 rounded-sm bg-warning text-black text-xs font-semibold flex items-center gap-1 hover:scale-105 transition-transform"
+                  >
+                    Upgrade
+                    <FaArrowUp />
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
         </div>
+
         {/* STATS GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-2">
           {/* STORAGE USED */}
@@ -261,7 +231,7 @@ export default function PageUserProfile() {
               Storage Used
             </span>
             <span className="font-bold text-textPrimary text-xl">
-              {calSize(userDetails.size)}
+              {calSize(userProfileInfo.size)}
             </span>
           </div>
 
@@ -272,7 +242,7 @@ export default function PageUserProfile() {
               Max Storage
             </span>
             <span className="font-bold text-textPrimary text-xl">
-              {calSize(userDetails.maxStorageInBytes)}
+              {calSize(userProfileInfo.maxStorageInBytes)}
             </span>
           </div>
 
@@ -286,7 +256,7 @@ export default function PageUserProfile() {
               Starred Content
             </span>
             <span className="font-bold text-textPrimary text-xl">
-              {userDetails.starredFiles ?? 0}
+              {userProfileInfo.starredItemsCount}
             </span>
           </button>
 
@@ -300,7 +270,7 @@ export default function PageUserProfile() {
               Shared Files with Me
             </span>
             <span className="font-bold text-textPrimary text-xl">
-              {userDetails.sharedFilesWithMe ?? 0}
+              {userProfileInfo.sharedWithMeCount}
             </span>
           </button>
 
@@ -314,7 +284,7 @@ export default function PageUserProfile() {
               Shared Files by Me
             </span>
             <span className="font-bold text-textPrimary text-xl">
-              {userDetails.sharedFilesByMe ?? 0}
+              {userProfileInfo.sharedByMeCount}
             </span>
           </button>
 
@@ -328,7 +298,7 @@ export default function PageUserProfile() {
               Trash Files
             </span>
             <span className="font-bold text-textPrimary text-xl">
-              {userDetails.trashedFiles ?? 0}
+              {userProfileInfo.trashedItemsCount}
             </span>
           </button>
         </div>
@@ -340,7 +310,8 @@ export default function PageUserProfile() {
 
             <span>
               {Math.round(
-                (userDetails.size / userDetails.maxStorageInBytes) * 100,
+                (userProfileInfo.size / userProfileInfo.maxStorageInBytes) *
+                  100,
               )}
               %
             </span>
@@ -350,7 +321,7 @@ export default function PageUserProfile() {
             <div
               className="h-full bg-linear-to-r from-accentPrimary to-accentFocus"
               style={{
-                width: `${(userDetails.size / userDetails.maxStorageInBytes) * 100}%`,
+                width: `${(userProfileInfo.size / userProfileInfo.maxStorageInBytes) * 100}%`,
               }}
             />
           </div>

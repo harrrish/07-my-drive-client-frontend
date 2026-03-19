@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
-import { MdNotifications, MdHome, MdStar } from "react-icons/md";
-import { FaRocket, FaShareAlt } from "react-icons/fa";
-import { BsCloudCheck } from "react-icons/bs";
+import { MdHome, MdStar } from "react-icons/md";
+import { FaShareAlt } from "react-icons/fa";
 import { FaBell, FaCheckCircle, FaExternalLinkAlt } from "react-icons/fa";
 import { IoRocketOutline } from "react-icons/io5";
 

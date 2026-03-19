@@ -20,6 +20,13 @@ export function axiosError(
   const errorValue = error.response?.data?.error || customErr;
 
   //* INVALID_SESSION
+  if (error.status === 500) {
+    /* navigate("/", { replace: true }); */
+    console.log({ error });
+    console.log("INTERNAL_SERVER_ERROR");
+  }
+
+  //* INVALID_SESSION
   if (error.status === 401 && errorValue === "INVALID_SESSION") {
     navigate("/login", { replace: true });
   }

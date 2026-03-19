@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import { UserSettingViewContext } from "../utils/Contexts";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { axiosWithCreds } from "../utils/AxiosInstance";
 import { MdCloudSync } from "react-icons/md";
 
@@ -9,7 +8,6 @@ export default function CompGoogleBtn() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { setOpenSettings } = useContext(UserSettingViewContext);
 
   return (
     <div className="flex flex-col items-center gap-3 w-full">
@@ -47,8 +45,6 @@ export default function CompGoogleBtn() {
                   );
                   navigate("/directory", { replace: true });
                 }
-
-                setOpenSettings(false);
               } catch (error) {
                 const err = error.response?.data;
 

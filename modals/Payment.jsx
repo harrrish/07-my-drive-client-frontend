@@ -13,7 +13,6 @@ export default function Payment({
 }) {
   const [timeLeft, setTimeLeft] = useState(5);
   const { setError } = useContext(ErrorContext);
-  const { setOpenSettings } = useContext(UserSettingViewContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +31,6 @@ export default function Payment({
         { withCredentials: true },
       );
       console.log(data);
-      setOpenSettings(false);
       navigate("/directory", { replace: true });
     } catch (error) {
       axiosError(error, navigate, setError, "Something went wrong !");

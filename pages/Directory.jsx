@@ -52,7 +52,7 @@ export default function PageDirectoryView() {
     role: 0,
     roleCode: "",
   });
-  const { openSettings } = useContext(UserSettingViewContext);
+  const { openSettings, setOpenSettings } = useContext(UserSettingViewContext);
 
   const [folderNotFound, setFolderNotFound] = useState(false);
 
@@ -75,11 +75,7 @@ export default function PageDirectoryView() {
           usedStorage: data.usedStorage || 0,
           totalStorage: data.totalStorage || 0,
         }));
-        /* setUserDetails((prev) => ({
-          ...prev,
-          role: data?.role,
-          roleCode: data?.roleCode,
-        })); */
+        localStorage.setItem("logged_in", true);
       } catch (error) {
         axiosError(error, navigate, setError, setFolderNotFound);
       } finally {
@@ -136,6 +132,10 @@ export default function PageDirectoryView() {
   useEffect(() => {
     handleDirectoryDetails(dirID);
   }, [dirID, handleDirectoryDetails]);
+
+  useEffect(() => {
+    setOpenSettings(false);
+  }, [setOpenSettings]);
 
   if (folderNotFound) return <FolderNotFound />;
 

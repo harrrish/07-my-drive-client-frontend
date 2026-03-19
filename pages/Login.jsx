@@ -23,8 +23,6 @@ export default function PageUserLogin() {
     password: "Qwerty@12345",
   });
 
-  const { setOpenSettings } = useContext(UserSettingViewContext);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -42,7 +40,6 @@ export default function PageUserLogin() {
       try {
         const { data } = await axiosWithCreds.post("/user/login", formData);
         console.log(data.message);
-        setOpenSettings(false);
         navigate("/directory", { replace: true });
       } catch (error) {
         const err = error.response?.data?.error;

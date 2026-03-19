@@ -1,9 +1,5 @@
 import { useContext, useState } from "react";
-import {
-  ErrorContext,
-  UserDetailsContext,
-  UserSettingViewContext,
-} from "../utils/Contexts";
+import { ErrorContext, UserSettingViewContext } from "../utils/Contexts";
 import { FaStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
